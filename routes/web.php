@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 //Customer Login
 Route::get('/', [CustomerController::class, 'getCustomerLogin']);
 Route::post('/login', [CustomerController::class, 'authenticate']);
+Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
+Route::post('/register', [CustomerController::class, 'register']);
 
 //Vendor Login
 Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);

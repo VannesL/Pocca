@@ -10,5 +10,5 @@ class Customer extends Authenticatable
     use Notifiable;
 
     protected $guarded = ['id'];
-    protected $fillable = ['email', 'password', 'name', 'phone_number'];
+    protected $fillable = ['email', 'password', 'name', 'phone_number','dob'];
 }

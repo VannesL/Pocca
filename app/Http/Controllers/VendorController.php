@@ -29,4 +29,5 @@ class VendorController extends Controller
             'email' => 'Email and Password are incorrect or unregistered',
         ]);
     }
+    
 }
