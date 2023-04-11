@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('favorites');
             $table->string('qris');
             $table->string('image')->nullable();
+            $table->string('remember_token');
             $table->timestamps();
         });
     }
