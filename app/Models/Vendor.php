@@ -12,7 +12,7 @@ class Vendor extends Authenticatable
     use Notifiable;
 
     protected $guarded = ['id'];
-    protected $fillable = ['email', 'password', 'name', 'store_name', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image'];
+    protected $fillable = ['email', 'password', 'name', 'store_name', 'canteen_id', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image'];
 
     public function admin()
     {

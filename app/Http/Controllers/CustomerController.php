@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
@@ -48,7 +49,7 @@ class CustomerController extends Controller
 
         $dataArray = array(
             "email"         =>      $request->email,
-            "password"      =>      $request->password,
+            "password"      =>      Hash::make($request->password),
             "name"          =>      $request->name,
             "phone_number"  =>      $request->phoneno,
             "dob"           =>      $request->dob

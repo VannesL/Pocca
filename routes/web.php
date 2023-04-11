@@ -26,6 +26,8 @@ Route::post('/register', [CustomerController::class, 'register']);
 //Vendor Login
 Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);
 Route::post('/vendor-login', [VendorController::class, 'authenticate']);
+Route::get('/vendor-register', [VendorController::class, 'getVendorRegister']);
+Route::post('/vendor-register', [VendorController::class, 'register']);
 
 //Admin Login
 Route::get('/admin-login', [AdminController::class, 'getAdminLogin']);

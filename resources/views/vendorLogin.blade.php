@@ -45,17 +45,12 @@
                                 </span>
                               @enderror
                             </div>
-                            
-                            <div class="form-outline mb-4 text-center">
-                              <input  id="remember" type="checkbox" name="remember"/>
-                              <label for="remember">Remember me</label>
-                            </div>
 
                             <div class="d-flex justify-content-center pt-1 mb-4">
                               <button class="btn btn-dark btn-sm" type="submit">Login</button>
                             </div>
                             <div class="d-flex flex-column">
-                              <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Don't have account yet?</a>
+                              <a href="{{ url('/vendor-register')}}" class="mx-auto small text-muted" style="color: #393f81;">Don't have account yet?</a>
                             </div>
 
                           </form>
