@@ -20,7 +20,7 @@
                      
                       
                         <div class="card-body p-4 p-lg-5 text-black">
-                          <form method="POST" action="{{ url('/login') }}">
+                          <form method="POST" action="{{ url('/vendor-login') }}">
                             @csrf
                             <div class="d-flex justify-content-center mb-3 pb-1">
                               <span class="h1 fw-bold">POCCA<sup class="h5 fw-bold">VENDOR</sup></span>
@@ -39,7 +39,7 @@
                             <div class="form-outline mb-4">
                               <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password"/>
 
-                              @error('email')
+                              @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

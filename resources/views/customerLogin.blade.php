@@ -56,8 +56,8 @@
                               <button class="btn btn-dark btn-sm" type="submit">Login</button>
                             </div>
                             <div class="d-flex flex-column">
-                                <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Are you an admin?</a>
-                                <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Are you a vendor?</a>
+                                <a href="{{ url('/admin-login') }}" class="mx-auto small text-muted" style="color: #393f81;">Are you an admin?</a>
+                                <a href="{{ url('/vendor-login') }}" class="mx-auto small text-muted" style="color: #393f81;">Are you a vendor?</a>
                                 <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Don't have account yet?</a>
                             </div>
 

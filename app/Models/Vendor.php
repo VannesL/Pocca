@@ -3,24 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Vendor extends Model
+class Vendor extends Authenticatable
 {
     use HasFactory;
+    use Notifiable;
 
     protected $guarded = ['id'];
     protected $fillable = ['email', 'password', 'name', 'store_name', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image'];
 
-    public function admin() {
+    public function admin()
+    {
         return $this->belongsTo(Admin::class);
     }
 
-    public function canteen() {
+    public function canteen()
+    {
         return $this->belongsTo(Canteen::class);
     }
 
-    public function priceRange() {
+    public function priceRange()
+    {
         return $this->belongsTo(PriceRange::class);
     }
 }

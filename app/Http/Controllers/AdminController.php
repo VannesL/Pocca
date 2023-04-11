@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class CustomerLoginController extends Controller
+class AdminController extends Controller
 {
-    public function getCustomerLogin()
+    public function getAdminLogin()
     {
-        return view('customerLogin');
+        return view('adminLogin');
     }
 
     public function authenticate(Request $request)
@@ -20,7 +19,7 @@ class CustomerLoginController extends Controller
             'password' => ['required', 'min:8'],
         ])->validate();
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             $request->session()->regenerate();
 
             return redirect('/home');
