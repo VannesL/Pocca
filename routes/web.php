@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CustomerLoginController::class, 'getCustomerLogin']);
-Route::post('/login', [CustomerLoginController::class, 'authenticate']);
+// Route::get('/', [CustomerLoginController::class, 'getCustomerLogin']);
+// Route::post('/login', [CustomerLoginController::class, 'authenticate']);
 
-Route::get('/home', function () {
-    return view('home');
+// Route::get('/home', function () {
+//     return view('home');
+// });
+Route::get('/', function () {
+    return view('adminLogin');
 });

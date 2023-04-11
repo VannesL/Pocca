@@ -22,9 +22,8 @@
                         <div class="card-body p-4 p-lg-5 text-black">
                           <form method="POST" action="{{ url('/login') }}">
                             @csrf
-
                             <div class="d-flex justify-content-center mb-3 pb-1">
-                              <span class="h1 fw-bold">POCCA</span>
+                              <span class="h1 fw-bold">POCCA<sup class="h5 fw-bold">VENDOR</sup></span>
                             </div>
           
                             <div class="form-outline mb-4">
@@ -40,7 +39,7 @@
                             <div class="form-outline mb-4">
                               <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password"/>
 
-                              @error('password')
+                              @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -56,9 +55,7 @@
                               <button class="btn btn-dark btn-sm" type="submit">Login</button>
                             </div>
                             <div class="d-flex flex-column">
-                                <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Are you an admin?</a>
-                                <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Are you a vendor?</a>
-                                <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Don't have account yet?</a>
+                              <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Don't have account yet?</a>
                             </div>
 
                           </form>
