@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Canteen;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
-class AdminTableSeeder extends Seeder
+class CanteenTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +15,11 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([
-            'email' => 'admin@pocca.com',
-            'password' => '12345678',
-            'name' => 'Admin',
-            'phone_number' => '085216428888',
+        Canteen::create([
+            'approved_by' => 1,
+            'name' => 'Canteen Pocca',
+            'address' => 'Jalan Sana Sini Block 123',
+            'favorites' => 0,
         ]);
     }
 }

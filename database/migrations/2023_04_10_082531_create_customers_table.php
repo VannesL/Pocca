@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone_number');
             $table->date('dob');
-            $table->string('remember_token');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

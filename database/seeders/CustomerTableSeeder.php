@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
-class AdminTableSeeder extends Seeder
+class CustomerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +16,12 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([
-            'email' => 'admin@pocca.com',
+        Customer::create([
+            'email' => 'customer@pocca.com',
             'password' => '12345678',
-            'name' => 'Admin',
-            'phone_number' => '085216428888',
+            'name' => 'Customer',
+            'phone_number' => '0812345678',
+            'dob' => Carbon::create(2002, 5, 19),
         ]);
     }
 }

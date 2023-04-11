@@ -20,21 +20,38 @@
                      
                       
                         <div class="card-body p-4 p-lg-5 text-black">
-                          <form>
+                          <form method="POST" action="{{ url('/login') }}">
                             <div class="d-flex justify-content-center mb-3 pb-1">
                               <span class="h1 fw-bold">POCCA</span>
                             </div>
           
                             <div class="form-outline mb-4">
-                              <input type="email" id="form2Example17" class="form-control form-control-lg" placeholder="Email" />
+                              <input id="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email"/>
+
+                              @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                             </div>
 
                             <div class="form-outline mb-4">
-                              <input type="password" id="form2Example27" class="form-control form-control-lg" placeholder="Password"/>
+                              <input id="password" type="password" class="form-control form-control-lg @error('email') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password"/>
+
+                              @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                             </div>
-          
+                            
+                            <div class="form-outline mb-4 text-center">
+                              <input  id="remember" type="checkbox" name="remember"/>
+                              <label for="remember">Remember me</label>
+                            </div>
+
                             <div class="d-flex justify-content-center pt-1 mb-4">
-                              <button class="btn btn-dark btn-sm" type="button">Login</button>
+                              <button class="btn btn-dark btn-sm" type="submit">Login</button>
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#!" class="mx-auto small text-muted" style="color: #393f81;">Are you an admin?</a>
