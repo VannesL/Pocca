@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Vendor;
-use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class VendorTableSeeder extends Seeder
 {
@@ -21,7 +20,7 @@ class VendorTableSeeder extends Seeder
             'approved_by' => 1,
             'range_id' => 1,
             'email' => 'vendor@pocca.com',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'name' => 'Vendor',
             'store_name' => 'Vendor Store',
             'phone_number' => '0812345678',

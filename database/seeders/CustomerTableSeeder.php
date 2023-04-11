@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class CustomerTableSeeder extends Seeder
     {
         Customer::create([
             'email' => 'customer@pocca.com',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'name' => 'Customer',
             'phone_number' => '0812345678',
             'dob' => Carbon::create(2002, 5, 19),

@@ -10,25 +10,24 @@ class CustomerLoginController extends Controller
 {
     public function getCustomerLogin()
     {
-        if (auth()->guard('customer')->user()) {
-            return redirect()->route('home');
-        }
-
         return view('customerLogin');
     }
 
     public function authenticate(Request $request)
     {
-        $credentials = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'email' => ['required', 'email' => 'email:rfc,dns'],
             'password' => ['required', 'min:8'],
-        ]);
-        $credentials->validate();
+        ])->validate();
 
-        if (Auth::attempt($credentials, $request->remember)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             $request->session()->regenerate();
 
-            return redirect('home');
+            return redirect('/home');
         }
+
+        return back()->withErrors([
+            'email' => 'Email and Password are incorrect or unregistered',
+        ]);
     }
 }
