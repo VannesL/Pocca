@@ -29,4 +29,22 @@ class CustomerController extends Controller
             'email' => 'Email and Password are incorrect or unregistered',
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        $url = '/';
+        if (auth()->guard('vendor')->check()) {
+            $url = '/vendor-login';
+        } elseif (auth()->guard('admin')->check()) {
+            $url = '/admin-login';
+        }
+
+        auth()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect($url);
+    }
 }

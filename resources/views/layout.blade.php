@@ -15,7 +15,11 @@
     <body>
         <div class="container py-3">
             <div class="row flex-nowrap align-items-center">
-                <div class="col-4"></div>
+                <div class="col-4">
+                    <a href="{{ url('/logout') }}" class="btn btn-danger">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
                 <div class="col-4 d-flex align-items-center justify-content-center text-center">
                     <h2 class="logo mb-0">POCCA</h2>
                 </div>
@@ -28,11 +32,22 @@
         </div>
         <div class="w-100">
             <nav class="nav navbar-light bg-light d-flex justify-content-evenly border-top border-bottom">
-                <a class="nav-link text-dark" href="#">Home <span class="sr-only">(current)</span></a>
-                <div class="vr"></div>
-                <a class="nav-link text-dark" href="#">Order</a>
-                <div class="vr"></div>
-                <a class="nav-link text-dark" href="#">History</a>
+                @if (auth()->guard('customer')->check())
+                    <a class="nav-link text-dark" href="#">Home<span class="sr-only"></a>
+                    <div class="vr"></div>
+                    <a class="nav-link text-dark" href="#">Order</a>
+                    <div class="vr"></div>
+                    <a class="nav-link text-dark" href="#">History</a>
+                @elseif (auth()->guard('vendor')->check())
+                    <a class="nav-link text-dark" href="#">Orders<span class="sr-only"></a>
+                    <div class="vr"></div>
+                    <a class="nav-link text-dark" href="#">History</a>
+                    <div class="vr"></div>
+                    <a class="nav-link text-dark" href="#">Menu</a>
+                    <div class="vr"></div>
+                    <a class="nav-link text-dark" href="#">Sales</a>
+                @elseif (auth()->guard('admin')->check())@endif
+                
             </nav>
         </div>
 

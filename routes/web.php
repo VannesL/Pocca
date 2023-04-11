@@ -32,3 +32,6 @@ Route::post('/admin-login', [AdminController::class, 'authenticate']);
 Route::get('/home', function () {
     return view('home');
 });
+
+//Logout
+Route::get('/logout', [CustomerController::class, 'logout']);
