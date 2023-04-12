@@ -24,7 +24,7 @@
                     <h2 class="logo mb-0">POCCA</h2>
                 </div>
                 <div class="col-4 text-center d-flex justify-content-end">
-                    @if (!auth()->guard('admin')->check() && (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))
+                    @if (auth()->guard('customer')->check() || (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))
                         <div class="btn btn-outline-dark rounded-circle">
                             <i class="fa-solid fa-user"></i>
                         </div>

@@ -42,4 +42,9 @@ class CustomerController extends Controller
             return back()->withErrors('Failed', "Sorry the account creation failed, plese check the data again");
         }
     }
+
+    public function home(Request $request)
+    {
+        return view('home');
+    }
 }

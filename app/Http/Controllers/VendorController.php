@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Ui\Presets\React;
 
 class VendorController extends Controller
 {
@@ -98,5 +99,10 @@ class VendorController extends Controller
         } else {
             return back()->withErrors('Failed', "Sorry the account creation failed, plese check the data again");
         }
+    }
+
+    public function vendorDash(Request $request)
+    {
+        return view('home');
     }
 }

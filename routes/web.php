@@ -18,28 +18,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Customer
-Route::get('/', [LoginController::class, 'getCustomerLogin']);
+//Login & Register
+Route::group(['middleware' => ['guest:customer,vendor,admin']], function () {
+    Route::get('/', [LoginController::class, 'getCustomerLogin']);
+    Route::get('/vendor-login', [LoginController::class, 'getVendorLogin']);
+    Route::get('/admin-login', [LoginController::class, 'getAdminLogin']);
+});
 Route::post('/login', [LoginController::class, 'authenticateCustomer']);
+Route::post('/vendor-login', [LoginController::class, 'authenticateVendor']);
+Route::post('/admin-login', [LoginController::class, 'authenticateAdmin']);
+
 Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
 Route::post('/register', [CustomerController::class, 'register']);
-
-//Vendor
-Route::get('/vendor-login', [LoginController::class, 'getVendorLogin']);
-Route::post('/vendor-login', [LoginController::class, 'authenticateVendor']);
 Route::get('/vendor-register', [VendorController::class, 'getVendorRegister']);
 Route::post('/vendor-register', [VendorController::class, 'register']);
 
-//Admin
-Route::get('/admin-login', [LoginController::class, 'getAdminLogin']);
-Route::post('/admin-login', [LoginController::class, 'authenticateAdmin']);
-
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/home', function () {
-        return view('home');
-    });
-});
-
-
 //Logout
 Route::get('/logout', [LoginController::class, 'logout']);
+
+
+//Home
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/home', [CustomerController::class, 'home']);
+    Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
+    Route::get('/admin-dash', [AdminController::class, 'adminDash']);
+});
