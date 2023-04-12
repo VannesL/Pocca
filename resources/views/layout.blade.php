@@ -38,7 +38,7 @@
                     <a class="nav-link text-dark" href="#">Order</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">History</a>
-                @elseif (auth()->guard('vendor')->check())
+                @elseif (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null)
                     <a class="nav-link text-dark" href="#">Orders<span class="sr-only"></a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">History</a>
@@ -46,7 +46,7 @@
                     <a class="nav-link text-dark" href="#">Menu</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">Sales</a>
-                @elseif (auth()->guard('admin')->check())@endif
+                @endif
                 
             </nav>
         </div>

@@ -20,10 +20,10 @@ class VendorController extends Controller
     {
         $canteen = Canteen::all();
         $data = [
-            'canteens' =>$canteen,
+            'canteens' => $canteen,
             'selected' => 0
         ];
-        return view('vendorRegister',$data);
+        return view('vendorRegister', $data);
     }
 
     public function authenticate(Request $request)
@@ -44,12 +44,13 @@ class VendorController extends Controller
         ]);
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $canteenId = $request->selectCanteen;
-        
-        Validator::make($request->all(),[
+
+        Validator::make($request->all(), [
             'name'              => ['required', 'string'],
-            'email'             => ['required', 'email' => 'email:rfc,dns','unique:vendors'],
+            'email'             => ['required', 'email' => 'email:rfc,dns', 'unique:vendors'],
             'password'          => ['required', 'min:8'],
             'passwordConfirm'   => ['required', 'same:password'],
             'phoneno'           => ['required', 'numeric', 'digits:12'],
@@ -58,13 +59,13 @@ class VendorController extends Controller
             'address'           => ['required', 'string', 'min: 8'],
             'desc'              => ['required', 'string', 'min: 8'],
             'profile'           => ['mimes:jpg,bmp,png'],
-            'qris'              => ['required','mimes:jpg,bmp,png'],
-        ])->sometimes('canteenName','required|string|min:8|unique:canteens,name',function($request){
+            'qris'              => ['required', 'mimes:jpg,bmp,png'],
+        ])->sometimes('canteenName', 'required|string|min:8|unique:canteens,name', function ($request) {
             return $request->selectCanteen == -1;
         })->validate();
-        
+
         // insert new canteen if create new canteen selected
-        if ($canteenId==-1) {# code...
+        if ($canteenId == -1) { # code...
             $canteen = new Canteen();
             $canteen->name = $request->canteenName;
             $canteen->address = $request->address;
@@ -77,8 +78,8 @@ class VendorController extends Controller
         }
 
         // profile img check, img ext, and name
-        $profile_ext='';
-        if($request->profile){
+        $profile_ext = '';
+        if ($request->profile) {
             $profile_ext = $request->file('profile')->extension();
         }
         // encrypt image name based on email, cuz email unique so image will not overwrited if same name
@@ -87,7 +88,7 @@ class VendorController extends Controller
 
         // insert vendor 
         $vendor = new Vendor();
-        $vendor->approved_by = 1; // admin cannot be null so need change in DB if want null
+        //$vendor->approved_by = null, value initialized as null, only set when admin finished approving
         $vendor->range_id = 1;    // price range cannot be null so need change in DB if want null
         $vendor->email = $request->email;
         $vendor->name = $request->name;
@@ -98,28 +99,27 @@ class VendorController extends Controller
         $vendor->address = $request->address;
         $vendor->description = $request->desc;
         $vendor->image = '';
-        
-        if($profile_ext!=''){ //if profile exist
-            $vendor->image = 'profile'.$imgName.'.'.$profile_ext;
+
+        if ($profile_ext != '') { //if profile exist
+            $vendor->image = 'profile' . $imgName . '.' . $profile_ext;
 
             $profile = $request->file('profile');
-            Storage::putFileAs('public/profiles',$profile,"$vendor->image");
+            Storage::putFileAs('public/profiles', $profile, "$vendor->image");
         }
-        $vendor->qris = 'qris'.$imgName.'.'.$qris_ext;
+        $vendor->qris = 'qris' . $imgName . '.' . $qris_ext;
 
         $qris = $request->file('qris');
-        Storage::putFileAs('public/qris',$qris,"$vendor->qris");
+        Storage::putFileAs('public/qris', $qris, "$vendor->qris");
 
-        $vendor->favorites = 0;   
+        $vendor->favorites = 0;
         $vendor->save();
 
-        
 
-        if(!is_null($vendor)){
+
+        if (!is_null($vendor)) {
             return redirect('/vendor-login')->with('Success', "Account Registered");;
-        }else{
+        } else {
             return back()->withErrors('Failed', "Sorry the account creation failed, plese check the data again");
         }
     }
-    
 }
