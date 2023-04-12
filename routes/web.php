@@ -36,10 +36,14 @@ Route::post('/vendor-register', [VendorController::class, 'register']);
 //Logout
 Route::get('/logout', [LoginController::class, 'logout']);
 
-
-//Home
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/home', [CustomerController::class, 'home']);
+});
+
+Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
+});
+
+Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {
     Route::get('/admin-dash', [AdminController::class, 'adminDash']);
 });

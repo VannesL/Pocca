@@ -30,9 +30,8 @@ class RedirectIfAuthenticated
                     case 'vendor':
                         return redirect('/vendor-dash');
                     case 'admin':
-                        return redirect('admin-dash');
+                        return redirect('/admin-dash');
                     default:
-                        # code...
                         break;
                 }
             }
