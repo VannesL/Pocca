@@ -37,10 +37,11 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function register(Request $request){
-        Validator::make($request->all(),[
+    public function register(Request $request)
+    {
+        Validator::make($request->all(), [
             'name'              => ['required', 'string'],
-            'email'             => ['required', 'email' => 'email:rfc,dns','unique:customers'],
+            'email'             => ['required', 'email' => 'email:rfc,dns', 'unique:customers'],
             'password'          => ['required', 'min:8'],
             'passwordConfirm'   => ['required', 'same:password'],
             'phoneno'           => ['required', 'numeric', 'digits:12'],
@@ -57,11 +58,28 @@ class CustomerController extends Controller
 
         $customer = Customer::create($dataArray);
 
-        if(!is_null($customer)){
+        if (!is_null($customer)) {
             return redirect('/')->with('Success', "Account Registered");;
-        }else{
+        } else {
             return back()->withErrors('Failed', "Sorry the account creation failed, plese check the data again");
         }
-        
+    }
+
+    public function logout(Request $request)
+    {
+        $url = '/';
+        if (auth()->guard('vendor')->check()) {
+            $url = '/vendor-login';
+        } elseif (auth()->guard('admin')->check()) {
+            $url = '/admin-login';
+        }
+
+        auth()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect($url);
     }
 }
