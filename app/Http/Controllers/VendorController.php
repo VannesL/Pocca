@@ -11,39 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class VendorController extends Controller
 {
-    public function getVendorLogin()
-    {
-        return view('vendorLogin');
-    }
-
-    public function getVendorRegister()
-    {
-        $canteen = Canteen::all();
-        $data = [
-            'canteens' => $canteen,
-            'selected' => 0
-        ];
-        return view('vendorRegister', $data);
-    }
-
-    public function authenticate(Request $request)
-    {
-        Validator::make($request->all(), [
-            'email' => ['required', 'email' => 'email:rfc,dns'],
-            'password' => ['required', 'min:8'],
-        ])->validate();
-
-        if (auth()->guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $request->session()->regenerate();
-
-            return redirect('/home');
-        }
-
-        return back()->withErrors([
-            'email' => 'Email and Password are incorrect or unregistered',
-        ]);
-    }
-
     public function register(Request $request)
     {
         $canteenId = $request->selectCanteen;

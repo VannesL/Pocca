@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -17,25 +18,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Customer Login
-Route::get('/', [CustomerController::class, 'getCustomerLogin']);
-Route::post('/login', [CustomerController::class, 'authenticate']);
+//Customer
+Route::get('/', [LoginController::class, 'getCustomerLogin']);
+Route::post('/login', [LoginController::class, 'authenticateCustomer']);
 Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
 Route::post('/register', [CustomerController::class, 'register']);
 
-//Vendor Login
-Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);
-Route::post('/vendor-login', [VendorController::class, 'authenticate']);
+//Vendor
+Route::get('/vendor-login', [LoginController::class, 'getVendorLogin']);
+Route::post('/vendor-login', [LoginController::class, 'authenticateVendor']);
 Route::get('/vendor-register', [VendorController::class, 'getVendorRegister']);
 Route::post('/vendor-register', [VendorController::class, 'register']);
 
-//Admin Login
-Route::get('/admin-login', [AdminController::class, 'getAdminLogin']);
-Route::post('/admin-login', [AdminController::class, 'authenticate']);
+//Admin
+Route::get('/admin-login', [LoginController::class, 'getAdminLogin']);
+Route::post('/admin-login', [LoginController::class, 'authenticateAdmin']);
 
-Route::get('/home', function () {
-    return view('home');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/home', function () {
+        return view('home');
+    });
 });
 
+
 //Logout
-Route::get('/logout', [CustomerController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout']);

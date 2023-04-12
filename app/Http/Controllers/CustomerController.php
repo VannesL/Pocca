@@ -9,32 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    public function getCustomerLogin()
-    {
-        return view('customerLogin');
-    }
+
     public function getCustomerRegister()
     {
         return view('customerRegister');
-    }
-
-
-    public function authenticate(Request $request)
-    {
-        Validator::make($request->all(), [
-            'email' => ['required', 'email' => 'email:rfc,dns'],
-            'password' => ['required', 'min:8'],
-        ])->validate();
-
-        if (auth()->guard('customer')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $request->session()->regenerate();
-
-            return redirect('/home');
-        }
-
-        return back()->withErrors([
-            'email' => 'Email and Password are incorrect or unregistered',
-        ]);
     }
 
     public function register(Request $request)
@@ -63,23 +41,5 @@ class CustomerController extends Controller
         } else {
             return back()->withErrors('Failed', "Sorry the account creation failed, plese check the data again");
         }
-    }
-
-    public function logout(Request $request)
-    {
-        $url = '/';
-        if (auth()->guard('vendor')->check()) {
-            $url = '/vendor-login';
-        } elseif (auth()->guard('admin')->check()) {
-            $url = '/admin-login';
-        }
-
-        auth()->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect($url);
     }
 }
