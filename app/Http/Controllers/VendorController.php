@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class VendorController extends Controller
 {
+    public function getVendorRegister()
+    {
+        $canteen = Canteen::all();
+        $data = [
+            'canteens' => $canteen,
+            'selected' => 0
+        ];
+        return view('vendorRegister', $data);
+    }
+
     public function register(Request $request)
     {
         $canteenId = $request->selectCanteen;

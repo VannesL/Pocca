@@ -36,15 +36,6 @@ class LoginController extends Controller
     {
         return view('vendorLogin');
     }
-    public function getVendorRegister()
-    {
-        $canteen = Canteen::all();
-        $data = [
-            'canteens' => $canteen,
-            'selected' => 0
-        ];
-        return view('vendorRegister', $data);
-    }
     public function authenticateVendor(Request $request)
     {
         Validator::make($request->all(), [
