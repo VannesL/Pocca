@@ -45,37 +45,23 @@ class VendorController extends Controller
     }
 
     public function register(Request $request){
-        $canteenId =$request->selectCanteen;
-        if ($canteenId==-1) {
-            Validator::make($request->all(),[
-                'name'              => ['required', 'string'],
-                'email'             => ['required', 'email' => 'email:rfc,dns','unique:vendors'],
-                'password'          => ['required', 'min:8'],
-                'passwordConfirm'   => ['required', 'same:password'],
-                'phoneno'           => ['required', 'numeric', 'digits:12'],
-                'selectCanteen'     => ['required'],
-                'canteenName'       => ['required', 'string', 'min:8','unique:canteens,name'],
-                'storeName'         => ['required', 'string', 'min:8'],
-                'address'           => ['required', 'string', 'min: 8'],
-                'desc'              => ['required', 'string', 'min: 8'],
-                'profile'           => ['mimes:jpg,bmp,png'],
-                'qris'              => ['required','mimes:jpg,bmp,png'],
-            ])->validate();
-        }else{
-            Validator::make($request->all(),[
-                'name'              => ['required', 'string'],
-                'email'             => ['required', 'email' => 'email:rfc,dns','unique:vendors'],
-                'password'          => ['required', 'min:8'],
-                'passwordConfirm'   => ['required', 'same:password'],
-                'phoneno'           => ['required', 'numeric', 'digits:12'],
-                'selectCanteen'     => ['required'],
-                'storeName'         => ['required', 'string', 'min:8'],
-                'address'           => ['required', 'string', 'min: 8'],
-                'desc'              => ['required', 'string', 'min: 8'],
-                'profile'           => ['mimes:jpg,bmp,png'],
-                'qris'              => ['required','mimes:jpg,bmp,png'],
-            ])->validate();
-        }
+        $canteenId = $request->selectCanteen;
+        
+        Validator::make($request->all(),[
+            'name'              => ['required', 'string'],
+            'email'             => ['required', 'email' => 'email:rfc,dns','unique:vendors'],
+            'password'          => ['required', 'min:8'],
+            'passwordConfirm'   => ['required', 'same:password'],
+            'phoneno'           => ['required', 'numeric', 'digits:12'],
+            'selectCanteen'     => ['required'],
+            'storeName'         => ['required', 'string', 'min:8'],
+            'address'           => ['required', 'string', 'min: 8'],
+            'desc'              => ['required', 'string', 'min: 8'],
+            'profile'           => ['mimes:jpg,bmp,png'],
+            'qris'              => ['required','mimes:jpg,bmp,png'],
+        ])->sometimes('canteenName','required|string|min:8|unique:canteens,name',function($request){
+            return $request->selectCanteen == -1;
+        })->validate();
         
         // insert new canteen if create new canteen selected
         if ($canteenId==-1) {# code...

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('canteen_id')->constrained('canteens')->restrictOnDelete();
-            $table->foreignId('approved_by')->constrained('admins')->restrictOnDelete();
-            $table->foreignId('range_id')->constrained('price_ranges')->restrictOnDelete();
+            $table->foreignId('approved_by')->nullable()->constrained('admins')->restrictOnDelete();
+            $table->foreignId('range_id')->nullable()->constrained('price_ranges')->restrictOnDelete();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');

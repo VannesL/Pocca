@@ -82,7 +82,7 @@
                                 @foreach ($canteens as $canteen)
                                   <option value="{{ $canteen->id }}">{{ $canteen->name }}</option>
                                 @endforeach
-                                <option class="font-italic" value=-1> Create new canteen</option>
+                                <option value=-1 >Create new canteen </option>
                               </select>
 
                               @error('selectCanteen')
@@ -193,7 +193,6 @@
               const field = document.querySelector("#canteenName");
               if (event.target.value== (-1)) {
                 field.parentElement.style.display ='block';
-                console.log(field);
               }else{
                 field.parentElement.style.display ='none';
               }
