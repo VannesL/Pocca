@@ -121,5 +121,77 @@ class VendorController extends Controller
             return back()->withErrors('Failed', "Sorry the account creation failed, plese check the data again");
         }
     }
+
+    public function getVendorEditProfile(){
+        $canteenId = auth()->guard('vendor')->user()->canteen_id;
+        // dd($canteenId);
+        $canteen =  Canteen::where('id', $canteenId)->first();
+
+        $dataArray = array(
+            'canteenName'   =>  $canteen->name
+        );
+
+        return view('vendorEditProfile', $dataArray);
+    }
+
+    public function updateVendorProfile(Request $request){
+        Validator::make($request->all(),[
+            'name'              => ['nullable', 'string'],
+            'email'             => ['nullable', 'email' => 'email:rfc,dns','unique:vendors'],
+            'password'          => ['nullable', 'min:8'],
+            'passwordConfirm'   => ['sometimes', 'same:password'],
+            'phone_number'      => ['nullable','numeric','regex:/(08)[0-9]{8,}$/',],
+            'store_name'         => ['nullable', 'string', 'min:8'],
+            'address'           => ['nullable', 'string', 'min: 8'],
+            'description'       => ['nullable', 'string', 'min: 8'],
+            'image'             => ['mimes:jpg,bmp,png'],
+            'qris'              => ['mimes:jpg,bmp,png'],
+        ])->validate();
+       
+
+        $user = auth()->guard('vendor')->user();
+        if ($request->name) {
+            $user->name = $request->name;
+        }
+        if ($request->email) {
+            $user->email = $request->email;
+        }
+        if ($request->password) {
+            $user->password = $request->password;
+        }
+        if ($request->phone_number) {
+            $user->phone_number = $request->phone_number;
+        }
+        if ($request->store_name) {
+            $user->store_name = $request->store_name;
+        }
+        if ($request->address) {
+            $user->address = $request->address;
+        }
+        if ($request->description) {
+            $user->description = $request->description;
+        }
+        $imgName = md5($user->email);
+        if ($request->qris) {
+            $img_ext = $request->file('qris')->extension();
+            Storage::delete("public/qris/$user->qris");
+            
+            $user->qris = 'qris'.$imgName.'.'.$img_ext;
+            $qris = $request->file('qris');
+            Storage::putFileAs('public/qris',$qris,"$user->qris");
+        }
+        if ($request->image){
+            $img_ext = $request->file('image')->extension();
+            Storage::delete("public/profiles/$user->image");
+            
+            $user->image = 'profile'.$imgName.'.'.$img_ext;
+            $image = $request->file('image');
+            Storage::putFileAs('public/profiles',$image,"$user->image");
+        }
+        $user->save();
+        return redirect('/vendorEditProfile')->with('success','Profile Update Success');
+        
+
+    }
     
 }

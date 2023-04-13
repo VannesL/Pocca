@@ -31,6 +31,9 @@ Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);
 Route::post('/vendor-login', [VendorController::class, 'authenticate']);
 Route::get('/vendor-register', [VendorController::class, 'getVendorRegister']);
 Route::post('/vendor-register', [VendorController::class, 'register']);
+Route::get('/vendorEditProfile', [VendorController::class, 'getVendorEditProfile']);
+Route::post('/vendorEditProfile', [VendorController::class, 'updateVendorProfile']);
+
 
 //Admin Login
 Route::get('/admin-login', [AdminController::class, 'getAdminLogin']);
