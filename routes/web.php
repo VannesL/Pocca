@@ -23,6 +23,8 @@ Route::post('/login', [CustomerController::class, 'authenticate']);
 Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
 Route::post('/register', [CustomerController::class, 'register']);
 Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
+Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
+Route::post('/deleteCustomer', [CustomerController::class, 'deleteCustomer']);
 
 //Vendor Login
 Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);

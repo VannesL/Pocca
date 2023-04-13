@@ -24,11 +24,19 @@
                     <h2 class="logo mb-0">POCCA</h2>
                 </div>
                 <div class="col-4 text-center d-flex justify-content-end">
+                    @if (auth()->guard('customer')->check())
                     <a href="{{ url('/editProfile') }}">
                         <div class="btn btn-outline-dark rounded-circle">
                             <i class="fa-solid fa-user"></i></a>
                         </div>
                     </a>
+                    @elseif (auth()->guard('vendor')->check())
+                    <a href="{{ url('/editProfile') }}">
+                        <div class="btn btn-outline-dark rounded-circle">
+                            <i class="fa-solid fa-user"></i></a>
+                        </div>
+                    </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -56,5 +64,6 @@
         <div class="mt-3">
             @yield('content')
         </div>
+        @stack('custom-js')
     </body>
 </html>

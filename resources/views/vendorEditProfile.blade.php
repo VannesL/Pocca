@@ -13,7 +13,7 @@
         <div class="row d-flex justify-content-center align-item-center">
             <div class="col col-xl-10 mt-3">
                 <div class="d-flex justify-content-end mb-2 pb-1">
-                  <form method="POST" action="{{url('/deleteCustomer')}}">
+                  <form method="POST" action="{{url('/deleteVendor')}}">
                     @csrf
                     <button class="btn btn-sm text-white btn-danger fw-light">Delete Account</button>
                   </form>
