@@ -82,4 +82,9 @@ class CustomerController extends Controller
 
         return redirect($url);
     }
+
+    public function getCustomerEditProfile(){
+
+        return view('customerEditProfile');
+    }
 }

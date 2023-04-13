@@ -22,6 +22,7 @@ Route::get('/', [CustomerController::class, 'getCustomerLogin']);
 Route::post('/login', [CustomerController::class, 'authenticate']);
 Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
 Route::post('/register', [CustomerController::class, 'register']);
+Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
 
 //Vendor Login
 Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);
@@ -32,6 +33,8 @@ Route::post('/vendor-register', [VendorController::class, 'register']);
 //Admin Login
 Route::get('/admin-login', [AdminController::class, 'getAdminLogin']);
 Route::post('/admin-login', [AdminController::class, 'authenticate']);
+
+Route::get('/admin-login', [AdminController::class, 'getAdminLogin']);
 
 Route::get('/home', function () {
     return view('home');
