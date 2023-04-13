@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
+    Route::get('/vendor-menu', [MenuItemController::class, 'vendorMenu']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {

@@ -6,7 +6,7 @@ use App\Models\MenuItem;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MenuItemSeeder extends Seeder
+class MenuItemTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,6 +24,17 @@ class MenuItemSeeder extends Seeder
             'price' => 10000,
             'cook_time' => 120,
             'image' => 'hamburger.png',
+        ]);
+
+        MenuItem::create([
+            'vendor_id' => '1',
+            'category_id' => '2',
+            'name' => 'Soda',
+            'description' => 'Standard soda',
+            'availability' => true,
+            'price' => 3000,
+            'cook_time' => 5,
+            'image' => 'soda.png',
         ]);
     }
 }
