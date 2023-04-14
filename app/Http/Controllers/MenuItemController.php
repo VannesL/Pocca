@@ -96,7 +96,7 @@ class MenuItemController extends Controller
         //General validation
         Validator::make($request->all(), [
             'image'             => ['image'],
-            'name'              => ['required', 'alpha_num'],
+            'name'              => ['required', "regex:/^([^_]*)$/"],
             'description'       => ['string'],
             'price'             => ['required', 'numeric'],
             'cook'              => ['required', 'numeric'],
@@ -115,7 +115,8 @@ class MenuItemController extends Controller
         $item->description = $request->description;
         $item->price = $request->price;
         $item->cook_time = $request->cook;
-        $item->availability = $request->availability;
+        $item->availability = $request->has('availability');
+
 
         //Encrypt with vendor email and name with menu name
         if ($request->image) {

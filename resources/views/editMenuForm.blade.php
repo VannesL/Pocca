@@ -15,7 +15,7 @@
 
                   <div class="form-outline mb-4">
                     <label for="image" class="h5 fw-bold">Image</label>
-                    <img src="" class="img-top" alt="">
+                    <img src="{{ asset('storage/menus/'.$item->image) }}" alt="{{ asset('storage/menus/default.jpg') }}" class="img-thumbnail border-0 mb-4" >
                     <input class="form-control form-control-md @error('image') is-invalid @enderror" id="image" name="image" type="file">
         
                     @error('image')
@@ -100,14 +100,10 @@
 
                   <div class="form-check mb-4">
                     <label for="availability" class="form-check-label h5 fw-bold">Availability</label>
-                    <input id="availability" type="checkbox" class="form-check-input form-control-md @error('availability') is-invalid @enderror" name="availability" value="{{$item->availability}}" @checked(old('active', $item->availability))/>
-
-                    @error('availability')
-                          <span class="invalid-feedback d-block" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                    @enderror
+                    <input id="availability" type="checkbox" class="form-check-input switch-input form-control-md" name="availability" value="1" {{ ($item->availability ? 'checked' : '') }}/>
                   </div>
+
+
 
                   <div class="buttons row d-flex justify-content-around pt-1 mt-4">
                     <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
