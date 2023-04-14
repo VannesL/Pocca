@@ -18,7 +18,7 @@ class MenuItemTableSeeder extends Seeder
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '1',
-            'name' => 'Hamburger',
+            'name' => '1_Hamburger',
             'description' => 'Standard burger patty between 2 buns',
             'availability' => true,
             'price' => 10000,
@@ -29,7 +29,7 @@ class MenuItemTableSeeder extends Seeder
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '1',
-            'name' => 'Cheese French Fries',
+            'name' => '1_Cheese French Fries',
             'description' => 'Fresh fries seasoned with salt topped with our cheese topping',
             'availability' => true,
             'price' => 6000,
@@ -40,7 +40,7 @@ class MenuItemTableSeeder extends Seeder
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '2',
-            'name' => 'Soda',
+            'name' => '1_Soda',
             'description' => 'Standard soda',
             'availability' => true,
             'price' => 3000,

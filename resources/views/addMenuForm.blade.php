@@ -39,7 +39,7 @@
 
                   <div class="form-outline mb-4">
                     <label for="description" class="h5 fw-bold">Description</label>
-                    <textarea id="description" type="textbox" class="form-control form-control-md @error('description') is-invalid @enderror" name="description" style="height: 100px" autocomplete="description" placeholder="ex. Our signature burger" rows="3">{{ Request::old('description') }}</textarea>
+                    <textarea id="description" type="textbox" class="form-control form-control-md @error('description') is-invalid @enderror" name="description" autocomplete="description" placeholder="ex. Our signature burger" rows="3" style="resize:none;">{{ Request::old('description') }}</textarea>
 
                     @error('description')
                       <span class="invalid-feedback" role="alert">
@@ -85,7 +85,7 @@
                   <div class="form-outline mb-4">
                     <label for="cook" class="h5 fw-bold">Cook Time</label>
                     <div class="input-group">
-                        <input id="cook" type=" number" class="form-control form-control-md @error('cook') is-invalid @enderror" name="cook" value="{{ old('cook') }}" autocomplete="cook" placeholder="ex. 200"/>
+                        <input id="cook" type="number" class="form-control form-control-md @error('cook') is-invalid @enderror" name="cook" value="{{ old('cook') }}" autocomplete="cook" placeholder="ex. 200"/>
                         <span class="input-group-text">minutes</span>
                     </div>
 

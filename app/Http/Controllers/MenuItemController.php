@@ -32,35 +32,37 @@ class MenuItemController extends Controller
             'categories' => $categories,
         ];
 
-        return view('menuForm', $data);
+        return view('addMenuForm', $data);
     }
 
     public function addMenu(Request $request)
     {
+        //make session for last image to display
+
         Validator::make($request->all(), [
-            'image' => ['image'],
-            'name'              => ['required', 'string'],
+            'image'             => ['image'],
+            'name'              => ['required', 'alpha_num', 'unique:menu_items,name'],
             'description'       => ['string'],
-            'selectCategory'          => ['required'],
-            'price' => ['required', 'numeric'],
-            'cook' => ['required', 'numeric'],
+            'selectCategory'    => ['required'],
+            'price'             => ['required', 'numeric'],
+            'cook'              => ['required', 'numeric'],
         ])->validate();
 
         $menuItem = new MenuItem();
         $menuItem->category_id = $request->selectCategory;
         $menuItem->vendor_id = auth()->guard('vendor')->user()->id;
-        $menuItem->name = $request->name;
+        $menuItem->name = $menuItem->vendor_id . '_' . $request->name;
         $menuItem->description = $request->description;
         $menuItem->price = $request->price;
         $menuItem->cook_time = $request->cook;
         $menuItem->availability = true;
         $menuItem->image = '';
 
-        //TODO: encrypt with vendor email instead of menu name
+        //Encrypt with vendor email and name with menu name
         if ($request->image) {
-            $imgName = md5($request->name);
+            $vendorEnc = md5(auth()->guard('vendor')->user()->email);
             $image_ext = $request->file('image')->extension();
-            $menuItem->image = 'image' . $imgName . '.' . $image_ext;
+            $menuItem->image = 'menu_' . $vendorEnc . '_' .  $menuItem->name . '.' . $image_ext;
 
             $image = $request->file('image');
             Storage::putFileAs('public/menus', $image, "$menuItem->image");
@@ -77,17 +79,70 @@ class MenuItemController extends Controller
     public function editMenuForm(Request $request)
     {
         $categories = Category::all();
+        $item = MenuItem::find($request->menuid);
 
         $data = [
             'categories' => $categories,
+            'item' => $item,
         ];
 
         return view('editMenuForm', $data);
     }
 
+    public function editMenu(Request $request)
+    {
+        $item = MenuItem::find($request->menuid);
+
+        //General validation
+        Validator::make($request->all(), [
+            'image'             => ['image'],
+            'name'              => ['required', 'alpha_num'],
+            'description'       => ['string'],
+            'price'             => ['required', 'numeric'],
+            'cook'              => ['required', 'numeric'],
+        ])->validate();
+
+        //Check if duplicate new name
+        $request->merge([
+            'name' => $item->vendor_id . '_' . $request->name
+        ]);
+        if ($request->name != $item->name) {
+            Validator::make($request->all(), ['name' => 'unique:menu_items,name'])->validate();
+        }
+
+        $item->category_id = $request->category;
+        $item->name = $request->name;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->cook_time = $request->cook;
+        $item->availability = $request->availability;
+
+        //Encrypt with vendor email and name with menu name
+        if ($request->image) {
+            if ($item->image) {
+                Storage::delete('public/menus' . $item->image);
+            }
+
+            $vendorEnc = md5(auth()->guard('vendor')->user()->email);
+            $image_ext = $request->file('image')->extension();
+            $item->image = 'menu_' . $vendorEnc . '_' .  $item->name . '.' . $image_ext;
+
+            $image = $request->file('image');
+            Storage::putFileAs('public/menus', $image, "$item->image");
+        }
+
+        $item->save();
+
+        return redirect('/vendor-menu/edit/' . $request->menuid);
+    }
+
     public function deleteMenu(Request $request)
     {
         $item = MenuItem::find($request->menuid);
+
+        if ($item->image) {
+            Storage::delete('public/menus' . $item->image);
+        }
 
         $item->delete();
 

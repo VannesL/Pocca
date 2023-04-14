@@ -6,11 +6,14 @@
             @foreach ($items as $item)
                 <div class="col-6 p-2">
                     <div class="text-center m-1 h-100">
-                        <img src="public/images.{{$item->image}}" class="img-top" alt="...">
+                        <img src="public/menus/{{$item->image}}" class="img-top" alt="public/menus/default.png">
                         <div class="body">
-                            <h5 class="title h-100 mb-3">{{$item->name}}</h5>
+                            @php
+                                $itemName = explode('_',$item->name)
+                            @endphp
+                            <h5 class="title h-100 mb-3">{{$itemName[1]}}</h5>
                             <div class="buttons position-relative mb-3">
-                                <a href="#" class="btn btn-light border-dark">
+                                <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                 <a href="/vendor-menu/delete/{{$item->id}}" class="btn btn-danger">
