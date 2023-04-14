@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Canteen;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -173,25 +174,43 @@ class VendorController extends Controller
         }
         $imgName = md5($user->email);
         if ($request->qris) {
+            if (Storage::exists("public/qris/$user->qris")) {
+                Storage::delete("public/qris/$user->qris");
+            }
             $img_ext = $request->file('qris')->extension();
-            Storage::delete("public/qris/$user->qris");
             
             $user->qris = 'qris'.$imgName.'.'.$img_ext;
             $qris = $request->file('qris');
             Storage::putFileAs('public/qris',$qris,"$user->qris");
         }
         if ($request->image){
+            if (Storage::exists("public/profiles/$user->image")){
+                Storage::delete("public/profiles/$user->image");
+            }
             $img_ext = $request->file('image')->extension();
-            Storage::delete("public/profiles/$user->image");
             
             $user->image = 'profile'.$imgName.'.'.$img_ext;
             $image = $request->file('image');
             Storage::putFileAs('public/profiles',$image,"$user->image");
         }
         $user->save();
-        return redirect('/vendorEditProfile')->with('success','Profile Update Success');
+        return redirect('/vendor-editProfile')->with('success','Profile Update Success');
         
 
+    }
+
+    public function deleteVendor(){
+        $userid = auth()->guard('vendor')->user()->id;
+        $user = Vendor::where('id', $userid)->first();
+
+        Auth::logout();
+
+        Storage::delete("public/profiles/$user->image");
+        Storage::delete("public/qris/$user->qris");
+        
+        if ($user->delete()) {
+            return redirect('/vendor-login');
+        }
     }
     
 }

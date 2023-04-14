@@ -24,15 +24,16 @@ Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
 Route::post('/register', [CustomerController::class, 'register']);
 Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
 Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
-Route::post('/deleteCustomer', [CustomerController::class, 'deleteCustomer']);
+Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
 
 //Vendor Login
 Route::get('/vendor-login', [VendorController::class, 'getVendorLogin']);
 Route::post('/vendor-login', [VendorController::class, 'authenticate']);
 Route::get('/vendor-register', [VendorController::class, 'getVendorRegister']);
 Route::post('/vendor-register', [VendorController::class, 'register']);
-Route::get('/vendorEditProfile', [VendorController::class, 'getVendorEditProfile']);
-Route::post('/vendorEditProfile', [VendorController::class, 'updateVendorProfile']);
+Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
+Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
+Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
 
 
 //Admin Login

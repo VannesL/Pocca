@@ -31,7 +31,7 @@
                         </div>
                     </a>
                     @elseif (auth()->guard('vendor')->check())
-                    <a href="{{ url('/vendorEditProfile') }}">
+                    <a href="{{ url('/vendor-editProfile') }}">
                         <div class="btn btn-outline-dark rounded-circle">
                             <i class="fa-solid fa-user"></i></a>
                         </div>

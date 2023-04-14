@@ -13,10 +13,32 @@
         <div class="row d-flex justify-content-center align-item-center">
             <div class="col col-xl-10 mt-3">
                 <div class="d-flex justify-content-end mb-2 pb-1">
-                  <form method="POST" action="{{url('/deleteVendor')}}">
-                    @csrf
-                    <button class="btn btn-sm text-white btn-danger fw-light">Delete Account</button>
-                  </form>
+                  <button type="button" class="btn btn-danger btn-sm text-white fw-light" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                    Delete Account
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                          <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          You account and its data will be deleted after this process.
+                        </div>
+                        <div class="modal-footer">
+                          <form method="POST" action="{{url('/vendor-deleteProfile')}}" >
+                            @csrf
+                            <button class="btn text-white btn-danger fw-light">Yes</button>
+                          </form>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="d-flex justify-content-center pb-1">
                   <span class="h1 text-dark fw-bold">Edit Store Profile</span>
@@ -32,7 +54,7 @@
                      
                       
                         <div class="card-body p-4 p-lg-5 text-black">
-                          <form method="POST" action="{{url("/vendorEditProfile")}}"   enctype="multipart/form-data" autocomplete="off">
+                          <form method="POST" action="{{url("/vendor-editProfile")}}"   enctype="multipart/form-data" autocomplete="off">
                             @csrf
 
                             <div class="form-outline mb-4">
@@ -43,7 +65,7 @@
                             <div class="form-outline mb-4">
                               <label for="store_name" class="h4 fw-bold">Store Name</label>
                               <div class="d-flex col">
-                                <input id="store_name" type="text" class="form-control form-control-md @error('store_name') is-invalid @enderror" name="store_name" value="" autocomplete="StoreName" placeholder="ex. Canteen Pocky"/>
+                                <input id="store_name" type="text" class="form-control form-control-md @error('store_name') is-invalid @enderror" name="store_name" value=""  placeholder="{{auth()->guard('vendor')->user()->store_name}}"/>
                                 
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
