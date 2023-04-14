@@ -115,7 +115,7 @@
                               <div class="d-flex col">
                                 <input id="password" type="password" class="form-control form-control-md @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password" readonly/>
   
-                                
+                          
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
                                 </button>

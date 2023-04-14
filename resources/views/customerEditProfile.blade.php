@@ -13,6 +13,7 @@
         <div class="row d-flex justify-content-center align-item-center">
             <div class="col col-xl-10 mt-3">
                 <div class="d-flex justify-content-end mb-2 pb-1">
+
                   <button type="button" class="btn btn-danger btn-sm text-white fw-light" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
                     Delete Account
                   </button>
@@ -40,6 +41,7 @@
                     </div>
                   </div>
                 </div>
+                
                 <div class="d-flex justify-content-center pb-1">
                   <span class="h1 text-dark fw-bold">Edit Profile</span>
                 </div>
@@ -163,7 +165,7 @@
                             </div>
   
                             <div class="d-flex justify-content-center pt-1 mt-3">
-                              <button class="btn btn-dark btn-sm" type="submit" name="submitBtn">Save</button>
+                              <button class="btn btn-primary btn-sm" type="submit" name="submitBtn">Save</button>
                             </div>
 
                           </form>

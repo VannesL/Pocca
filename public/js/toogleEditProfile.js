@@ -15,15 +15,15 @@ $('[name="edit"]').on('click', function() {
     }
 
     input.attr("readonly", false);
-    $('[name=submitBtn]').css('display','block');
+    $('[name=submitBtn]').attr('disabled',false);
 });
 
 $('input[type="file"]').change(function(){
-    $('[name=submitBtn]').css('display','block');
+    $('[name=submitBtn]').attr('disabled',false);
 });
 
 function resetForm(){
     $('[name=passwordConfirm]').parent().css('display','none');
     $('[name=passwordConfirm]').attr('value','');
-    $('[name=submitBtn]').css('display','none');
+    $('[name=submitBtn]').attr('disabled',true);
 }
