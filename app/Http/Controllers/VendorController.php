@@ -151,44 +151,51 @@ class VendorController extends Controller
        
 
         $user = auth()->guard('vendor')->user();
-        if ($request->name) {
-            $user->name = $request->name;
+        // if ($request->name) {
+        //     $user->name = $request->name;
+        // }
+        // if ($request->email) {
+        //     $user->email = $request->email;
+        // }
+        // if ($request->password) {
+        //     $user->password = $request->password;
+        // }
+        // if ($request->phone_number) {
+        //     $user->phone_number = $request->phone_number;
+        // }
+        // if ($request->store_name) {
+        //     $user->store_name = $request->store_name;
+        // }
+        // if ($request->address) {
+        //     $user->address = $request->address;
+        // }
+        // if ($request->description) {
+        //     $user->description = $request->description;
+        // }
+        $request['password'] = Hash::make($request->password);
+        if ($request->qris && Storage::exists("public/qris/$user->qris")) { 
+            Storage::delete("public/qris/$user->qris");
         }
-        if ($request->email) {
-            $user->email = $request->email;
+        if ($request->image && Storage::exists("public/profiles/$user->image")){
+            Storage::delete("public/profiles/$user->image");
         }
-        if ($request->password) {
-            $user->password = $request->password;
-        }
-        if ($request->phone_number) {
-            $user->phone_number = $request->phone_number;
-        }
-        if ($request->store_name) {
-            $user->store_name = $request->store_name;
-        }
-        if ($request->address) {
-            $user->address = $request->address;
-        }
-        if ($request->description) {
-            $user->description = $request->description;
-        }
-        $imgName = md5($user->email);
-        if ($request->qris) {
-            if (Storage::exists("public/qris/$user->qris")) {
-                Storage::delete("public/qris/$user->qris");
-            }
-            $img_ext = $request->file('qris')->extension();
-            
-            $user->qris = 'qris'.$imgName.'.'.$img_ext;
+        $data = request()->collect()->filter(function($value) {
+            return null !== $value;
+        })->toArray();
+
+        $user->fill($data);
+
+        if ($request->qris){
+            $imgName = md5($user->email);
+            $qris_ext = $request->file('qris')->extension();
+                
+            $user->qris = 'qris'.$imgName.'.'.$qris_ext;
             $qris = $request->file('qris');
             Storage::putFileAs('public/qris',$qris,"$user->qris");
         }
-        if ($request->image){
-            if (Storage::exists("public/profiles/$user->image")){
-                Storage::delete("public/profiles/$user->image");
-            }
+        if ($request->image) {
             $img_ext = $request->file('image')->extension();
-            
+                
             $user->image = 'profile'.$imgName.'.'.$img_ext;
             $image = $request->file('image');
             Storage::putFileAs('public/profiles',$image,"$user->image");

@@ -110,7 +110,6 @@ class CustomerController extends Controller
         })->toArray();
         $user->fill($data)->save();
         
-        $user->save();
 
         return redirect('/editProfile')->with('success','Profile Update Success');
     }

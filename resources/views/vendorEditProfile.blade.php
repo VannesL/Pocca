@@ -71,7 +71,7 @@
                                   <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                               </div>
-                              @error('storeName')
+                              @error('store_name')
                                 <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -152,7 +152,7 @@
                             <div class="form-outline mb-4">
                               <label for="phone_number" class="h4 fw-bold">Phone Number</label>
                               <div class="d-flex col">
-                                <input id="phone_number" type="text" class="form-control form-control-md @error('phoneno') is-invalid @enderror" name="phone_number" value="" autocomplete="phone_number" placeholder="{{auth()->guard('vendor')->user()->phone_number}}" readonly />
+                                <input id="phone_number" type="number" class="form-control form-control-md @error('phoneno') is-invalid @enderror" name="phone_number" value="" autocomplete="phone_number" placeholder="{{auth()->guard('vendor')->user()->phone_number}}" readonly />
   
                                 
                                 <button type="button" class="btn " name="edit">
@@ -168,8 +168,8 @@
                           
                             <div class="form-outline mb-4">
                               <label for="address" class="h4 fw-bold">Address</label>
-                              <div class="d-flex col">
-                                <textarea id="address" type="textbox" class="form-control form-control-md @error('address') is-invalid @enderror" name="address" style="height: 100px" value="" autocomplete="address" placeholder="{{auth()->guard('vendor')->user()->description}}" readonly></textarea>
+                              <div class="d-flex col">  
+                                <textarea id="address" type="textbox"  rows="3" class="form-control form-control-md @error('address') is-invalid @enderror" name="address" style="height: 100px" value="" autocomplete="address" placeholder="{{auth()->guard('vendor')->user()->description}}" style="resize: none" readonly></textarea>
   
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -186,7 +186,7 @@
                             <div class="form-outline mb-4">
                               <label for="description" class="h4 fw-bold">Description</label>
                               <div class="d-flex col">
-                                <textarea id="description" type="textbox" class="form-control form-control-md @error('description') is-invalid @enderror" name="description" style="height: 100px" value="" autocomplete="description" placeholder="{{auth()->guard('vendor')->user()->description}}" readonly ></textarea>
+                                <textarea id="description" type="textbox"  rows="3" class="form-control form-control-md @error('description') is-invalid @enderror" name="description"  rows="4" value="" autocomplete="description" placeholder="{{auth()->guard('vendor')->user()->description}}"  style="resize: none" readonly ></textarea>
   
                                 <button type="button" class="btn" name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
