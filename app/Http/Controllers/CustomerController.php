@@ -96,7 +96,7 @@ class CustomerController extends Controller
             'password'          => ['nullable','min:8'],
             'passwordConfirm'   => ['sometimes','same:password'],
             'phone_number'      => ['nullable','numeric','regex:/(08)[0-9]{8,}$/',],
-            'dob'               => ['nullable','date', 'before:tomorrow']
+            'dob'               => ['date', 'before:tomorrow']
             ])->validate();
             
         $user = auth()->guard('customer')->user();

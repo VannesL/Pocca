@@ -151,27 +151,7 @@ class VendorController extends Controller
        
 
         $user = auth()->guard('vendor')->user();
-        // if ($request->name) {
-        //     $user->name = $request->name;
-        // }
-        // if ($request->email) {
-        //     $user->email = $request->email;
-        // }
-        // if ($request->password) {
-        //     $user->password = $request->password;
-        // }
-        // if ($request->phone_number) {
-        //     $user->phone_number = $request->phone_number;
-        // }
-        // if ($request->store_name) {
-        //     $user->store_name = $request->store_name;
-        // }
-        // if ($request->address) {
-        //     $user->address = $request->address;
-        // }
-        // if ($request->description) {
-        //     $user->description = $request->description;
-        // }
+
         $request['password'] = Hash::make($request->password);
         if ($request->qris && Storage::exists("public/qris/$user->qris")) { 
             Storage::delete("public/qris/$user->qris");
@@ -184,9 +164,8 @@ class VendorController extends Controller
         })->toArray();
 
         $user->fill($data);
-
+        $imgName = md5($user->email);
         if ($request->qris){
-            $imgName = md5($user->email);
             $qris_ext = $request->file('qris')->extension();
                 
             $user->qris = 'qris'.$imgName.'.'.$qris_ext;

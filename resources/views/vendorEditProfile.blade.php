@@ -12,34 +12,6 @@
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-item-center">
             <div class="col col-xl-10 mt-3">
-                <div class="d-flex justify-content-end mb-2 pb-1">
-                  <button type="button" class="btn btn-danger btn-sm text-white fw-light" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                    Delete Account
-                  </button>
-                  <!-- Modal -->
-                  <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
-                          <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          You account and its data will be deleted after this process.
-                        </div>
-                        <div class="modal-footer">
-                          <form method="POST" action="{{url('/vendor-deleteProfile')}}" >
-                            @csrf
-                            <button class="btn text-white btn-danger fw-light">Yes</button>
-                          </form>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button> 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class="d-flex justify-content-center pb-1">
                   <span class="h1 text-dark fw-bold">Edit Store Profile</span>
                 </div>
@@ -65,7 +37,7 @@
                             <div class="form-outline mb-4">
                               <label for="store_name" class="h4 fw-bold">Store Name</label>
                               <div class="d-flex col">
-                                <input id="store_name" type="text" class="form-control form-control-md @error('store_name') is-invalid @enderror" name="store_name" value=""  placeholder="{{auth()->guard('vendor')->user()->store_name}}"/>
+                                <input id="store_name" type="text" class="form-control form-control-md @error('store_name') is-invalid @enderror" name="store_name" value=""  placeholder="{{auth()->guard('vendor')->user()->store_name}}" readonly/>
                                 
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -226,10 +198,37 @@
                             </div>
 
                             <div class="d-flex justify-content-center pt-1 mt-3">
-                              <button class="btn btn-dark btn-sm" type="submit" name="submitBtn">Save</button>
+                              <div class="buttons row d-flex justify-content-around pt-1 mt-4">
+                                <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Update</button>
+                              </div>
+            
                             </div>
-
+                            
                           </form>
+                          <!-- Modal -->
+                          <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" style="" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                                </div>
+                                <div class="modal-body">
+                                  This menu item will be deleted from the database.
+                                </div>
+                                <div class="modal-footer d-flex justify-content-around">
+                                  <div class="col-3"></div>
+                                  <form action="/vendor-deleteProfile" method="post">
+                                  @csrf
+                                  <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Yes</button>
+                                  </form>
+                                  <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                   </div>

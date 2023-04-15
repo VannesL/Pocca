@@ -156,19 +156,45 @@
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                                @error('dob')
-                                  <span class="invalid-feedback d-block" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                  </span>
-                                @enderror
                               </div>
+                              @error('dob')
+                                <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                             </div>
   
                             <div class="d-flex justify-content-center pt-1 mt-3">
-                              <button class="btn btn-primary btn-sm" type="submit" name="submitBtn">Save</button>
+                              <div class="buttons row d-flex justify-content-around pt-1 mt-4">
+                                <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Update</button>
+                              </div>
                             </div>
 
                           </form>
+                          <!-- Modal -->
+                          <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" style="" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                                </div>
+                                <div class="modal-body">
+                                  This menu item will be deleted from the database.
+                                </div>
+                                <div class="modal-footer d-flex justify-content-around">
+                                  <div class="col-3"></div>
+                                  <form action="/vendor-deleteProfile" method="post">
+                                  @csrf
+                                  <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Yes</button>
+                                  </form>
+                                  <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                   </div>
