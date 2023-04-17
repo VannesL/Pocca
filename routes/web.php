@@ -53,7 +53,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::post('/vendor-menu/add', [MenuItemController::class, 'addMenu']);
     Route::get('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenuForm']);
     Route::post('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenu']);
-    Route::get('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
+    Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {

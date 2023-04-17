@@ -23,7 +23,7 @@ class MenuItemTableSeeder extends Seeder
             'availability' => true,
             'price' => 10000,
             'cook_time' => 5,
-            'image' => 'hamburger.png',
+            'image' => '',
         ]);
 
         MenuItem::create([
@@ -34,7 +34,7 @@ class MenuItemTableSeeder extends Seeder
             'availability' => true,
             'price' => 6000,
             'cook_time' => 2,
-            'image' => 'fries.png',
+            'image' => '',
         ]);
 
         MenuItem::create([
@@ -45,7 +45,7 @@ class MenuItemTableSeeder extends Seeder
             'availability' => true,
             'price' => 3000,
             'cook_time' => 1,
-            'image' => 'soda.png',
+            'image' => '',
         ]);
     }
 }

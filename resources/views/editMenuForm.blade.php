@@ -15,7 +15,11 @@
 
                   <div class="form-outline mb-4">
                     <label for="image" class="h5 fw-bold">Image</label>
-                    <img src="{{ asset('storage/menus/'.$item->image) }}" alt="{{ asset('storage/menus/default.jpg') }}" class="img-thumbnail border-0 mb-4" >
+                    @if ($item->image != '')
+                        <img src="{{ asset('storage/menus/'.$item->image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 120px; object-fit:contain;">
+                    @else
+                        <img src="{{ asset('storage/menus/default.jpg') }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 120px; object-fit:contain;">
+                    @endif
                     <input class="form-control form-control-md @error('image') is-invalid @enderror" id="image" name="image" type="file">
         
                     @error('image')
@@ -111,28 +115,31 @@
                     </div>
                     <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Update</button>
                   </div>
+                </form>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog" style="" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
-                        </div>
-                        <div class="modal-body">
-                          This menu item will be deleted from the database.
-                        </div>
-                        <div class="modal-footer d-flex justify-content-around">
-                          <div class="col-3"></div>
-                          <a href="/vendor-menu/delete/{{$item->id}}" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                            Yes
-                          </a>
-                          <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
-                        </div>
+                <!-- Modal -->
+                <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" style="" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                      </div>
+                      <div class="modal-body">
+                        This menu item will be deleted from the database.
+                      </div>
+                      <div class="modal-footer d-flex justify-content-around">
+                        <div class="col-3"></div>
+                        <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
+                          @csrf
+                          <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                              Yes
+                          </button>
+                        </form>
+                        <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
                       </div>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
           </div>
         </div>
