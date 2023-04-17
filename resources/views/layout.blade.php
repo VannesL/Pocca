@@ -40,7 +40,7 @@
         <div class="w-100">
             <nav class="nav navbar-light bg-light d-flex justify-content-evenly border-top border-bottom">
                 @if (auth()->guard('customer')->check())
-                    <a class="nav-link text-dark" href="#">Home<span class="sr-only"></a>
+                    <a class="nav-link text-dark" href="{{ url('/home') }}">Home<span class="sr-only"></a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">Order</a>
                     <div class="vr"></div>

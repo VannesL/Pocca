@@ -26,9 +26,16 @@
                     @enderror
                   </div>
 
+                  @php
+                    $itemName = [''];
+                    if (old('name')){
+                      $itemName = explode('_',old('name'));
+                    }
+                  @endphp
+
                   <div class="form-outline mb-4">
                     <label for="name" class="h5 fw-bold">Name</label>
-                    <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" placeholder="ex. Burger"/>
+                    <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name" value="{{ count($itemName) > 1 ? $itemName[1] : old('name') }}" autocomplete="name" placeholder="ex. Burger"/>
 
                     @error('name')
                       <span class="invalid-feedback" role="alert">

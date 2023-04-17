@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @foreach ($items as $item)
+            @if (!$items->isEmpty())
+                @foreach ($items as $item)
                 @php
                     $itemName = explode('_',$item->name)
                 @endphp
@@ -19,43 +20,43 @@
                             <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark me-3 mt-2">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <a data-bs-toggle="modal" data-bs-target="#deleteConfirmation" class="btn btn-danger mt-2">
+                            <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}deleteConfirmation" class="btn btn-danger mt-2">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-            @endforeach
+                <!-- Modal -->
+                <div class="modal fade" id="{{$item->id}}deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" style="" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                        </div>
+                        <div class="modal-body">
+                            This menu item will be deleted from the database.
+                        </div>
+                        <div class="modal-footer d-flex justify-content-around">
+                            <div class="col-3"></div>
+                            <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
+                            @csrf
+                            <button type ="submit" class="btn btn-danger col">
+                                Yes
+                            </button>
+                            </form>
+                            <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach 
+            @endif
         </div>
 
         <div class="addBtn text-center" style="position:absolute; bottom:20px; right:20px;">
             <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
                 <i class="fa-solid fa-plus fa-2xl"></i>
             </a>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" style="" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
-                </div>
-                <div class="modal-body">
-                  This menu item will be deleted from the database.
-                </div>
-                <div class="modal-footer d-flex justify-content-around">
-                  <div class="col-3"></div>
-                  <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
-                    @csrf
-                    <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                        Yes
-                    </button>
-                  </form>
-                  <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
-                </div>
-              </div>
-            </div>
         </div>
     </div>
     

@@ -38,20 +38,25 @@ class MenuItemController extends Controller
     public function addMenu(Request $request)
     {
         //make session for last image to display
-
         Validator::make($request->all(), [
             'image'             => ['image'],
-            'name'              => ['required', 'alpha_num', 'unique:menu_items,name'],
+            'name'              => ['required', "regex:/^([^_]*)$/"],
             'description'       => ['string'],
             'selectCategory'    => ['required'],
             'price'             => ['required', 'numeric'],
             'cook'              => ['required', 'numeric'],
         ])->validate();
 
+        //Check if duplicate new name
+        $request->merge([
+            'name' => auth()->guard('vendor')->user()->id . '_' . $request->name
+        ]);
+        Validator::make($request->all(), ['name' => 'unique:menu_items,name'])->validate();
+
         $menuItem = new MenuItem();
         $menuItem->category_id = $request->selectCategory;
         $menuItem->vendor_id = auth()->guard('vendor')->user()->id;
-        $menuItem->name = $menuItem->vendor_id . '_' . $request->name;
+        $menuItem->name = $request->name;
         $menuItem->description = $request->description;
         $menuItem->price = $request->price;
         $menuItem->cook_time = $request->cook;
@@ -139,7 +144,7 @@ class MenuItemController extends Controller
 
     public function deleteMenu(Request $request)
     {
-        $item = MenuItem::find($request->menuid);
+        $item = MenuItem::where('id', $request->menuid)->first();
 
         if ($item->image) {
             Storage::delete('public/menus' . $item->image);

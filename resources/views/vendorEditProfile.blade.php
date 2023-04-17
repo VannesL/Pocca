@@ -174,7 +174,7 @@
 
                             <div class="form-outline mb-4">
                               <label for="image" class="h4 fw-bold">Profile Image</label>
-                              <img src="{{ asset('storage/profiles/'.auth()->guard('vendor')->user()->image) }}" class="img-fluid" alt="No image Included"> 
+                              <img src="{{ asset('storage/profiles/'.auth()->guard('vendor')->user()->image) }}" class="img-fluid w-100" alt="No image Included"> 
                               <input class="form-control form-control-sm" id="image" name="image" type="file">
 
                               @error('image')
@@ -187,7 +187,7 @@
                             <div class="form-outline mb-4">
                               <label for="qris" class="h4 fw-bold">QRIS</label>
                               
-                              <img src="{{ asset('storage/qris/'.auth()->guard('vendor')->user()->qris) }}" class="img-fluid" alt="No image Included">
+                              <img src="{{ asset('storage/qris/'.auth()->guard('vendor')->user()->qris) }}" class="img-fluid w-100" alt="No image Included">
                               <input class="form-control form-control-sm" id="qris" name="qris" type="file">
 
                               @error('qris')

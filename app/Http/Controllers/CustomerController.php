@@ -24,7 +24,7 @@ class CustomerController extends Controller
             'email'             => ['required', 'email' => 'email:rfc,dns', 'unique:customers'],
             'password'          => ['required', 'min:8'],
             'passwordConfirm'   => ['required', 'same:password'],
-            'phoneno'           => ['required', 'numeric', 'digits:12'],
+            'phoneno'           => ['required', 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
             'dob'               => ['required', 'date', 'before:tomorrow']
         ])->validate();
 
@@ -48,12 +48,12 @@ class CustomerController extends Controller
     public function home(Request $request)
     {
         //$favorites = FavoriteCanteem::all();
-        $canteens = Canteen::all()->sortByDesc('favorites');//->whereNotIn($favorites->id);
+        $canteens = Canteen::all()->sortByDesc('favorites'); //->whereNotIn($favorites->id);
         if ($request->search) {
             // dump($request->search);
             $canteens = Canteen::where('name', 'LIKE', '%' . $request->search . '%')
                 ->get()
-                ->sortByDesc('favorites');//->whereNotIn($favorites->id);
+                ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
             // dd($canteens);
         }
         return view('home', ['canteens' => $canteens, 'search' => $request->search]);
@@ -72,7 +72,7 @@ class CustomerController extends Controller
             'email'             => ['nullable', 'email' => 'email:rfc,dns', 'unique:customers'],
             'password'          => ['nullable', 'min:8'],
             'passwordConfirm'   => ['sometimes', 'same:password'],
-            'phone_number'      => ['nullable', 'numeric', 'regex:/(08)[0-9]{8,}$/',],
+            'phone_number'      => ['nullable', 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
             'dob'               => ['date', 'before:tomorrow']
         ])->validate();
 
