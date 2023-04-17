@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
