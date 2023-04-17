@@ -76,13 +76,13 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                              <label for="selectCanteen" class="h4 fw-bold">Canteen Name</label>
+                              <label for="selectCanteen" class="h4 fw-bold">Select Canteen</label>
                               <select class="form-select @error('selectCanteen') is-invalid @enderror" id="selectCanteen" name="selectCanteen">
                                 <option selected value="">Select existing canteen</option>
+                                <option value=-1 >Create new canteen </option>
                                 @foreach ($canteens as $canteen)
                                   <option value="{{ $canteen->id }}">{{ $canteen->name }}</option>
                                 @endforeach
-                                <option value=-1 >Create new canteen </option>
                               </select>
 
                               @error('selectCanteen')
@@ -183,22 +183,7 @@
               </div>
             </div>
           </section>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-          {{-- <script src="https://code.jquery.com/jquery-3.6.4.slim.js" integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>  --}}
-          {{-- <script type="text/javascript" src="{{ URL::asset('js/formShowhiddenField.js') }}"></script> --}}
-          <script>
-            const selectElement = document.querySelector("#selectCanteen");
- 
-            selectElement.addEventListener("change", (event) => {
-              const field = document.querySelector("#canteenName");
-              if (event.target.value== (-1)) {
-                field.parentElement.style.display ='block';
-              }else{
-                field.parentElement.style.display ='none';
-              }
-            });
-
-          </script>
-    </body>
+          <script src="{{ asset('js/formShowhiddenField.js')}}"></script>
+    </body> 
       
 </html>

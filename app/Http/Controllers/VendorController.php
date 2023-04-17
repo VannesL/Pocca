@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Canteen;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -105,4 +106,80 @@ class VendorController extends Controller
     {
         return view('home');
     }
+    public function getVendorEditProfile(){
+        $canteenId = auth()->guard('vendor')->user()->canteen_id;
+        // dd($canteenId);
+        $canteen =  Canteen::where('id', $canteenId)->first();
+
+        $dataArray = array(
+            'canteenName'   =>  $canteen->name
+        );
+
+        return view('vendorEditProfile', $dataArray);
+    }
+
+    public function updateVendorProfile(Request $request){
+        Validator::make($request->all(),[
+            'name'              => ['nullable', 'string'],
+            'email'             => ['nullable', 'email' => 'email:rfc,dns','unique:vendors'],
+            'password'          => ['nullable', 'min:8'],
+            'passwordConfirm'   => ['sometimes', 'same:password'],
+            'phone_number'      => ['nullable','numeric','regex:/(08)[0-9]{8,}$/',],
+            'store_name'         => ['nullable', 'string', 'min:8'],
+            'address'           => ['nullable', 'string', 'min: 8'],
+            'description'       => ['nullable', 'string', 'min: 8'],
+            'image'             => ['mimes:jpg,bmp,png'],
+            'qris'              => ['mimes:jpg,bmp,png'],
+        ])->validate();
+       
+
+        $user = auth()->guard('vendor')->user();
+
+        $request['password'] = Hash::make($request->password);
+        if ($request->qris && Storage::exists("public/qris/$user->qris")) { 
+            Storage::delete("public/qris/$user->qris");
+        }
+        if ($request->image && Storage::exists("public/profiles/$user->image")){
+            Storage::delete("public/profiles/$user->image");
+        }
+        $data = request()->collect()->filter(function($value) {
+            return null !== $value;
+        })->toArray();
+
+        $user->fill($data);
+        $imgName = md5($user->email);
+        if ($request->qris){
+            $qris_ext = $request->file('qris')->extension();
+                
+            $user->qris = 'qris'.$imgName.'.'.$qris_ext;
+            $qris = $request->file('qris');
+            Storage::putFileAs('public/qris',$qris,"$user->qris");
+        }
+        if ($request->image) {
+            $img_ext = $request->file('image')->extension();
+                
+            $user->image = 'profile'.$imgName.'.'.$img_ext;
+            $image = $request->file('image');
+            Storage::putFileAs('public/profiles',$image,"$user->image");
+        }
+        $user->save();
+        return redirect('/vendor-editProfile')->with('success','Profile Update Success');
+        
+
+    }
+
+    public function deleteVendor(){
+        $userid = auth()->guard('vendor')->user()->id;
+        $user = Vendor::where('id', $userid)->first();
+
+        Auth::logout();
+
+        Storage::delete("public/profiles/$user->image");
+        Storage::delete("public/qris/$user->qris");
+        
+        if ($user->delete()) {
+            return redirect('/vendor-login');
+        }
+    }
+    
 }

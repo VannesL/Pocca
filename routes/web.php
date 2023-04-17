@@ -30,8 +30,17 @@ Route::post('/admin-login', [LoginController::class, 'authenticateAdmin']);
 
 Route::get('/register', [CustomerController::class, 'getCustomerRegister']);
 Route::post('/register', [CustomerController::class, 'register']);
+Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
+Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
+Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
+
+//Vendor Login
 Route::get('/vendor-register', [VendorController::class, 'getVendorRegister']);
 Route::post('/vendor-register', [VendorController::class, 'register']);
+Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
+Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
+Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
+
 
 //Logout
 Route::get('/logout', [LoginController::class, 'logout']);

@@ -56,5 +56,6 @@
         <div class="mt-3">
             @yield('content')
         </div>
+        @stack('custom-js')
     </body>
 </html>
