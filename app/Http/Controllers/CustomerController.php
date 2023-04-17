@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Canteen;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,16 @@ class CustomerController extends Controller
 
     public function home(Request $request)
     {
-        return view('home');
+        //$favorites = FavoriteCanteem::all();
+        $canteens = Canteen::all()->sortByDesc('favorites');//->whereNotIn($favorites->id);
+        if ($request->search) {
+            // dump($request->search);
+            $canteens = Canteen::where('name', 'LIKE', '%' . $request->search . '%')
+                ->get()
+                ->sortByDesc('favorites');//->whereNotIn($favorites->id);
+            // dd($canteens);
+        }
+        return view('home', ['canteens' => $canteens, 'search' => $request->search]);
     }
 
     public function getCustomerEditProfile()

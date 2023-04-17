@@ -4,10 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form action="{{ route('home') }}"method="get" class="form-loading">
+                <form action="{{ url('/home') }}" method="get" class="form-loading">
                     @csrf
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-10">
                             <div class="form-group @error('search') has-error @enderror">
                                 <input name="search" type="text" value="{{ $search }}" class="form-control"
                                     placeholder="Search">
@@ -16,23 +16,41 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary btn-block btn_submit"><i
+                        <div class="col-2 ps-1">
+                            <button type="submit" class="btn btn-primary btn-block btn_submit ms-0"><i
                                     class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </form>
                 <hr>
-                @foreach ($canteens as $canteen)
+                {{-- @foreach ($favorite as $item)
                     <a href="#" class="text-decoration-none">
-                        <div class="card">
+                        <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-11">
+                                    <div class="col-9">
                                         <h5 class="card-title">{{ $canteen->name }}</h5>
                                         <p class="card-text">{{ $canteen->address }}</p>
                                     </div>
-                                    <div class="col-1 align-self-center">
+                                    <div class="col-3 align-self-center">
+                                        <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach --}}
+                @foreach ($canteens as $canteen)
+                    <a href="#" class="text-decoration-none">
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5 class="card-title">{{ $canteen->name }}</h5>
+                                        <p class="card-text">{{ $canteen->address }}</p>
+                                    </div>
+                                    <div class="col-3 align-self-center">
                                         <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
                                         </button>
                                     </div>
