@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,12 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
     Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
     Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
+    Route::get('/vendor-menu', [MenuItemController::class, 'vendorMenu']);
+    Route::get('/vendor-menu/add', [MenuItemController::class, 'addMenuForm']);
+    Route::post('/vendor-menu/add', [MenuItemController::class, 'addMenu']);
+    Route::get('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenuForm']);
+    Route::post('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenu']);
+    Route::get('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {

@@ -50,7 +50,7 @@
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">History</a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="#">Menu</a>
+                    <a class="nav-link text-dark" href="{{ url('/vendor-menu') }}">Menu</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">Sales</a>
                 @endif
