@@ -26,7 +26,12 @@
                 <div class="col-4 text-center d-flex justify-content-end">
                     @if (auth()->guard('customer')->check() || (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))
                         <div class="btn btn-outline-dark rounded-circle">
-                            <i class="fa-solid fa-user"></i>
+                            @if (auth()->guard('customer')->check())
+                                <a href="{{ url('/editProfile') }}"><i class="fa-solid fa-user text-dark"></i></a>
+                            @else
+                                <a href="{{ url('/vendor-editProfile') }}"><i class="fa-solid fa-user text-dark"></i></a>
+                            @endif
+                            
                         </div>
                     @endif
                 </div>

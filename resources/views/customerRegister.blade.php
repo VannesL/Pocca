@@ -76,7 +76,7 @@
 
                             <div class="form-outline mb-4">
                               <label for="phoneno" class="h4 fw-bold">Phone Number</label>
-                              <input id="phoneno" type="text" class="form-control form-control-lg @error('phoneno') is-invalid @enderror" name="phoneno" value="{{ old('phoneno') }}" autocomplete="phoneno" placeholder="ex. 08XXXXXXXX"/>
+                              <input id="phoneno" type="number" class="form-control form-control-lg @error('phoneno') is-invalid @enderror" name="phoneno" value="{{ old('phoneno') }}" autocomplete="phoneno" placeholder="ex. 08XXXXXXXX"/>
 
                               @error('phoneno')
                                 <span class="invalid-feedback" role="alert">
@@ -85,7 +85,7 @@
                               @enderror
                             </div>
 
-                            <div class="form-outlin4">
+                            <div class="form-outline mb-4">
                               <label for="dob" class="h4 fw-bold">Date of birth</label>
                               <input id="dob" type="date" class="form-control form-control-lg @error('dob') is-invalid @enderror" name="dob" value="{{ old('dob') }}" />
 

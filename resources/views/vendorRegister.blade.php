@@ -106,7 +106,7 @@
 
                             <div class="form-outline mb-4">
                               <label for="storeName" class="h4 fw-bold">Store Name</label>
-                              <input id="storeName" type="text" class="form-control form-control-lg @error('storeName') is-invalid @enderror" name="storeName" value="{{ old('storeName') }}" autocomplete="StoreName" placeholder="ex. Canteen Pocky"/>
+                              <input id="storeName" type="text" class="form-control form-control-lg @error('storeName') is-invalid @enderror" name="storeName" value="{{ old('storeName') }}" autocomplete="StoreName" placeholder="ex. Pocky Store"/>
 
                               @error('storeName')
                                 <span class="invalid-feedback" role="alert">
@@ -129,7 +129,7 @@
 
                             <div class="form-outline mb-4">
                               <label for="address" class="h4 fw-bold">Address</label>
-                              <textarea id="address" type="textbox" class="form-control form-control-lg @error('address') is-invalid @enderror" name="address" style="height: 100px" value="{{ old('address') }}" autocomplete="address" placeholder="ex. Best bakmie in town"></textarea>
+                              <textarea id="address" type="textbox" class="form-control form-control-lg @error('address') is-invalid @enderror" name="address" style="height: 100px" value="{{ old('address') }}" autocomplete="address" placeholder="ex. Jl. Bina Nusantara Blok 5"></textarea>
 
                               @error('address')
                                 <span class="invalid-feedback" role="alert">

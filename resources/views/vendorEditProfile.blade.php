@@ -141,7 +141,7 @@
                             <div class="form-outline mb-4">
                               <label for="address" class="h4 fw-bold">Address</label>
                               <div class="d-flex col">  
-                                <textarea id="address" type="textbox"  rows="3" class="form-control form-control-md @error('address') is-invalid @enderror" name="address" style="height: 100px" value="" autocomplete="address" placeholder="{{auth()->guard('vendor')->user()->description}}" style="resize: none" readonly></textarea>
+                                <textarea id="address" type="textbox"  rows="3" class="form-control form-control-md @error('address') is-invalid @enderror" name="address" style="height: 100px" value="" autocomplete="address" placeholder="{{auth()->guard('vendor')->user()->address}}" style="resize: none" readonly></textarea>
   
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>

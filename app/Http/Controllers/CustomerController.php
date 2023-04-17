@@ -49,43 +49,46 @@ class CustomerController extends Controller
         return view('home');
     }
 
-    public function getCustomerEditProfile(){
+    public function getCustomerEditProfile()
+    {
         return view('customerEditProfile');
     }
 
-    public function updateProfile(Request $request){
-        
+    public function updateProfile(Request $request)
+    {
+
         Validator::make($request->all(), [
-            'name'              => ['nullable','string'],
-            'email'             => ['nullable','email' => 'email:rfc,dns', 'unique:customers'],
-            'password'          => ['nullable','min:8'],
-            'passwordConfirm'   => ['sometimes','same:password'],
-            'phone_number'      => ['nullable','numeric','regex:/(08)[0-9]{8,}$/',],
+            'name'              => ['nullable', 'string'],
+            'email'             => ['nullable', 'email' => 'email:rfc,dns', 'unique:customers'],
+            'password'          => ['nullable', 'min:8'],
+            'passwordConfirm'   => ['sometimes', 'same:password'],
+            'phone_number'      => ['nullable', 'numeric', 'regex:/(08)[0-9]{8,}$/',],
             'dob'               => ['date', 'before:tomorrow']
-            ])->validate();
-            
+        ])->validate();
+
         $user = auth()->guard('customer')->user();
-        
+
         //Hash password before inserting to DB
         $request['password'] = Hash::make($request->password);
-        
+
         //
-        $data = request()->collect()->filter(function($value) {
+        $data = request()->collect()->filter(function ($value) {
             return null !== $value;
         })->toArray();
         $user->fill($data)->save();
-        
 
-        return redirect('/editProfile')->with('success','Profile Update Success');
+
+        return redirect('/editProfile')->with('success', 'Profile Update Success');
     }
 
-    public function deleteCustomer(){
+    public function deleteCustomer()
+    {
         $userid = auth()->guard('customer')->user()->id;
         $user = Customer::where('id', $userid)->first();
 
-        Auth::logout();
-
-        if ($user->delete()) {
+        auth()->logout();
+        $del = $user->delete();
+        if ($del) {
             return redirect('/');
         }
     }

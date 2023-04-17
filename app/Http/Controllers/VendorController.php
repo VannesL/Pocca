@@ -172,7 +172,7 @@ class VendorController extends Controller
         $userid = auth()->guard('vendor')->user()->id;
         $user = Vendor::where('id', $userid)->first();
 
-        Auth::logout();
+        auth()->logout();
 
         Storage::delete("public/profiles/$user->image");
         Storage::delete("public/qris/$user->qris");
