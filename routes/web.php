@@ -58,4 +58,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {
     Route::get('/admin-dash', [AdminController::class, 'adminDash']);
+    Route::get('/admin-vendorDetails/{vendorid}', [AdminController::class, 'getVendorDetails']);
+    Route::post('/admin-rejectVendor/{vendorid}', [AdminController::class, 'rejectVendor']);
+    Route::post('/admin-acceptVendor/{vendorid}', [AdminController::class, 'acceptVendor']);
 });

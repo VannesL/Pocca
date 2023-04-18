@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer('favorites');
             $table->string('qris');
             $table->string('image')->nullable();
+            $table->string('rejection_reason')->nullable();
+            $table->date('upcoming_deletion_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

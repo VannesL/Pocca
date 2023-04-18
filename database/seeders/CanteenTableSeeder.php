@@ -21,5 +21,12 @@ class CanteenTableSeeder extends Seeder
             'address' => 'Jalan Sana Sini Block 123',
             'favorites' => 0,
         ]);
+
+        Canteen::create([
+            'approved_by' => 1,
+            'name' => 'Canteen Rekitititi',
+            'address' => 'Jalan Sana Sini Block 123',
+            'favorites' => 0,
+        ]);
     }
 }

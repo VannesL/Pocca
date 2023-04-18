@@ -69,7 +69,7 @@ class LoginController extends Controller
         if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             $request->session()->regenerate();
 
-            return redirect('/home');
+            return redirect('/admin-dash');
         }
 
         return back()->withErrors([
