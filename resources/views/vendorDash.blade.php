@@ -1,6 +1,6 @@
 @extends('layout')
 
 @section('content')
-<div>DAHS</div>
+<div>Dashboard</div>
     
 @endsection

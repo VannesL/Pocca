@@ -12,11 +12,13 @@ class Canteen extends Model
     protected $guarded = ['id'];
     protected $fillable = ['name', 'address', 'favorites'];
 
-    public function admin() {
+    public function admin()
+    {
         return $this->belongsTo(Admin::class);
     }
 
-    public function vendor() {
+    public function vendors()
+    {
         return $this->hasMany(Vendor::class);
     }
 }

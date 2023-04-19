@@ -9,7 +9,8 @@ class PriceRange extends Model
 {
     use HasFactory;
 
-    public function vendor() {
+    public function vendors()
+    {
         return $this->hasMany(Vendor::class);
     }
 }

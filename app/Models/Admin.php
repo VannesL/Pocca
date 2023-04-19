@@ -13,12 +13,12 @@ class Admin extends Authenticatable
 
     protected $guarded = ['id', 'email', 'password', 'name', 'phone_number'];
 
-    public function canteen()
+    public function canteens()
     {
         return $this->hasMany(Canteen::class);
     }
 
-    public function vendor()
+    public function vendors()
     {
         return $this->hasMany(Vendor::class);
     }

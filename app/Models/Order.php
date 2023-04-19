@@ -8,4 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+    protected $fillable = ['customer_id', 'vendor_id', 'status_id', 'total', 'type', 'date', 'reviewed', 'payment_image'];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItems::class);
+    }
 }

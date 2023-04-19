@@ -28,4 +28,9 @@ class Vendor extends Authenticatable
     {
         return $this->belongsTo(PriceRange::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

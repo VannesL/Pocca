@@ -26,7 +26,7 @@ class OrderItemsTableSeeder extends Seeder
             'menu_id' => 2,
             'order_id' => 1,
             'quantity' => 1,
-            'notes' => '',
+            'notes' => 'Extra crispy please!',
         ]);
     }
 }
