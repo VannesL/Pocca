@@ -2,7 +2,7 @@
 
 @section('content')    
     <div class="container">
-        <h3>Current Orders</h3>
+        <h3>Order History</h3>
         <div class="row">
             @if (!$orders->isEmpty())
                 @foreach ($orders as $order)
@@ -31,27 +31,6 @@
                                     <div class="mt-2">Type: Takeout</div>
                                 @endif   
                             </div>
-                        </div>
-                        @php
-                            $color = "";
-
-                            switch ($order->status->id) {
-                            case 1:
-                                $color = "secondary";
-                                break;
-                            case 2:
-                                $color = "warning";
-                                break;
-                            case 3:
-                                $color = "primary";
-                                break;
-                            case 4:
-                                $color = "success";
-                                break;
-                            }
-                        @endphp
-                        <div class="card-footer text-bg-{{$color}} text-center">
-                            {{ $order->status->name }}
                         </div>
                     </div>
                 </a>

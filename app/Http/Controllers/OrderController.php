@@ -39,4 +39,31 @@ class OrderController extends Controller
 
         return view('vendorOrderDetails', $data);
     }
+
+    public function orderUpdateStatus(Request $request)
+    {
+        $order = Order::where([
+            ['id', $request->orderid],
+        ])->get()->first();
+
+        $order->status_id = $order->status_id + 1;
+
+        $order->save();
+
+        return redirect('/vendor-order/' . $order->id);
+    }
+
+    public function vendorOrderHistory(Request $request)
+    {
+        $orders = Order::where([
+            ['vendor_id', auth()->guard('vendor')->user()->id],
+            ['status_id', 5],
+        ])->get();
+
+        $data = [
+            'orders' => $orders,
+        ];
+
+        return view('vendorOrderHistory', $data);
+    }
 }

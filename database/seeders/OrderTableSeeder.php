@@ -30,12 +30,23 @@ class OrderTableSeeder extends Seeder
         Order::create([
             'customer_id' => 1,
             'vendor_id' => 1,
-            'status_id' => 1,
-            'total' => 16000,
+            'status_id' => 3,
+            'total' => 6000,
             'type' => true,
             'date' => Carbon::now(),
             'reviewed' => false,
-            'payment_image' => '',
+            'payment_image' => 'default.png',
+        ]);
+
+        Order::create([
+            'customer_id' => 1,
+            'vendor_id' => 1,
+            'status_id' => 5,
+            'total' => 3000,
+            'type' => true,
+            'date' => Carbon::now(),
+            'reviewed' => false,
+            'payment_image' => 'default.png',
         ]);
     }
 }

@@ -50,7 +50,7 @@
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="{{ url('/vendor-order') }}">Orders<span class="sr-only"></a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="#">History</a>
+                    <a class="nav-link text-dark" href="{{ url('/vendor-order-history') }}">History</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="{{ url('/vendor-menu') }}">Menu</a>
                 @endif
