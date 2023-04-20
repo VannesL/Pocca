@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Canteen;
 use App\Models\Vendor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Ui\Presets\React;
@@ -181,5 +184,26 @@ class VendorController extends Controller
         if ($user->delete()) {
             return redirect('/vendor-login');
         }
+    }
+    public function getSalesReport(Request $request){
+        $userid = auth()->guard('vendor')->user()->id;
+
+        $selectedDate = Carbon::today()->toDateString();
+        if ($request->selectedDate) {
+            // dd($request->selectedDate);
+            $selectedDate = $request->selectedDate;
+        }
+
+        $report = DB::table('orders')
+                    ->join('order_items','orders.id','=','order_items.order_id')
+                    ->join('menu_items','order_items.menu_id','=','menu_items.id')
+                    ->select('menu_items.name',DB::raw('SUM(order_items.quantity) AS sold'),DB::raw('(SUM(order_items.quantity) * menu_items.price) AS profits'))
+                    ->where('orders.vendor_id',$userid)
+                    ->where('orders.date',$selectedDate)
+                    ->groupBy('menu_items.name')
+                    ->get();
+        $totalProfits = $report->sum('profits');
+
+        return view('vendorSalesReport', ['report' => $report, 'totalProfits' => $totalProfits, 'selectedDate' => $selectedDate]);
     }
 }

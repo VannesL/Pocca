@@ -19,7 +19,7 @@ class OrderTableSeeder extends Seeder
         Order::create([
             'customer_id' => 1,
             'vendor_id' => 1,
-            'status_id' => 1,
+            'status_id' => 5,
             'total' => 16000,
             'type' => true,
             'date' => Carbon::now(),
@@ -30,7 +30,7 @@ class OrderTableSeeder extends Seeder
         Order::create([
             'customer_id' => 1,
             'vendor_id' => 1,
-            'status_id' => 1,
+            'status_id' => 5,
             'total' => 16000,
             'type' => true,
             'date' => Carbon::now(),

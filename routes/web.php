@@ -60,6 +60,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     //Order
     Route::get('/vendor-order', [OrderController::class, 'vendorOrder']);
     Route::get('/vendor-order/{orderid}', [OrderController::class, 'vendorOrderDetails']);
+    // Sales Report
+    Route::get('/vendor-home', [VendorController::class, 'getSalesReport']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {

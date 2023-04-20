@@ -1,0 +1,74 @@
+@extends('layout')
+
+
+@section('content')
+<div class="container-fluid  p-4">
+    <div class="col">
+        <div class="row mb-5"> {{-- page widget--}}
+            <div class="col-md-4">
+                <div class="card bg-primary ">
+                    <a class="text-white text-decoration-none" href="#">
+                        <div class="card-body p-4">
+                            <h4 class="mb-3">Rating</h4>
+                            <h2 class="mb-3">
+                                <i class="fa-solid fa-star"></i>
+                                5
+                            </h2>
+                            <h6 class="card-text font-weight-light">See review 
+                                <i class="fa-solid fa-angle-right" style="color: #ffffff;"></i>
+                            </h6>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row px-2"> {{--Sales Report--}}
+            <h2 class="text-center mb-3">Sales Report</h2>
+            <form action="{{ url('/vendor-home') }}" method="GET" class="form-loading mb-3" style="padding: 0">
+                @csrf
+                <div class="row">
+                    <div class="col-10">
+                        <div class="form-group @error('search') has-error @enderror">
+                            <input name="selectedDate"  id="selectedDate" type="date" value="{{ $selectedDate }}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-2 ps-1">
+                        <button type="submit" class="btn btn-primary btn-block btn_submit ms-0"><i
+                                class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-striped table-bordered " style="">
+                <thead>
+                  <tr>
+                    <th class="col-1 text-center"scope="col">#</th>
+                    <th class="col-6" scope="col">Menu</th>
+                    <th class="col text-center" scope="col">Sold</th>
+                    <th class="col-4 text-end"scope="col">Profits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($report as $menu)
+                        @php
+                        $menuName = explode('_',$menu->name)
+                        @endphp
+                        <tr>
+                            <th class="text-center" scope="row">{{$loop->iteration}}</th>
+                            <td class="text-break">{{$menuName[1]}}</td>
+                            <td class="text-break text-center">{{$menu->sold}}</td>
+                            <td class="text-end">Rp {{$menu->profits}}</td>
+                        </tr>
+                       
+                    @endforeach
+                  <tr>
+                    <td  class="text-center fw-bold" colspan="3">Total Profits</td>
+                    <td class="text-end fw-bold">Rp {{$totalProfits}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+        </div>
+    </div>
+</div>
+@endsection
