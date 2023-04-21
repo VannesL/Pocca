@@ -201,19 +201,22 @@ class VendorController extends Controller
                     ->whereMonth('date','=',$selectedDate->month - 1)
                     ->whereYear('date','=',$selectedDate->year)
                     ->get();
+
+        // calculate the difference of revenue and total order between curr month and last month
         $revDiff=100;
         $ordDiff =100;
-        if ($past_revOrd[0]->revenue) {
+        if ($past_revOrd[0]->revenue) { 
             $revDiff = ($curr_revOrd[0]->revenue - $past_revOrd[0]->revenue) *100 / $past_revOrd[0]->revenue;
             $ordDiff = ($curr_revOrd[0]->total_order - $past_revOrd[0]->total_order) *100 / $past_revOrd[0]->total_order;
         }
 
-        $selectedDate = $selectedDate->toDateString();
-        if ($request->selectedDate) {
-            // dd($request->selectedDate);
+        
+        $selectedDate = $selectedDate->toDateString(); //change to date string for passing value to input date in view
+        if ($request->selectedDate) { // if the vendor request for past sales report
             $selectedDate = $request->selectedDate;
         }
 
+        //query for sales report depend on the selected date
         $report = DB::table('orders')
                     ->join('order_items','orders.id','=','order_items.order_id')
                     ->join('menu_items','order_items.menu_id','=','menu_items.id')
