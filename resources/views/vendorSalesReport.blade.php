@@ -4,12 +4,12 @@
 @section('content')
 <div class="container-fluid  p-4">
     <div class="col">
-        <div class="row mb-5"> {{-- page widget--}}
-            <div class="col-md-4">
+        <div class="row"> {{-- page widget--}}
+            <div class="col-md-4  mb-3">
                 <div class="card bg-primary ">
                     <a class="text-white text-decoration-none" href="#">
                         <div class="card-body p-4">
-                            <h4 class="mb-3">Rating</h4>
+                            <h5 class="mb-3">Rating</h5>
                             <h2 class="mb-3">
                                 <i class="fa-solid fa-star"></i>
                                 5
@@ -21,6 +21,38 @@
                     </a>
                 </div>
             </div>
+            <div class="col-md-4  mb-3">
+                <div class="card  bg-warning ">
+                    <div class="card-body text-light p-4">
+                        <h5 class="mb-3">This Month Revenue</h5>
+                        <h2 class="mb-3">
+                            <i class="fa-solid fa-chart-line"></i> RP {{$revenueOrders[0]->revenue}}
+                        </h2>
+                        @if ($revDiff >=0)
+                        <h6 class="card-text font-weight-light"> Increase by {{ $revDiff }}%</h6>
+                        @else
+                        <h6 class="card-text font-weight-light">Decrease by {{ $revDiff }}%</h6>
+                        @endif
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4  mb-3">
+                <div class="card  bg-info">
+                    <div class="card-body text-light p-4">
+                        <h5 class="mb-3">This Month Total Orders</h5>
+                        <h2 class="mb-3">
+                            <i class="fa-solid fa-cart-shopping"></i> {{$revenueOrders[0]->total_order}}
+                        </h2>
+                        @if ($revDiff >=0)
+                        <h6 class="card-text font-weight-light"> Increase by {{ $ordDiff }}% </h6>
+                        @else
+                        <h6 class="card-text font-weight-light">Decrease by {{ $ordDiff }}%</h6>
+                        @endif
+                        
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row px-2"> {{--Sales Report--}}
             <h2 class="text-center mb-3">Sales Report</h2>
@@ -29,7 +61,7 @@
                 <div class="row">
                     <div class="col-10">
                         <div class="form-group @error('search') has-error @enderror">
-                            <input name="selectedDate"  id="selectedDate" type="date" value="{{ $selectedDate }}" class="form-control">
+                            <input name="selectedDate"  id="selectedDate" type="date" value="{{ $selectedDate}}" class="form-control">
                         </div>
                     </div>
                     <div class="col-2 ps-1">

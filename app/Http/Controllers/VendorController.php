@@ -188,7 +188,27 @@ class VendorController extends Controller
     public function getSalesReport(Request $request){
         $userid = auth()->guard('vendor')->user()->id;
 
-        $selectedDate = Carbon::today()->toDateString();
+        $selectedDate = Carbon::today(); // initially todays date
+
+        $curr_revOrd = DB::table('orders') // query get total revenue and order in current month
+                    ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
+                    ->whereMonth('date','=',$selectedDate->month)
+                    ->whereYear('date','=',$selectedDate->year)
+                    ->get();
+        
+        $past_revOrd = DB::table('orders') // query get total revenue and order last month
+                    ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
+                    ->whereMonth('date','=',$selectedDate->month - 1)
+                    ->whereYear('date','=',$selectedDate->year)
+                    ->get();
+        $revDiff=100;
+        $ordDiff =100;
+        if ($past_revOrd[0]->revenue) {
+            $revDiff = ($curr_revOrd[0]->revenue - $past_revOrd[0]->revenue) *100 / $past_revOrd[0]->revenue;
+            $ordDiff = ($curr_revOrd[0]->total_order - $past_revOrd[0]->total_order) *100 / $past_revOrd[0]->total_order;
+        }
+
+        $selectedDate = $selectedDate->toDateString();
         if ($request->selectedDate) {
             // dd($request->selectedDate);
             $selectedDate = $request->selectedDate;
@@ -204,6 +224,6 @@ class VendorController extends Controller
                     ->get();
         $totalProfits = $report->sum('profits');
 
-        return view('vendorSalesReport', ['report' => $report, 'totalProfits' => $totalProfits, 'selectedDate' => $selectedDate]);
+        return view('vendorSalesReport', ['report' => $report, 'totalProfits' => $totalProfits, 'selectedDate' => $selectedDate, 'revenueOrders' => $curr_revOrd,'revDiff' =>  $revDiff, 'ordDiff' => $ordDiff]);
     }
 }
