@@ -37,5 +37,16 @@ class OrderTableSeeder extends Seeder
             'reviewed' => false,
             'payment_image' => '',
         ]);
+
+        Order::create([
+            'customer_id' => 1,
+            'vendor_id' => 1,
+            'status_id' => 5,
+            'total' => 300000,
+            'type' => true,
+            'date' => Carbon::now()->subMonth(1),
+            'reviewed' => false,
+            'payment_image' => '',
+        ]);
     }
 }
