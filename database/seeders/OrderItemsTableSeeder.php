@@ -47,7 +47,7 @@ class OrderItemsTableSeeder extends Seeder
             'menu_id' => 2,
             'order_id' => 3,
             'quantity' => 1,
-            'notes' => 'Extra crispy please!',
+            'notes' => 'No cheese, I am allergic',
         ]);
     }
 }

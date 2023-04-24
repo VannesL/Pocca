@@ -42,7 +42,7 @@ class OrderTableSeeder extends Seeder
             'customer_id' => 1,
             'vendor_id' => 1,
             'status_id' => 5,
-            'total' => 3000,
+            'total' => 9000,
             'type' => true,
             'date' => Carbon::now(),
             'reviewed' => false,
