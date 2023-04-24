@@ -1,5 +1,9 @@
 @extends('layout')
 
+@push('custom-js')
+  <script type="text/javascript" src="{{ asset ('js/refreshOrderDetails.js') }}"></script>
+@endpush
+
 @section('content')
     <div class="container">
         <h3 class="">Order for: {{ $order->customer->name }}</h3>
@@ -27,7 +31,7 @@
             }
         @endphp
         <div class="d-flex justify-content-between mb-2">
-            <div class="text-bg-{{$color}} text-center fs-3 fw-bold px-2">
+            <div id="orderStatus" class="text-bg-{{$color}} text-center fs-3 fw-bold px-2">
                 {{ $order->status->name }}
             </div> 
             <div>
@@ -74,23 +78,31 @@
             </div>
         </div>
 
-        <div class=" container d-flex mt-3 align-items-end h-100">
+        <div class=" container d-flex mt-3 h-100 flex-column">
             @if ($order->payment_image != '')
-                <img src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 200px; object-fit:contain;">
+                <img id = "paymentImg" src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 250px; object-fit:contain;" data-bs-toggle="modal" data-bs-target="#imgPreview">
+                <!-- Modal -->
+                <div class="modal fade bg-transparent" id="imgPreview" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered bg-transparent" style="" role="document">
+                        <div class="modal-body bg-transparent">
+                            <img id = "paymentImg" src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100 h-100" alt="image error" style="object-fit:contain;">
+                        </div>
+                    </div> 
+                </div>
             @endif
 
             @switch($order->status->id)
                 @case(1)
-                    <div class="fw-bold">Waiting for customer to complete payment...</div>
+                    <div class="fw-bold text-center">Waiting for customer to complete payment...</div>
                     @break
                 @case(2)
-                    <div class="d-flex justify-content-around fw-bold">
+                    <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
                         <a href="/delete-order" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
                         <a href="/vendor-order/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" style="" role="document">
+                        <div class="modal-dialog modal-dialog-centered" style="" role="document">
                         <form method="POST" action="/vendor-order/delete/{{$order->id}}" class="modal-content">
                             @csrf
                             <div class="modal-header">
@@ -112,10 +124,10 @@
                     </div>                
                     @break
                 @case(3)
-                    <a href="/vendor-order/update-status/{{$order->id}}" class="btn btn-warning fw-bold">Finish Cooking</a>
+                    <a href="/vendor-order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto">Finish Cooking</a>
                     @break
                 @case(4)
-                    <div class="fw-bold">Waiting for customer pickup...</div>
+                    <div class="fw-bold text-center">Waiting for customer pickup...</div>
                     @break
             @endswitch
         </div>

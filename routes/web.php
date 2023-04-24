@@ -59,9 +59,9 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
     //Order
     Route::get('/vendor-order', [OrderController::class, 'vendorOrder']);
+    Route::get('/vendor-order/history', [OrderController::class, 'vendorOrderHistory']);
     Route::get('/vendor-order/{orderid}', [OrderController::class, 'vendorOrderDetails']);
     Route::get('/vendor-order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
-    Route::get('/vendor-order/history', [OrderController::class, 'vendorOrderHistory']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {

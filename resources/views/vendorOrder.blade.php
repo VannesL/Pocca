@@ -7,7 +7,7 @@
             @if (!$orders->isEmpty())
                 @foreach ($orders as $order)
                 <a href="/vendor-order/{{$order->id}}" class="text-decoration-none">
-                    <div class="card mb-2 text-bg-light border-light">
+                    <div class="card shadow mb-3 text-bg-light border-light">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Order for: {{ $order->customer->name }}</h5>
                             <div class="row card-text w-100">
@@ -50,7 +50,7 @@
                                 break;
                             }
                         @endphp
-                        <div class="card-footer text-bg-{{$color}} text-center">
+                        <div class="card-footer text-bg-{{$color}} text-center fw-bold">
                             {{ $order->status->name }}
                         </div>
                     </div>
