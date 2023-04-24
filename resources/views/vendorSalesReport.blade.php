@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="container-fluid  p-4">
+<div class="container-fluid  px-4">
     <div class="col">
         <div class="row"> {{-- page widget--}}
             <div class="col-md-4  mb-3">
