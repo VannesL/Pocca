@@ -46,7 +46,7 @@
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="#">History</a>
                 @elseif (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null)
-                    <a class="nav-link text-dark" href="vendor-home">Home</a>
+                    <a class="nav-link text-dark" href="{{ url('/vendor-dash') }}">Home</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="{{ url('/vendor-order') }}">Orders<span class="sr-only"></a>
                     <div class="vr"></div>

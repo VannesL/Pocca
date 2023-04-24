@@ -26,7 +26,7 @@
                 $color = "success";
                 break;
             case 5:
-                $color = "light";
+                $color = "dark";
                 break;
             }
         @endphp
@@ -44,7 +44,7 @@
         </div>
             
 
-        <div class="container p-2 border-dark bg-light">
+        <div class="container p-2 border border-dark bg-light">
             <div class="header d-flex justify-content-between px-2 pt-2">
                 <div>OrderId: {{ $order->id }}</div>
                 <div class="align-items-end">{{ $order->date }}</div>

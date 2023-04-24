@@ -7,7 +7,7 @@
             @if (!$orders->isEmpty())
                 @foreach ($orders as $order)
                 <a href="/vendor-order/{{$order->id}}" class="text-decoration-none">
-                    <div class="card shadow mb-3 text-bg-light border-light">
+                    <div class="card mb-3 text-bg-light border-light" style="box-shadow: 0px 2px 10px 2px #8b9ce956;">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Order for: {{ $order->customer->name }}</h5>
                             <div class="row card-text w-100">

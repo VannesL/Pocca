@@ -105,10 +105,6 @@ class VendorController extends Controller
         }
     }
 
-    public function vendorDash(Request $request)
-    {
-        return view('vendorDash');
-    }
     public function getVendorEditProfile()
     {
         $canteenId = auth()->guard('vendor')->user()->canteen_id;
@@ -185,33 +181,34 @@ class VendorController extends Controller
             return redirect('/vendor-login');
         }
     }
-    public function getSalesReport(Request $request){
+    public function vendorDash(Request $request)
+    {
         $userid = auth()->guard('vendor')->user()->id;
 
         $selectedDate = Carbon::today(); // initially todays date
 
         $curr_revOrd = DB::table('orders') // query get total revenue and order in current month
-                    ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
-                    ->whereMonth('date','=',$selectedDate->month)
-                    ->whereYear('date','=',$selectedDate->year)
-                    ->get();
-        
+            ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
+            ->whereMonth('date', '=', $selectedDate->month)
+            ->whereYear('date', '=', $selectedDate->year)
+            ->get();
+
         $past_revOrd = DB::table('orders') // query get total revenue and order last month
-                    ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
-                    ->whereMonth('date','=',$selectedDate->month - 1)
-                    ->whereYear('date','=',$selectedDate->year)
-                    ->get();
+            ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
+            ->whereMonth('date', '=', $selectedDate->month - 1)
+            ->whereYear('date', '=', $selectedDate->year)
+            ->get();
 
         // calculate the difference of revenue and total order between curr month and last month
-        $revDiff=100;
-        $ordDiff =100;
-        if ($past_revOrd[0]->revenue) { 
-            $revDiff = ($curr_revOrd[0]->revenue - $past_revOrd[0]->revenue) *100 / $past_revOrd[0]->revenue;
-            $revDiff = round($revDiff,2);
-            $ordDiff = ($curr_revOrd[0]->total_order - $past_revOrd[0]->total_order) *100 / $past_revOrd[0]->total_order;
+        $revDiff = 100;
+        $ordDiff = 100;
+        if ($past_revOrd[0]->revenue) {
+            $revDiff = ($curr_revOrd[0]->revenue - $past_revOrd[0]->revenue) * 100 / $past_revOrd[0]->revenue;
+            $revDiff = round($revDiff, 2);
+            $ordDiff = ($curr_revOrd[0]->total_order - $past_revOrd[0]->total_order) * 100 / $past_revOrd[0]->total_order;
         }
 
-        
+
         $selectedDate = $selectedDate->toDateString(); //change to date string for passing value to input date in view
         if ($request->selectedDate) { // if the vendor request for past sales report
             $selectedDate = $request->selectedDate;
@@ -219,15 +216,15 @@ class VendorController extends Controller
 
         //query for sales report depend on the selected date
         $report = DB::table('orders')
-                    ->join('order_items','orders.id','=','order_items.order_id')
-                    ->join('menu_items','order_items.menu_id','=','menu_items.id')
-                    ->select('menu_items.name',DB::raw('SUM(order_items.quantity) AS sold'),DB::raw('(SUM(order_items.quantity) * menu_items.price) AS profits'))
-                    ->where('orders.vendor_id',$userid)
-                    ->where('orders.date',$selectedDate)
-                    ->groupBy('menu_items.name')
-                    ->get();
+            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->join('menu_items', 'order_items.menu_id', '=', 'menu_items.id')
+            ->select('menu_items.name', DB::raw('SUM(order_items.quantity) AS sold'), DB::raw('(SUM(order_items.quantity) * menu_items.price) AS profits'))
+            ->where('orders.vendor_id', $userid)
+            ->where('orders.date', $selectedDate)
+            ->groupBy('menu_items.name')
+            ->get();
         $totalProfits = $report->sum('profits');
 
-        return view('vendorSalesReport', ['report' => $report, 'totalProfits' => $totalProfits, 'selectedDate' => $selectedDate, 'revenueOrders' => $curr_revOrd,'revDiff' =>  $revDiff, 'ordDiff' => $ordDiff]);
+        return view('vendorDash', ['report' => $report, 'totalProfits' => $totalProfits, 'selectedDate' => $selectedDate, 'revenueOrders' => $curr_revOrd, 'revDiff' =>  $revDiff, 'ordDiff' => $ordDiff]);
     }
 }
