@@ -42,5 +42,12 @@ class OrderItemsTableSeeder extends Seeder
             'quantity' => 1,
             'notes' => '',
         ]);
+
+        OrderItems::create([
+            'menu_id' => 2,
+            'order_id' => 3,
+            'quantity' => 1,
+            'notes' => 'Extra crispy please!',
+        ]);
     }
 }

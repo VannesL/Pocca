@@ -62,6 +62,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-order/history', [OrderController::class, 'vendorOrderHistory']);
     Route::get('/vendor-order/{orderid}', [OrderController::class, 'vendorOrderDetails']);
     Route::get('/vendor-order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
+    // Sales Report
+    Route::get('/vendor-home', [VendorController::class, 'getSalesReport']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {
