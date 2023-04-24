@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PriceRange extends Model
+class Status extends Model
 {
     use HasFactory;
 
-    public function vendors()
+    public function orders()
     {
-        return $this->hasMany(Vendor::class);
+        return $this->hasMany(Order::class);
     }
 }

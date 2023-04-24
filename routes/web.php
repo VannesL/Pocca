@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -45,15 +46,22 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
+    //Profile
     Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
     Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
     Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
+    //Menu
     Route::get('/vendor-menu', [MenuItemController::class, 'vendorMenu']);
     Route::get('/vendor-menu/add', [MenuItemController::class, 'addMenuForm']);
     Route::post('/vendor-menu/add', [MenuItemController::class, 'addMenu']);
     Route::get('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenuForm']);
     Route::post('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenu']);
     Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
+    //Order
+    Route::get('/vendor-order', [OrderController::class, 'vendorOrder']);
+    Route::get('/vendor-order/history', [OrderController::class, 'vendorOrderHistory']);
+    Route::get('/vendor-order/{orderid}', [OrderController::class, 'vendorOrderDetails']);
+    Route::get('/vendor-order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {

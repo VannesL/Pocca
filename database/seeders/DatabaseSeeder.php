@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             VendorTableSeeder::class,
             CategoryTableSeeder::class,
             MenuItemTableSeeder::class,
+            StatusTableSeeder::class,
+            OrderTableSeeder::class,
+            OrderItemsTableSeeder::class,
         ]);
     }
 }
