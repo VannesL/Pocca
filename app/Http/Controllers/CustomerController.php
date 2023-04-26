@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Canteen;
 use App\Models\Customer;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -47,16 +48,30 @@ class CustomerController extends Controller
 
     public function home(Request $request)
     {
-        //$favorites = FavoriteCanteem::all();
         $canteens = Canteen::all()->sortByDesc('favorites'); //->whereNotIn($favorites->id);
         if ($request->search) {
-            // dump($request->search);
-            $canteens = Canteen::where('name', 'LIKE', '%' . $request->search . '%')
+            if ($request->type == 'canteen') {
+                $canteens = Canteen::where('name', 'LIKE', '%' . $request->search . '%')
+                    ->get()
+                    ->sortByDesc('favorites');
+            } elseif($request->type == 'vendor') {
+                $canteens = Vendor::where('name', 'LIKE', '%' . $request->search . '%')
                 ->get()
                 ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
-            // dd($canteens);
+            }
         }
         return view('home', ['canteens' => $canteens, 'search' => $request->search]);
+    }
+
+    public function canteen(Request $request, Canteen $canteen)
+    {
+        $vendors = Vendor::where('canteen_id', $canteen->id)->get()->sortByDesc('favorites'); //->whereNotIn($favorites->id);
+        if ($request->search) {
+            $vendors = Vendor::where('name', 'LIKE', '%' . $request->search . '%')
+                ->get()
+                ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
+        }
+        return view('canteen', ['canteen' => $canteen, 'vendors' => $vendors, 'search' => $request->search]);
     }
 
     public function getCustomerEditProfile()

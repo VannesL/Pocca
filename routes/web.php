@@ -39,6 +39,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/home', [CustomerController::class, 'home']);
+    Route::get('/canteen/{canteen}', [CustomerController::class, 'canteen']);
     Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
     Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
