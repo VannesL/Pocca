@@ -27,7 +27,7 @@ class VendorTableSeeder extends Seeder
             'address' => 'Jalan Sana Sini Block 123',
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
-            'qris' => 'QRIS',
+            'qris' => 'qris_pocca.jpg',
             'image' => 'Image',
         ]);
 

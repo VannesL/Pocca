@@ -37,10 +37,10 @@
 
                             switch ($order->status->id) {
                             case 1:
-                                $color = "secondary";
+                                $color = "warning";
                                 break;
                             case 2:
-                                $color = "warning";
+                                $color = "secondary";
                                 break;
                             case 3:
                                 $color = "primary";

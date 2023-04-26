@@ -14,10 +14,10 @@
 
             switch ($order->status->id) {
             case 1:
-                $color = "secondary";
+                $color = "warning";
                 break;
             case 2:
-                $color = "warning";
+                $color = "secondary";
                 break;
             case 3:
                 $color = "primary";
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class=" container d-flex mt-3 h-100 flex-column">
+        <div class=" container d-flex my-3 h-100 flex-column">
             @if ($order->payment_image != '')
                 <img id = "paymentImg" src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 250px; object-fit:contain;" data-bs-toggle="modal" data-bs-target="#imgPreview">
                 <!-- Modal -->
@@ -93,43 +93,51 @@
 
             @switch($order->status->id)
                 @case(1)
-                    <div class="fw-bold text-center">Waiting for customer to complete payment...</div>
+                    <div class="d-flex justify-content-around fw-bold w-75 mx-auto mt-3">
+                        <a href="/delete-order" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
+                        <a href="/order/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
+                    </div>
                     @break
                 @case(2)
-                    <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
-                        <a href="/delete-order" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
-                        <a href="/order/vendor/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" style="" role="document">
-                        <form method="POST" action="/order/vendor/delete/{{$order->id}}" class="modal-content">
-                            @csrf
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-outline">
-                                    <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Fake payment" rows="3" style="resize:none;"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-around">  
-                                <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                                    Submit
-                                </button>
-                                <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">Cancel</button> 
-                            </div>
-                        </form>
+                    @if ($order->payment_image != '')
+                        <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
+                            <a href="/delete-order" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
+                            <a href="/order/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
                         </div> 
-                    </div>                
+                    @else
+                    <div class="fw-bold text-center">Waiting for customer payment...</div>
+                    @endif
+
                     @break
                 @case(3)
-                    <a href="/order/vendor/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto">Finish Cooking</a>
+                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto">Finish Cooking</a>
                     @break
                 @case(4)
                     <div class="fw-bold text-center">Waiting for customer pickup...</div>
                     @break
             @endswitch
+            <!-- Modal -->
+            <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="" role="document">
+                <form method="POST" action="/order/vendor/delete/{{$order->id}}" class="modal-content">
+                    @csrf
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-outline">
+                            <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Out of ingredients, fake payment..." rows="3" style="resize:none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">  
+                        <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">Cancel</button> 
+                    </div>
+                </form>
+                </div> 
+            </div>
         </div>
     </div>
 @endsection

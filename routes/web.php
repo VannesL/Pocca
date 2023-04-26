@@ -47,7 +47,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     //Order
     Route::get('/order/customer', [OrderController::class, 'customerOrder']);
     Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
-    Route::get('/order/customer/update-status/{orderid}', [OrderController::class, 'customerUpdateStatus']);
+    Route::post('/order/customer/payment/{orderid}', [OrderController::class, 'orderPayment']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
@@ -66,13 +66,13 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     //Order
     Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);
     Route::get('/order/vendor/history', [OrderController::class, 'vendorOrderHistory']);
-    Route::get('/order/vendor/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
     // Sales Report
     Route::get('/vendor-home', [VendorController::class, 'getSalesReport']);
 });
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/order/{orderid}', [OrderController::class, 'orderDetails']);
+    Route::get('/order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {
