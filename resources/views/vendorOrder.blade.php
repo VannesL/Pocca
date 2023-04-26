@@ -9,7 +9,7 @@
                     @if ($order->status_id == 1)  
                         <a href="/order/{{$order->id}}" class="text-decoration-none text-dark"> 
                             <div class="card mb-3 text-bg-light border-danger border-3 border-bg" style="box-shadow: 0px 2px 10px 2px #8b9ce956;">
-                                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+                                <span class="position-absolute top-100 start-50 translate-middle badge rounded-pill bg-danger">
                                     NEW
                                     <span class="visually-hidden">New alert</span>
                                 </span>
