@@ -59,9 +59,6 @@ class CustomerController extends Controller
                 $canteens = Vendor::where('name', 'LIKE', '%' . $request->search . '%')
                 ->get()
                 ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
-            } elseif($request->type == 'menu_item') {
-                $canteens = MenuItem::where('name', 'LIKE', '%' . $request->search . '%')
-                ->get();
             }
         }
         return view('home', ['canteens' => $canteens, 'search' => $request->search]);

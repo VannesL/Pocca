@@ -12,7 +12,6 @@
                                 <select name="type" id="" class="form-control">
                                     <option value="canteen">Canteen</option>
                                     <option value="vendor">Vendor</option>
-                                    <option value="menu_item">Menu Item</option>
                                 </select>
                                 @error('type')
                                 <span class="form-text m-b-none text-danger">{{ $message }}</span>
