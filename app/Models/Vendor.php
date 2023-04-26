@@ -24,6 +24,11 @@ class Vendor extends Authenticatable
         return $this->belongsTo(Canteen::class);
     }
 
+    public function menuItems()
+    {
+        return $this->belongsTo(MenuItem::class);
+    }
+
     public function priceRange()
     {
         return $this->belongsTo(PriceRange::class);

@@ -7,18 +7,19 @@
                 <form action="{{ url('/home') }}" method="get" class="form-loading">
                     @csrf
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-4">
                             <div class="form-group @error('type') has-error @enderror">
                                 <select name="type" id="" class="form-control">
                                     <option value="canteen">Canteen</option>
                                     <option value="vendor">Vendor</option>
+                                    <option value="menu_item">Menu Item</option>
                                 </select>
                                 @error('type')
                                 <span class="form-text m-b-none text-danger">{{ $message }}</span>
                             @enderror
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="form-group @error('search') has-error @enderror">
                                 <input name="search" type="text" value="{{ $search }}" class="form-control"
                                     placeholder="Search">
@@ -53,7 +54,7 @@
                     </a>
                 @endforeach --}}
                 @foreach ($canteens as $canteen)
-                    <a href="{{ url('/canteen', $canteen->id) }}" class="text-decoration-none">
+                    <a href="{{ url('/home', $canteen->id) }}" class="text-decoration-none">
                         <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">

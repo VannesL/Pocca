@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Canteen;
 use App\Models\Customer;
+use App\Models\MenuItem;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,9 @@ class CustomerController extends Controller
                 $canteens = Vendor::where('name', 'LIKE', '%' . $request->search . '%')
                 ->get()
                 ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
+            } elseif($request->type == 'menu_item') {
+                $canteens = MenuItem::where('name', 'LIKE', '%' . $request->search . '%')
+                ->get();
             }
         }
         return view('home', ['canteens' => $canteens, 'search' => $request->search]);
@@ -66,10 +70,17 @@ class CustomerController extends Controller
     public function canteen(Request $request, Canteen $canteen)
     {
         $vendors = Vendor::where('canteen_id', $canteen->id)->get()->sortByDesc('favorites'); //->whereNotIn($favorites->id);
+        $vendor_ids = $vendors->pluck('id');
+
         if ($request->search) {
-            $vendors = Vendor::where('name', 'LIKE', '%' . $request->search . '%')
+            if($request->type == 'vendor') {
+                $vendors = Vendor::where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')
                 ->get()
                 ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
+            } elseif($request->type == 'menu_item') {
+                $vendors = MenuItem::whereIn('vendor_id', $vendor_ids)->where('name', 'LIKE', '%' . $request->search . '%')
+                ->get();
+            }
         }
         return view('canteen', ['canteen' => $canteen, 'vendors' => $vendors, 'search' => $request->search]);
     }
