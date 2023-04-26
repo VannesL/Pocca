@@ -4,6 +4,20 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+                <div class="card border-0">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 class="card-title">{{ $canteen->name }}</h5>
+                            <p class="card-text">{{ $canteen->address }}</p>
+                        </div>
+                        <div class="col-3 align-self-center">
+                            <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div><br>
+
                 <form action="{{ url('/home', $canteen->id) }}" method="get" class="form-loading">
                     @csrf
                     <div class="row">
@@ -14,8 +28,8 @@
                                     <option value="menu_item">Menu Item</option>
                                 </select>
                                 @error('type')
-                                <span class="form-text m-b-none text-danger">{{ $message }}</span>
-                            @enderror
+                                    <span class="form-text m-b-none text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-6">
@@ -59,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-9">
                                         <h5 class="card-title">{{ $vendor->name }}</h5>
-                                        <p class="card-text">{{ $vendor->address }}</p>
+                                        <p class="card-text">{{ $vendor->description }}</p>
                                     </div>
                                     <div class="col-3 align-self-center">
                                         <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
