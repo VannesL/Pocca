@@ -32,7 +32,7 @@
                             <div class="form-outline mb-4">
                               <label for="name" class="h4 fw-bold">Name</label>
                               <div class="d-flex col">
-                                  <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name"  autocomplete="name" placeholder="{{auth()->guard('customer')->user()->name}}" readonly />
+                                  <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name"  autocomplete="name" value="{{auth()->guard('customer')->user()->name}}" readonly />
                                   
                                   <button type="button" class="btn " name="edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -48,7 +48,7 @@
                             <div class="form-outline mb-4">
                               <label for="email" class="h4 fw-bold">Email</label>
                               <div class="d-flex col">
-                                <input id="email" type="email" class="form-control form-control-md @error('email') is-invalid @enderror" name="email" placeholder="{{auth()->guard('customer')->user()->email}}" readonly />
+                                <input id="email" type="email" class="form-control form-control-md @error('email') is-invalid @enderror" name="email" value="{{auth()->guard('customer')->user()->email}}" readonly />
   
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -102,7 +102,7 @@
                             <div class="form-outline mb-4">
                               <label for="phone_number" class="h4 fw-bold">Phone Number</label>
                               <div class="d-flex col">
-                                <input id="phone_number" type="number" class="form-control form-control-md @error('phone_number') is-invalid @enderror" name="phone_number" value="" autocomplete="phone_number" placeholder="{{auth()->guard('customer')->user()->phone_number}}" readonly />
+                                <input id="phone_number" type="number" class="form-control form-control-md @error('phone_number') is-invalid @enderror" name="phone_number" value="{{auth()->guard('customer')->user()->phone_number}}" autocomplete="phone_number" readonly />
   
                                 
                                 <button type="button" class="btn " name="edit">
@@ -119,7 +119,7 @@
                             <div class="form-outline">
                               <label for="dob" class="h4 fw-bold">Date of birth</label>
                               <div class="d-flex col">
-                                <input id="dob" type="date" class="form-control form-control-md @error('dob') is-invalid @enderror" name="dob" value="{{auth()->guard('customer')->user()->dob}}" placeholder=""" readonly />
+                                <input id="dob" type="date" class="form-control form-control-md @error('dob') is-invalid @enderror" name="dob" value="{{auth()->guard('customer')->user()->dob}}" readonly />
                                   
                                 
                                 <button type="button" class="btn " name="edit">
@@ -138,7 +138,7 @@
                                 <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
-                                <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Update</button>
+                                <button class="btn btn-primary btn-md w-100 col m-2" name="submitBtn" type="submit">Update</button>
                               </div>
                             </div>
 

@@ -81,17 +81,20 @@ class CustomerController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $user = auth()->guard('customer')->user();
+        if ($request->email == $user->email) {
+            $request['email'] = null;
+        }
 
         Validator::make($request->all(), [
-            'name'              => ['nullable', 'string'],
+            'name'              => ['string'],
             'email'             => ['nullable', 'email' => 'email:rfc,dns', 'unique:customers'],
             'password'          => ['nullable', 'min:8'],
             'passwordConfirm'   => ['sometimes', 'same:password'],
-            'phone_number'      => ['nullable', 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
+            'phone_number'      => ['numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
             'dob'               => ['date', 'before:tomorrow']
         ])->validate();
 
-        $user = auth()->guard('customer')->user();
 
         //Hash password before inserting to DB
         $request['password'] = Hash::make($request->password);
