@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Ui\Presets\React;
 
+use function PHPUnit\Framework\containsEqual;
+
 class VendorController extends Controller
 {
     public function getVendorRegister()
@@ -119,22 +121,26 @@ class VendorController extends Controller
     }
 
     public function updateVendorProfile(Request $request)
-    {
+    { 
+        $user = auth()->guard('vendor')->user();
+        if ($request->email == $user->email) {
+            $request['email'] = null;
+            
+        }
         Validator::make($request->all(), [
-            'name'              => ['nullable', 'string'],
+            'name'              => ['string'],
             'email'             => ['nullable', 'email' => 'email:rfc,dns', 'unique:vendors'],
             'password'          => ['nullable', 'min:8'],
             'passwordConfirm'   => ['sometimes', 'same:password'],
-            'phone_number'      => ['nullable', 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
-            'store_name'         => ['nullable', 'string', 'min:8'],
-            'address'           => ['nullable', 'string', 'min: 8'],
-            'description'       => ['nullable', 'string', 'min: 8'],
+            'phone_number'      => [ 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
+            'store_name'         => [ 'string', 'min:8'],
+            'address'           => [ 'string', 'min: 8'],
+            'description'       => [ 'string', 'min: 8'],
             'image'             => ['mimes:jpg,bmp,png'],
             'qris'              => ['mimes:jpg,bmp,png'],
         ])->validate();
+        
 
-
-        $user = auth()->guard('vendor')->user();
 
         $request['password'] = Hash::make($request->password);
         if ($request->qris && Storage::exists("public/qris/$user->qris")) {

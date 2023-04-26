@@ -31,13 +31,13 @@
 
                             <div class="form-outline mb-4">
                               <label for="canteenName" class="h4 fw-bold">Canteen Name</label>
-                              <p id="canteenName" class="form-control form-control-md text-secondary" name="canteenName">{{$canteenName}}</p>
+                              <p id="canteenName" class="form-control form-control-md " name="canteenName">{{$canteenName}}</p>
                             </div>
 
                             <div class="form-outline mb-4">
                               <label for="store_name" class="h4 fw-bold">Store Name</label>
                               <div class="d-flex col">
-                                <input id="store_name" type="text" class="form-control form-control-md @error('store_name') is-invalid @enderror" name="store_name" value=""  placeholder="{{auth()->guard('vendor')->user()->store_name}}" readonly/>
+                                <input id="store_name" type="text" class="form-control form-control-md @error('store_name') is-invalid @enderror" name="store_name" value="{{auth()->guard('vendor')->user()->store_name}}" readonly/>
                                 
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -53,7 +53,7 @@
                             <div class="form-outline mb-4">
                               <label for="name" class="h4 fw-bold">Owner Name</label>
                               <div class="d-flex col">
-                                  <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name"  autocomplete="name" placeholder="{{auth()->guard('vendor')->user()->name}}" readonly />
+                                  <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name"  autocomplete="name" value="{{auth()->guard('vendor')->user()->name}}" readonly />
                                   
                                   <button type="button" class="btn " name="edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -69,7 +69,7 @@
                             <div class="form-outline mb-4">
                               <label for="email" class="h4 fw-bold">Email</label>
                               <div class="d-flex col">
-                                <input id="email" type="email" class="form-control form-control-md @error('email') is-invalid @enderror" name="email" placeholder="{{auth()->guard('vendor')->user()->email}}" readonly />
+                                <input id="email" type="email" class="form-control form-control-md @error('email') is-invalid @enderror" name="email" value="{{auth()->guard('vendor')->user()->email}}" readonly />
   
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -124,7 +124,7 @@
                             <div class="form-outline mb-4">
                               <label for="phone_number" class="h4 fw-bold">Phone Number</label>
                               <div class="d-flex col">
-                                <input id="phone_number" type="number" class="form-control form-control-md @error('phoneno') is-invalid @enderror" name="phone_number" value="" autocomplete="phone_number" placeholder="{{auth()->guard('vendor')->user()->phone_number}}" readonly />
+                                <input id="phone_number" type="number" class="form-control form-control-md @error('phoneno') is-invalid @enderror" name="phone_number" value="{{auth()->guard('vendor')->user()->phone_number}}" autocomplete="phone_number" readonly />
   
                                 
                                 <button type="button" class="btn " name="edit">
@@ -141,7 +141,7 @@
                             <div class="form-outline mb-4">
                               <label for="address" class="h4 fw-bold">Address</label>
                               <div class="d-flex col">  
-                                <textarea id="address" type="textbox"  rows="3" class="form-control form-control-md @error('address') is-invalid @enderror" name="address" style="height: 100px" value="" autocomplete="address" placeholder="{{auth()->guard('vendor')->user()->address}}" style="resize: none" readonly></textarea>
+                                <textarea id="address" type="textbox"  rows="3" class="form-control form-control-md @error('address') is-invalid @enderror" name="address" style="height: 100px"  autocomplete="address"  style="resize: none" readonly>{{auth()->guard('vendor')->user()->address}}</textarea>
   
                                 <button type="button" class="btn " name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -158,7 +158,7 @@
                             <div class="form-outline mb-4">
                               <label for="description" class="h4 fw-bold">Description</label>
                               <div class="d-flex col">
-                                <textarea id="description" type="textbox"  rows="3" class="form-control form-control-md @error('description') is-invalid @enderror" name="description"  rows="4" value="" autocomplete="description" placeholder="{{auth()->guard('vendor')->user()->description}}"  style="resize: none" readonly ></textarea>
+                                <textarea id="description" type="textbox"  rows="3" class="form-control form-control-md @error('description') is-invalid @enderror" name="description"  rows="4"  autocomplete="description"  style="resize: none" readonly >{{auth()->guard('vendor')->user()->description}}</textarea>
   
                                 <button type="button" class="btn" name="edit">
                                   <i class="fa-solid fa-pen-to-square"></i>
@@ -202,7 +202,7 @@
                                 <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
-                                <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Update</button>
+                                <button class="btn btn-primary btn-md w-100 col m-2" name="submitBtn" type="submit">Update</button>
                               </div>
             
                             </div>
