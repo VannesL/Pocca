@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="container">
-        <h3 class="">Order for: {{ $order->customer->name }}</h3>
+        <h6>{{ $order->vendor->canteen->name }}</h6>
+        <h3 class="">{{ $order->vendor->store_name }}</h3>
         <h6 class="mb-3">{{ $order->customer->phone_number }}</h6>
 
         @php
@@ -93,7 +94,7 @@
 
             @switch($order->status->id)
                 @case(1)
-                    <div class="fw-bold text-center">Waiting for customer to complete payment...</div>
+                    <div class="fw-bold text-center mt-3">Waiting for vendor confirmation...</div>
                     @break
                 @case(2)
                     <div class="d-flex justify-content-around fw-bold w-75 mx-auto">

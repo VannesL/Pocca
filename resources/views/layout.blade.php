@@ -42,15 +42,15 @@
                 @if (auth()->guard('customer')->check())
                     <a class="nav-link text-dark" href="{{ url('/home') }}">Home<span class="sr-only"></a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="#">Order</a>
+                    <a class="nav-link text-dark" href="{{ url('/order/customer') }}">Order</a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="#">History</a>
+                    <a class="nav-link text-dark" href="{{ url('/order/customer/history') }}">History</a>
                 @elseif (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null)
                     <a class="nav-link text-dark" href="{{ url('/vendor-dash') }}">Home</a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/vendor-order') }}">Orders<span class="sr-only"></a>
+                    <a class="nav-link text-dark" href="{{ url('/order/vendor') }}">Orders<span class="sr-only"></a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/vendor-order/history') }}">History</a>
+                    <a class="nav-link text-dark" href="{{ url('/order/vendor/history') }}">History</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark" href="{{ url('/vendor-menu') }}">Menu</a>
                 @endif

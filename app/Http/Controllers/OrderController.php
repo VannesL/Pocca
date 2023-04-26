@@ -22,7 +22,7 @@ class OrderController extends Controller
         return view('vendorOrder', $data);
     }
 
-    public function vendorOrderDetails(Request $request)
+    public function orderDetails(Request $request)
     {
         $order = Order::where([
             ['id', $request->orderid],
@@ -37,7 +37,11 @@ class OrderController extends Controller
             'orderItems' => $orderItems
         ];
 
-        return view('vendorOrderDetails', $data);
+        if (auth()->guard('customer')->check()) {
+            return view('customerOrderDetails', $data);
+        } else {
+            return view('vendorOrderDetails', $data);
+        }
     }
 
     public function orderUpdateStatus(Request $request)
@@ -65,5 +69,33 @@ class OrderController extends Controller
         ];
 
         return view('vendorOrderHistory', $data);
+    }
+
+    public function customerOrder(Request $request)
+    {
+        $orders = Order::where([
+            ['customer_id', auth()->guard('customer')->user()->id],
+            ['status_id', '<>', 5],
+        ])->get();
+
+        $data = [
+            'orders' => $orders,
+        ];
+
+        return view('customerOrder', $data);
+    }
+
+    public function customerOrderHistory(Request $request)
+    {
+        $orders = Order::where([
+            ['customer_id', auth()->guard('customer')->user()->id],
+            ['status_id', 5],
+        ])->get();
+
+        $data = [
+            'orders' => $orders,
+        ];
+
+        return view('customerOrderHistory', $data);
     }
 }

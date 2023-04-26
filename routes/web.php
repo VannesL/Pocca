@@ -40,9 +40,14 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/home', [CustomerController::class, 'home']);
     Route::get('/canteen/{canteen}', [CustomerController::class, 'canteen']);
+    //Profile
     Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
     Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
+    //Order
+    Route::get('/order/customer', [OrderController::class, 'customerOrder']);
+    Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
+    Route::get('/order/customer/update-status/{orderid}', [OrderController::class, 'customerUpdateStatus']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
@@ -59,12 +64,15 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::post('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenu']);
     Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
     //Order
-    Route::get('/vendor-order', [OrderController::class, 'vendorOrder']);
-    Route::get('/vendor-order/history', [OrderController::class, 'vendorOrderHistory']);
-    Route::get('/vendor-order/{orderid}', [OrderController::class, 'vendorOrderDetails']);
-    Route::get('/vendor-order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
+    Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);
+    Route::get('/order/vendor/history', [OrderController::class, 'vendorOrderHistory']);
+    Route::get('/order/vendor/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
     // Sales Report
     Route::get('/vendor-home', [VendorController::class, 'getSalesReport']);
+});
+
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/order/{orderid}', [OrderController::class, 'orderDetails']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:admin']], function () {
