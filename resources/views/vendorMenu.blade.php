@@ -20,18 +20,18 @@
                             <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark me-3 mt-2">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}deleteConfirmation" class="btn btn-danger mt-2">
+                            <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}addToCart" class="btn btn-danger mt-2">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="{{$item->id}}deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" style="" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                            <h5 class="modal-title" id="addToCartLabel">Are you sure?</h5>
                         </div>
                         <div class="modal-body">
                             This menu item will be deleted from the database.

@@ -28,7 +28,7 @@ class VendorTableSeeder extends Seeder
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
             'qris' => 'QRIS',
-            'image' => 'Image',
+            'image' => 'default.jpg',
         ]);
 
         Vendor::create([
@@ -44,7 +44,7 @@ class VendorTableSeeder extends Seeder
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
             'qris' => 'qris34394d3c8639448fe8d600da0caffe13.jpg',
-            'image' => 'profile3e63b6177d4fa966e35efacacb598576.png',
+            'image' => 'default.jpg',
         ]);
         Vendor::create([
             'canteen_id' => 2,
@@ -59,7 +59,7 @@ class VendorTableSeeder extends Seeder
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
             'qris' => 'QRIS',
-            'image' => 'Image',
+            'image' => 'default.jpg',
         ]);
 
         Vendor::create([
@@ -75,7 +75,7 @@ class VendorTableSeeder extends Seeder
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
             'qris' => 'qris34394d3c8639448fe8d600da0caffe13.jpg',
-            'image' => 'profile3e63b6177d4fa966e35efacacb598576.png',
+            'image' => 'default.jpg',
         ]);
     }
 }

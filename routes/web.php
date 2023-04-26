@@ -43,6 +43,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
     Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
+    Route::get('/vendor/{vendor}', [CustomerController::class, 'vendor']);
+    Route::get('/addToCart/{menuitem}', [CustomerController::class, 'vendor']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {

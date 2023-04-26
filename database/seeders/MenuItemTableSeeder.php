@@ -36,7 +36,48 @@ class MenuItemTableSeeder extends Seeder
             'cook_time' => 2,
             'image' => '',
         ]);
+        MenuItem::create([
+            'vendor_id' => '1',
+            'category_id' => '1',
+            'name' => '1_BBQ French Fries',
+            'description' => 'Fresh fries seasoned with salt topped with our cheese topping  Fresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese topping Fresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese toppingFresh fries seasoned with salt topped with our cheese topping',
+            'availability' => true,
+            'price' => 6000,
+            'cook_time' => 2,
+            'image' => '',
+        ]);
 
+        MenuItem::create([
+            'vendor_id' => '1',
+            'category_id' => '1',
+            'name' => '1_Hamburger',
+            'description' => 'Standard burger patty between 2 buns',
+            'availability' => true,
+            'price' => 10000,
+            'cook_time' => 5,
+            'image' => '',
+        ]);
+
+        MenuItem::create([
+            'vendor_id' => '1',
+            'category_id' => '1',
+            'name' => '1_Cheese French Fries',
+            'description' => 'Fresh fries seasoned with salt topped with our cheese topping',
+            'availability' => true,
+            'price' => 6000,
+            'cook_time' => 2,
+            'image' => '',
+        ]);
+        MenuItem::create([
+            'vendor_id' => '1',
+            'category_id' => '1',
+            'name' => '1_BBQ French Fries',
+            'description' => 'Fresh fries seasoned with salt topped with our cheese topping',
+            'availability' => true,
+            'price' => 6000,
+            'cook_time' => 2,
+            'image' => '',
+        ]);
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '2',

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Canteen;
+use App\Models\Category;
 use App\Models\Customer;
+use App\Models\MenuItem;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,6 +74,58 @@ class CustomerController extends Controller
                 ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
         }
         return view('canteen', ['canteen' => $canteen, 'vendors' => $vendors, 'search' => $request->search]);
+    }
+
+    public function vendor(Request $request, vendor $vendor)
+    {
+        // dd($vendor);
+        $categories = [];
+        
+        $menuByCat = [];
+       
+
+        
+        if ($request->search) {
+            $categories = MenuItem::where('vendor_id', $vendor->id)
+                            ->where('menu_items.name','LIKE','%' . $request->search . '%')
+                            ->join('categories', 'categories.id', '=', 'menu_items.category_id')
+                            ->select('categories.name AS category_name','categories.description AS category_desc','menu_Items.category_id')
+                            ->distinct()
+                            ->get();
+
+            foreach ($categories as $category) {
+                $item = MenuItem::where('vendor_id', $vendor->id)
+                        ->where('menu_items.name','LIKE','%' . $request->search . '%')
+                        ->where('category_id',$category->category_id)
+                        ->where('availability',1)
+                        ->get();
+                $cat = $category->category_name;
+                $menuByCat[$cat] = $item;
+                }
+                 //->whereNotIn($favorites->id);
+        }else{
+            $categories = MenuItem::where('vendor_id', $vendor->id)
+                        ->join('categories', 'categories.id', '=', 'menu_items.category_id')
+                        ->select('categories.name AS category_name','categories.description AS category_desc','menu_Items.category_id')
+                        ->distinct()
+                        ->get();
+            foreach ($categories as $category) {
+                $item = MenuItem::where('vendor_id', $vendor->id)
+                        ->where('category_id',$category->category_id)
+                        ->where('availability',1)
+                        ->get();
+                $cat = $category->category_name;
+                $menuByCat[$cat] = $item;
+            }
+        }
+        return view('vendor', ['vendor' => $vendor, 'menuByCat' => $menuByCat, 'categories' => $categories,'search' => $request->search,  'vendor' => $vendor]);
+    }
+
+    public function addToCart(Request $request, MenuItem $menuItem){
+        $cart = Cart::where('customer_id');
+        // if () {
+        //     # code...
+        // }
     }
 
     public function getCustomerEditProfile()
