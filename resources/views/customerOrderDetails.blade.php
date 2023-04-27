@@ -117,8 +117,11 @@
                     <div class="fw-bold text-center">Making your food...</div>
                     @break
                 @case(4)
-                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto" p->I got my order!</a>
+                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto" >I got my order!</a>
                     @break
+                @case(5)
+                <a href="/review/{{$order->id}}" class="btn btn-white border-dark fw-bold w-50 mx-auto"  data-bs-toggle="modal" data-bs-target="#reviewForm">Leave a Review</a>
+                @break
             @endswitch
 
             <!-- Modal -->
@@ -132,6 +135,56 @@
                         @endif
                        
                     </div>
+                </div> 
+            </div>
+
+            <div class="modal fade bg-transparent" id="reviewForm" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered bg-transparent" style="" role="document">
+                    <form method="POST" action="/order/vendor/delete/{{$order->id}}" class="modal-content">
+                        @csrf
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="reviewTitle">Write a Review!</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group required mb-4">
+                                <div class="col-sm-12">
+                                  <input class="star star-5" value="5" id="star-5" type="radio" name="star"/>
+                                  <label class="star star-5" for="star-5"></label>
+                                  <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
+                                  <label class="star star-4" for="star-4"></label>
+                                  <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
+                                  <label class="star star-3" for="star-3"></label>
+                                  <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
+                                  <label class="star star-2" for="star-2"></label>
+                                  <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
+                                  <label class="star star-1" for="star-1"></label>
+                                </div>
+                            </div>
+
+                            <div class="form-outline">
+                                <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Great food!" rows="3" style="resize:none;"></textarea>
+                            </div>
+
+                            <div class="form-outline my-4">
+                                <label for="proof" class="h5 fw-bold">Review Images (jpg,bmp,png)</label>
+                                <input class="proof form-control form-control-sm @error('proof') is-invalid @enderror" id="proof" name="proof" type="file">
+            
+                                @error('proof')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <img id="preview-image" src="{{ asset('storage/payments/no-image.jpg') }}" alt="" class="img-thumbnail border-0 mb-4 w-100" style="height: 300px; object-fit:contain;">
+                        </div>
+                        <div class="modal-footer d-flex justify-content-around">  
+                            <button type ="submit" class="btn btn-primary col">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">Cancel</button> 
+                        </div>
+                    </form>
                 </div> 
             </div>
         </div>
@@ -154,6 +207,10 @@
         
         $("#proof").change(function(){
             readURL(this);
+        });
+
+        $('#addStar').change('.star', function(e) {
+            $(this).submit();
         });
     </script>
 @endsection
