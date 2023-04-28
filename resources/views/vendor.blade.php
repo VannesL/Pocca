@@ -6,9 +6,9 @@
 @endpush
 
 @section('content')
-    <div class="container">
+    <div class="container ">
         {{-- Vendor Header Design 1 --}}
-        <div class="container mb-3 text-light rounded" style="background-image: url({{ asset('storage/profiles/'.$vendor->image) }}); background-size: cover;">
+        <div class="container mb-4 text-light rounded" style="background-image: url({{ asset('storage/profiles/'.$vendor->image) }}); background-size: cover;">
             <div class="row rounded p-3" style="background-color: rgba(0, 0, 0, 0.603); backdrop-filter: blur(1px);">
                 <div class="col-10">
                     <div class="row"> <h4>{{$vendor->name}}</h4></div>
@@ -23,28 +23,6 @@
                 </div>
             </div>
         </div>
-        {{-- Vendor Header Design 2 --}}
-        <div class="row rounded p-3">
-            <div class="col-3">
-                @if ($vendor->image != '')
-                    <img src="{{ asset('storage/profiles/'.$vendor->image) }}" class="" style="object-fit: cover; width:100%; height:100%" alt="...">
-                @else
-                    <img src="{{ asset('storage/profiles/default.jpg') }}" class="img-fluid " alt="...">
-                @endif
-            </div>
-            <div class="col-7">
-                <div class="row"> <h4>{{$vendor->name}}</h4></div>
-                <div class="row"> <p>{{$vendor->description}}</p></div>
-                <div class="row "> 
-                    <div class="col-3"><i class="fa-solid fa-star"></i>1</div>
-                    <div class="col-9">Rp 10-30k</div>
-                </div>
-            </div>
-            <div class="col-2 align-self-center text-center">
-                <i class="fa fa-heart fa-2xl"></i>
-            </div>
-        </div>
-        
         <form action="{{ url('/vendor',$vendor->id) }}" method="get" class="form-loading mb-3">
             @csrf
             <div class="row">
@@ -87,8 +65,15 @@
                                         @endif
                                        
                                         <div class="col-6 p-1">
+                                            @if ($item->availability)
                                             <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#{{$item->id}}addToCart" href="">
-                                                <div class="card  text-center h-100">
+                                            @endif
+                                                <div class="card  text-center h-100 border-white {{$item->availability? '' : 'opacity-25'}}" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
+                                                    @if ($item->recommended)
+                                                    <span class="z-2 d-flex position-absolute translate-middle badge rounded-pill bg-warning text-center align-items-center" style="width:30px; height:30px; left:95%; top:5%;vertical-align: middle">
+                                                        <i class="fa-solid fa-thumbs-up fa-lg" style="color: #ffffff;"></i>
+                                                    </span>
+                                                    @endif
                                                     @if ($item->image != '')
                                                         <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:contain;">
                                                     @else
@@ -103,81 +88,84 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @if ($item->availability)
+                                            </a>    
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg  position-absolute w-100  mb-0 ms-0  bottom-0 start-50 translate-middle-x" style="max-height: 90%" role="document">
+                                                    
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header">
+                                                                @if ($item->image != '')
+                                                                    <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="" >
+                                                                @else
+                                                                    <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="" >
+                                                                @endif
+                                                          </div>
+                                                    
+                                                    <div class="modal-body">     
+                                                        <div class="row px-2">
+                                                            <div class="col-9">
+                                                                <h5 class="">{{$itemName[1]}}</h5>
+                                                                
+                                                            </div>
+                                                            <div class="col-3 text-end"> 
+                                                                <p><i class="fa-light fa-timer"></i> {{$item->cook_time}}  <span class="fw-medium">min</span></p>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="row px-3"> 
+                                                            <p>{{$item->description}}</p>
+                                                        </div>
+                                                        <div class="row px-3">
+                                                            <form action="{{ url('/vendor/'.$vendor->id.'/addToCart/'.$item->id) }}" method="post" class="form-loading mb-3">
+                                                                @csrf
+                                                                <div class="mb-3">
+                                                                    <label for="notes" class="form-label" >Notes</label>
+                                                                    <textarea class="form-control" id="notes" name='notes' rows="3" placeholder="notes"></textarea>
+                                                                </div>
+                                                                <div class="row mb-4">
+                                                                    <div class="col-6">
+                                                                        Rp {{$item->price}}
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="input-group inline-group">
+                                                                            <div class="input-group-prepend">
+                                                                              <a class="btn btn-outline-light btn-minus btn-danger">
+                                                                                <i class="fa fa-minus"></i>
+                                                                              </a>
+                                                                            </div>
+                                                                            <input class="form-control quantity" min="0" name="quantity" value="1" type="number">
+                                                                            <div class="input-group-append">
+                                                                              <a class="btn btn-outline-light btn-plus btn-success">
+                                                                                <i class="fa fa-plus"></i>
+                                                                              </a>
+                                                                            </div>
+                                                                          </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <button class="btn btn-primary w-50 mx-auto" type="submit">Add Item</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    {{-- <div class="modal-footer d-flex justify-content-around">
+                                                        <div class="col-3"></div>
+                                                        <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
+                                                        @csrf
+                                                        <button type ="submit" class="btn btn-danger col">
+                                                            Yes
+                                                        </button>
+                                                        </form>
+                                                        <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                                    </div> --}}
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                            @endif
                                             </a>           
                                         </div>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg  position-absolute w-100  mb-0 ms-0  bottom-0 start-50 translate-middle-x" style="max-height: 90%" role="document">
-                                                
-                                                <div class="modal-content" style="">
-                                                    <div class="modal-header">
-                                                            @if ($item->image != '')
-                                                                <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="" >
-                                                            @else
-                                                                <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="" >
-                                                            @endif
-                                                      </div>
-                                                
-                                                <div class="modal-body">     
-                                                    <div class="row px-2">
-                                                        <div class="col-9">
-                                                            <h5 class="">{{$itemName[1]}}</h5>
-                                                            
-                                                        </div>
-                                                        <div class="col-3 text-end"> 
-                                                            <p><i class="fa-light fa-timer"></i> {{$item->cook_time}}  <span class="fw-medium">min</span></p>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="row px-3"> 
-                                                        <p>{{$item->description}}</p>
-                                                    </div>
-                                                    <div class="row px-3">
-                                                        <form action="{{url("/addToCart/$item->id")}}" method="post">
-                                                            @csrf
-                                                            <div class="mb-3">
-                                                                <label for="notes" class="form-label" >Notes</label>
-                                                                <textarea class="form-control" id="notes" rows="3" placeholder="notes"></textarea>
-                                                            </div>
-                                                            <div class="row mb-4">
-                                                                <div class="col-6">
-                                                                    Rp {{$item->price}}
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="input-group inline-group">
-                                                                        <div class="input-group-prepend">
-                                                                          <a class="btn btn-outline-light btn-minus btn-danger">
-                                                                            <i class="fa fa-minus"></i>
-                                                                          </a>
-                                                                        </div>
-                                                                        <input class="form-control quantity" min="0" name="quantity" value="1" type="number">
-                                                                        <div class="input-group-append">
-                                                                          <a class="btn btn-outline-light btn-plus btn-success">
-                                                                            <i class="fa fa-plus"></i>
-                                                                          </a>
-                                                                        </div>
-                                                                      </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <button class="btn btn-primary w-50 mx-auto" type="submit">Add Item</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                {{-- <div class="modal-footer d-flex justify-content-around">
-                                                    <div class="col-3"></div>
-                                                    <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
-                                                    @csrf
-                                                    <button type ="submit" class="btn btn-danger col">
-                                                        Yes
-                                                    </button>
-                                                    </form>
-                                                    <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
-                                                </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>     
                                         
                                         @if($loop->index%2 !=0 || $loop->last)
                                             </div>
@@ -190,12 +178,17 @@
                         </div> 
                     </div>            
                 @endforeach 
-                
+            @else
+            <h3 class="col p-5 text-center">Sorry we do not found the menu in this vendor.</h3>    
             @endif
         </div>
 
         <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
             <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{$cartCount}}
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
         </div>

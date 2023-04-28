@@ -107,7 +107,10 @@
                     <input id="availability" type="checkbox" class="form-check-input switch-input form-control-md" name="availability" value="1" {{ ($item->availability ? 'checked' : '') }}/>
                   </div>
 
-
+                  <div class="form-check mb-4">
+                    <label for="recommended" class="form-check-label h5 fw-bold">Recommended</label>
+                    <input id="recommended" type="checkbox" class="form-check-input switch-input form-control-md" name="recommended" value="1" {{ ($item->recommended ? 'checked' : '') }}/>
+                  </div>
 
                   <div class="buttons row d-flex justify-content-around pt-1 mt-4">
                     <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">

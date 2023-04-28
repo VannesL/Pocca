@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuItemController;
@@ -42,11 +43,11 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/canteen/{canteen}', [CustomerController::class, 'canteen']);
     Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
     Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
+    
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
+    Route::post('/vendor/{vendor}/addToCart/{menuitem}', [CartController::class, 'addToCart']);
     Route::get('/vendor/{vendor}', [CustomerController::class, 'vendor']);
-    Route::get('/addToCart/{menuitem}', [CustomerController::class, 'vendor']);
 });
-
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
     //Profile

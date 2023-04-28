@@ -9,7 +9,13 @@
                     $itemName = explode('_',$item->name)
                 @endphp
                 <div class="col-6 p-1">           
-                    <div class="card border-white text-center h-100">
+                    
+                    <div class="card border-white text-center h-100" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
+                        @if ($item->recommended)
+                        <span class="z-2 d-flex position-absolute translate-middle badge rounded-pill bg-warning text-center align-items-center" style="width:32px; height:32px; left:98%; top:5%;vertical-align: middle">
+                            <i class="fa-solid fa-thumbs-up fa-xl my-auto" style="color: #ffffff;"></i>
+                        </span>
+                        @endif
                         @if ($item->image != '')
                             <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:contain;">
                         @else
@@ -53,7 +59,7 @@
             @endif
         </div>
 
-        <div class="addBtn text-center" style="position:absolute; bottom:20px; right:20px;">
+        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
             <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
                 <i class="fa-solid fa-plus fa-2xl"></i>
             </a>

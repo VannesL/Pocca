@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('availability');
             $table->integer('price');
             $table->integer('cook_time');
+            $table->boolean('recommended');
             $table->string('image');
             $table->timestamps();
         });
