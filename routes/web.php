@@ -47,6 +47,10 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
     Route::post('/vendor/{vendor}/addToCart/{menuitem}', [CartController::class, 'addToCart']);
     Route::get('/vendor/{vendor}', [CustomerController::class, 'vendor']);
+
+    Route::get('/customer-cart',[CartController::class,'cartPage']);
+    Route::post('/checkout',[CartController::class,'checkout']);
+
 });
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);

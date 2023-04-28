@@ -141,6 +141,7 @@ class CustomerController extends Controller
                 $menuByCat = Arr::prepend($menuByCat,$recommended,'Recommended');
             }
         }
+
         return view('vendor', ['vendor' => $vendor, 'menuByCat' => $menuByCat, 'categories' => $categories,'search' => $request->search,  'vendor' => $vendor, 'cartCount'=>$cartCount[0]->total_order]);
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('menu_id')->constrained('menu_items')->cascadeOnDelete();
             $table->foreignId('cart_id')->constrained('orders')->cascadeOnDelete();
             $table->integer('quantity');
-            $table->string('notes')->nullable();
+            $table->string('notes');
             $table->timestamps();
         });
     }
