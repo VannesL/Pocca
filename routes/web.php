@@ -50,7 +50,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
     Route::post('/order/customer/payment/{orderid}', [OrderController::class, 'orderPayment']);
     //Review
-    Route::get('/review/{orderid}', [ReviewController::class, 'showForm']);
+    Route::post('/review/{orderid}', [ReviewController::class, 'createReview']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
