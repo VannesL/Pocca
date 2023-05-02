@@ -10,11 +10,6 @@
                             <h5 class="card-title">{{ $canteen->name }}</h5>
                             <p class="card-text">{{ $canteen->address }}</p>
                         </div>
-                        <div class="col-3 align-self-center">
-                            <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
-                            </button>
-                        </div>
-
                     </div>
                 </div><br>
 
@@ -48,24 +43,32 @@
                     </div>
                 </form>
                 <hr>
-                {{-- @foreach ($favorite as $item)
-                    <a href="#" class="text-decoration-none">
+                @foreach ($favorited_vendors as $vendor)
+                    <a href="" class="text-decoration-none">
                         <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-9">
-                                        <h5 class="card-title">{{ $canteen->name }}</h5>
-                                        <p class="card-text">{{ $canteen->address }}</p>
+                                        <h5 class="card-title">{{ $vendor->name }}</h5>
+                                        <p class="card-text">{{ $vendor->description }}</p>
                                     </div>
                                     <div class="col-3 align-self-center">
-                                        <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
-                                        </button>
+                                        <form action="{{ url('home/'.$canteen->id.'/update-favorite-vendor/'.$vendor->id) }}"
+                                            method="post" class="form-loading">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="search" value="{{ $search }}">
+                                            <input type="hidden" name="favorite" value="0">
+                                            <button type="submit" class="btn btn-block shadow-none"><i
+                                                    class="fa fa-heart fa-2xl"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </a>
-                @endforeach --}}
+                @endforeach
                 @foreach ($vendors as $vendor)
                     <a href="" class="text-decoration-none">
                         <div class="card mb-2">
@@ -76,8 +79,16 @@
                                         <p class="card-text">{{ $vendor->description }}</p>
                                     </div>
                                     <div class="col-3 align-self-center">
-                                        <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
-                                        </button>
+                                        <form action="{{ url('home/'.$canteen->id.'/update-favorite-vendor/'.$vendor->id) }}"
+                                            method="post" class="form-loading">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="search" value="{{ $search }}">
+                                            <input type="hidden" name="favorite" value="1">
+                                            <button type="submit" class="btn btn-block shadow-none"><i
+                                                    class="fa fa-heart-o fa-2xl"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

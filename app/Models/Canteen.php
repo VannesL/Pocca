@@ -21,4 +21,9 @@ class Canteen extends Model
     {
         return $this->hasMany(Vendor::class);
     }
+
+    public function favorite_canteens()
+    {
+        return $this->belongsToMany(Canteen::class, 'favorite_canteens', 'canteen_id', 'customer_id');
+    }
 }

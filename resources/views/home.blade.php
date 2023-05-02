@@ -14,8 +14,8 @@
                                     <option value="vendor">Vendor</option>
                                 </select>
                                 @error('type')
-                                <span class="form-text m-b-none text-danger">{{ $message }}</span>
-                            @enderror
+                                    <span class="form-text m-b-none text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-6">
@@ -34,8 +34,8 @@
                     </div>
                 </form>
                 <hr>
-                {{-- @foreach ($favorite as $item)
-                    <a href="#" class="text-decoration-none">
+                @foreach ($favorited_canteens as $canteen)
+                    <a href="{{ url('/home', $canteen->id) }}" class="text-decoration-none">
                         <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">
@@ -44,14 +44,21 @@
                                         <p class="card-text">{{ $canteen->address }}</p>
                                     </div>
                                     <div class="col-3 align-self-center">
-                                        <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
-                                        </button>
+                                        <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}"
+                                            method="post" class="form-loading">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="search" value="{{ $search }}">
+                                            <input type="hidden" name="favorite" value="0">
+                                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </a>
-                @endforeach --}}
+                @endforeach
                 @foreach ($canteens as $canteen)
                     <a href="{{ url('/home', $canteen->id) }}" class="text-decoration-none">
                         <div class="card mb-2">
@@ -62,8 +69,15 @@
                                         <p class="card-text">{{ $canteen->address }}</p>
                                     </div>
                                     <div class="col-3 align-self-center">
-                                        <button class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
-                                        </button>
+                                        <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}"
+                                            method="post" class="form-loading">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="search" value="{{ $search }}">
+                                            <input type="hidden" name="favorite" value="1">
+                                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart-o fa-2xl"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
