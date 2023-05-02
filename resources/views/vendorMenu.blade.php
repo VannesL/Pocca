@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row mb-3">
             @if (!$items->isEmpty())
                 @foreach ($items as $item)
                 @php
@@ -21,19 +21,21 @@
                         @else
                             <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:contain;">
                         @endif
-                        <div class="card-body">
-                            <h6 class="card-title">{{$itemName[1]}}</h6>
-                            <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark me-3 mt-2">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}addToCart" class="btn btn-danger mt-2">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </a>
+                        <div class="card-body h-100">
+                            <h6 class="card-title h-50">{{$itemName[1]}}</h6>
+                            <div class="h-50 mb-3">
+                                <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark me-3 mt-2">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}" class="btn btn-danger mt-2">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </div>  
                         </div>
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" style="" role="document">
                         <div class="modal-content">
                         <div class="modal-header">

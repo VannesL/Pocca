@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-    <div class="container ">
+    <div class="container position-relative">
         {{-- Vendor Header Design 1 --}}
         <div class="container mb-4 text-light rounded" style="background-image: url({{ asset('storage/profiles/'.$vendor->image) }}); background-size: cover;">
             <div class="row rounded p-3" style="background-color: rgba(0, 0, 0, 0.603); backdrop-filter: blur(1px);">
@@ -183,18 +183,18 @@
             @endif
         </div>
 
-        @if ($cartCount>0)    
-            <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
-                <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{$cartCount}}
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </a>
-            </div>
-        @endif
-
     </div>
+
+    @if ($cartCount>0)    
+        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:30px;">
+            <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{$cartCount}}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </div>
+    @endif
     
 @endsection
