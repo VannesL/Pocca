@@ -32,7 +32,7 @@
             }
         @endphp
         <div class="d-flex justify-content-between mb-2">
-            <div id="orderStatus" class="text-bg-{{$color}} text-center fs-3 fw-bold px-2">
+            <div id="customerOrderStatus" class="text-bg-{{$color}} text-center fs-3 fw-bold px-2">
                 {{ $order->status->name }}
             </div> 
             <div>
@@ -110,7 +110,7 @@
                             <button class="btn btn-primary w-100 col m-2 fw-bold" type="submit">Submit Payment</button>   
                         </form>  
                     @else
-                        <div class="fw-bold text-center mt-3">Waiting for vendor verification...</div>
+                        <div id="payed" class="fw-bold text-center mt-3">Waiting for vendor verification...</div>
                     @endif
                     @break
                 @case(3)
@@ -200,10 +200,11 @@
         </div>
     </div>
 
-    @push('custom-js')
+@push('custom-js')
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
-  @endpush
+    <script type="text/javascript" src="{{ asset ('js/refreshOrderDetails.js') }}"></script>
+@endpush
 
     <link rel="stylesheet" href="{{ asset ('css/customerDetail.css') }}">
 @endsection

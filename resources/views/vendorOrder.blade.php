@@ -1,5 +1,9 @@
 @extends('layout')
 
+@push('custom-js')
+  <script type="text/javascript" src="{{ asset ('js/refreshOrderPage.js') }}"></script>
+@endpush
+
 @section('content')    
     <div class="container">
         <h3>Current Orders</h3>
@@ -36,9 +40,6 @@
                                         @endif   
                                     </div>
                                 </div>
-                                {{-- <div class="card-footer text-bg-warning text-center fw-bold">
-                                    {{ $order->status->name }}
-                                </div> --}}
                             </div>
                         </a>
                     @endif
