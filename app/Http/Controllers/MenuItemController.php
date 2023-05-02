@@ -61,6 +61,7 @@ class MenuItemController extends Controller
         $menuItem->price = $request->price;
         $menuItem->cook_time = $request->cook;
         $menuItem->availability = true;
+        $menuItem->recommended = false;
         $menuItem->image = '';
 
         //Encrypt with vendor email and name with menu name
@@ -121,6 +122,7 @@ class MenuItemController extends Controller
         $item->price = $request->price;
         $item->cook_time = $request->cook;
         $item->availability = $request->has('availability');
+        $item->recommended = $request->has('recommended');
 
 
         //Encrypt with vendor email and name with menu name

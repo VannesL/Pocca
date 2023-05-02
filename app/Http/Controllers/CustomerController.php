@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Canteen;
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\Category;
 use App\Models\Customer;
+use App\Models\MenuItem;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,6 +79,73 @@ class CustomerController extends Controller
         }
         return view('canteen', ['canteen' => $canteen, 'vendors' => $vendors, 'search' => $request->search]);
     }
+
+    public function vendor(Request $request, vendor $vendor)
+    {   
+        $user = auth()->guard('customer')->user();
+        $cartCount = Cart::where('customer_id',$user->id)
+                    ->where('vendor_id', $vendor->id)
+                    ->join('cart_items', 'carts.id','=','cart_items.cart_id')
+                    ->select(DB::raw('COUNT(cart_items.menu_id) AS total_order'))
+                    ->get();
+        
+        $categories = [];
+        $menuByCat = [];
+       
+        if ($request->search) {
+            $categories = MenuItem::where('vendor_id', $vendor->id)
+                            ->where('menu_items.name','LIKE','%_' . $request->search . '%')
+                            ->join('categories', 'categories.id', '=', 'menu_items.category_id')
+                            ->select('categories.name AS category_name','categories.description AS category_desc','menu_Items.category_id')
+                            ->distinct()
+                            ->get();
+
+            foreach ($categories as $category) {
+                $item = MenuItem::where('vendor_id', $vendor->id)
+                        ->where('menu_items.name','LIKE','%' . $request->search . '%')
+                        ->where('category_id',$category->category_id)
+                        ->where('availability',true)   // the app will only show available menu if they search
+                        ->get();
+                $cat = $category->category_name;
+                $menuByCat[$cat] = $item;
+                }
+        }else{
+        
+            $categories = MenuItem::where('vendor_id', $vendor->id)
+                        ->join('categories', 'categories.id', '=', 'menu_items.category_id')
+                        ->select('categories.name AS category_name','categories.description AS category_desc','menu_Items.category_id')
+                        ->distinct()
+                        ->get();
+            foreach ($categories as $category) {
+                $item = MenuItem::where('vendor_id', $vendor->id)  // does not filter the availibility because we will show all menu including not available one.
+                        ->where('category_id',$category->category_id)
+                        ->get()
+                        ->sortByDesc('availability');
+                $cat = $category->category_name;
+                $menuByCat[$cat] = $item;
+            }
+            // get all recommended menu from the vendor
+            $recommended = MenuItem::where('vendor_id', $vendor->id)
+                        ->where('recommended',true)
+                        ->where('availability',true)
+                        ->get();
+            if (!$recommended->isEmpty()) { // if recommended is not empty
+                // create new collection to prepend to categories for recommended category (ignore the intelephense cuz it works!!)
+                $rec = collect();
+                $rec->category_id = 0;
+                $rec->category_name = 'Recommended';
+                $rec->category_desc = 'Recommended menu by vendor';
+                $categories->prepend($rec);
+
+                // prepend  $recommended result to the menuByCat as a data for showing menu
+                $menuByCat = Arr::prepend($menuByCat,$recommended,'Recommended');
+            }
+        }
+
+        return view('vendor', ['vendor' => $vendor, 'menuByCat' => $menuByCat, 'categories' => $categories,'search' => $request->search,  'vendor' => $vendor, 'cartCount'=>$cartCount[0]->total_order]);
+    }
+
+
 
     public function getCustomerEditProfile()
     {

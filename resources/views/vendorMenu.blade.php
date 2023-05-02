@@ -9,7 +9,13 @@
                     $itemName = explode('_',$item->name)
                 @endphp
                 <div class="col-6 p-1">           
-                    <div class="card border-white text-center h-100">
+                    
+                    <div class="card border-white text-center h-100" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
+                        @if ($item->recommended)
+                        <span class="z-2 d-flex position-absolute translate-middle badge rounded-pill bg-warning text-center align-items-center" style="width:32px; height:32px; left:98%; top:5%;vertical-align: middle">
+                            <i class="fa-solid fa-thumbs-up fa-xl my-auto" style="color: #ffffff;"></i>
+                        </span>
+                        @endif
                         @if ($item->image != '')
                             <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:contain;">
                         @else
@@ -20,18 +26,18 @@
                             <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark me-3 mt-2">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}deleteConfirmation" class="btn btn-danger mt-2">
+                            <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}addToCart" class="btn btn-danger mt-2">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="{{$item->id}}deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" style="" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                            <h5 class="modal-title" id="addToCartLabel">Are you sure?</h5>
                         </div>
                         <div class="modal-body">
                             This menu item will be deleted from the database.
@@ -53,7 +59,7 @@
             @endif
         </div>
 
-        <div class="addBtn text-center" style="position:absolute; bottom:20px; right:20px;">
+        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
             <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
                 <i class="fa-solid fa-plus fa-2xl"></i>
             </a>

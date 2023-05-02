@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuItemController;
@@ -43,13 +44,20 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     //Profile
     Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
     Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
+    
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
     //Order
     Route::get('/order/customer', [OrderController::class, 'customerOrder']);
     Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
     Route::post('/order/customer/payment/{orderid}', [OrderController::class, 'orderPayment']);
-});
 
+    Route::post('/vendor/{vendor}/addToCart/{menuitem}', [CartController::class, 'addToCart']);
+    Route::get('/vendor/{vendor}', [CustomerController::class, 'vendor']);
+
+    Route::get('/customer-cart',[CartController::class,'cartPage']);
+    Route::post('/checkout',[CartController::class,'checkout']);
+
+});
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
     //Profile
