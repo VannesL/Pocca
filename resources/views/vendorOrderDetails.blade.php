@@ -110,8 +110,8 @@
                 @case(2)
                     @if ($order->payment_image != '')
                         <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
-                            <a href="/order/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
+                            <a class="btn btn-danger w-50 me-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
+                        <a href="/order/update-status/{{$order->id}}" class="btn btn-primary w-50 ms-2">Approve</a>
                         </div> 
                     @else
                     <div class="fw-bold text-center">Waiting for customer payment...</div>

@@ -14,7 +14,7 @@ class OrderController extends Controller
     {
         $orders = Order::where([
             ['vendor_id', auth()->guard('vendor')->user()->id],
-            ['status_id', '<>', 5],
+            ['status_id', '<', 5],
         ])->get();
 
         $data = [
@@ -76,7 +76,7 @@ class OrderController extends Controller
     {
         $orders = Order::where([
             ['customer_id', auth()->guard('customer')->user()->id],
-            ['status_id', '<>', 5],
+            ['status_id', '<', 5],
         ])->get();
 
         $data = [

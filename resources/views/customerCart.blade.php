@@ -21,8 +21,7 @@
                     </div>
                 </div>
                 <div class="container p-2 border border-dark bg-light mb-5">
-                    <div class="header d-flex justify-content-between px-2 pt-2">
-                        <div></div>
+                    <div class="header text-center px-2 pt-2">
                         <div class="align-items-end">{{ $cart->updated_at->toDateString() }}</div>
                     </div>
                     <hr>
