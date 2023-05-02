@@ -8,7 +8,7 @@
     <div class="container">
         <h6>{{ $order->vendor->canteen->name }}</h6>
         <h3 class="">{{ $order->vendor->store_name }}</h3>
-        <h6 class="mb-3">{{ $order->customer->phone_number }}</h6>
+        <h6 class="mb-3">{{ $order->vendor->phone_number }}</h6>
 
         @php
             $color = "";
@@ -95,8 +95,8 @@
                             <img src="{{ asset('storage/qris/'.$order->vendor->qris) }}" alt="qris not found" class="img-thumbnail border-0 mb-4 w-100" style="height: 300px; object-fit:contain;" data-bs-toggle="modal" data-bs-target="#imgPreview">
     
                             <div class="form-outline mb-4">
-                                <label for="proof" class="h5 fw-bold">Proof of Payment (jpg,bmp,png)</label>
-                                <input class="proof form-control form-control-sm @error('proof') is-invalid @enderror" id="proof" name="proof" type="file">
+                                <label for="proof" class="h5 fw-bold">Proof of Payment</label>
+                                <input class="proof form-control form-control-sm @error('proof') is-invalid @enderror" id="proof" name="proof" type="file" accept="image/*">
     
                                 @error('proof')
                                 <span class="invalid-feedback" role="alert">
@@ -114,11 +114,16 @@
                     @endif
                     @break
                 @case(3)
-                    <div class="fw-bold text-center">Making your food...</div>
+                    <button href="/order/update-status/{{$order->id}}" class="btn btn-outline-dark fw-bold w-50 mx-auto" disabled>I got my order!</button>
                     @break
                 @case(4)
-                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto" p->I got my order!</a>
+                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto" >I got my order!</a>
                     @break
+                @case(5)
+                    @if ($order->reviewed == false)
+                        <a class="btn btn-white border-dark fw-bold w-50 mx-auto"  data-bs-toggle="modal" data-bs-target="#reviewForm" @if ($order->reviewed) disabled @endif>Leave a Review</a>
+                    @endif
+                @break
             @endswitch
 
             <!-- Modal -->
@@ -134,26 +139,71 @@
                     </div>
                 </div> 
             </div>
+
+            <div class="modal fade bg-transparent" id="reviewForm" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered bg-transparent" style="" role="document">
+                    <form method="POST" action="/review/{{$order->id}}" class="modal-content" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviewTitle">Write a Review!</h5>
+                            <button type="button" class="btn btn-outline-transparent" data-bs-dismiss="modal">
+                                <i class="fa fa-times fa-lg" style="color: #f70808;"></i>
+                            </button> 
+                        </div>
+                        <div class="modal-body d-flex justify-content-center flex-column">
+                            <div class="rate d-flex justify-content-center mb-3 flex-row-reverse">
+                                <input type="radio" id="star5" class="rate" name="rating" value="5" checked/>
+                                <label for="star5" title="text">5 stars</label>
+                                <input type="radio" id="star4" class="rate" name="rating" value="4"/>
+                                <label for="star4" title="text">4 stars</label>
+                                <input type="radio" id="star3" class="rate" name="rating" value="3"/>
+                                <label for="star3" title="text">3 stars</label>
+                                <input type="radio" id="star2" class="rate" name="rating" value="2">
+                                <label for="star2" title="text">2 stars</label>
+                                <input type="radio" id="star1" class="rate" name="rating" value="1"/>
+                                <label for="star1" title="text">1 star</label>
+                            </div>
+
+                            <div class="form-outline">
+                                <label id="reviewDesc" for="description" class="h6 fw-bold">Comments</label>
+                                <textarea id="description" type="textbox" class="form-control form-control-md" name="description" placeholder="ex. Great food!" rows="3" style="resize:none;"></textarea>
+                            </div>
+
+                            <div class="form-outline my-4">
+                                <label id="imgLabel" for="reviewImg" class="h6 fw-bold">Review Images</label>
+                                <input class="reviewImg form-control form-control-sm @error('reviewImg') is-invalid @enderror" id="reviewImg" name="reviewImg[]" type="file" accept="image/*" multiple>
+            
+                                @error('reviewImg')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="container-fluid">
+                                <div id="images" class="overflow-scroll row flex-row flex-nowrap">
+                                    <img id="preview-image" src="{{ asset('storage/payments/no-image.jpg') }}" alt="" class="img-thumbnail border-0 mb-4 w-100" style="height: 300px; object-fit:contain;">
+                                </div>
+                            </div>
+                                
+                            
+                        </div>
+                        <input name="vendorid" type="hidden" value="{{$order->vendor->id}}">
+                        <div class="modal-footer d-flex justify-content-around">  
+                            <button type ="submit" class="btn btn-primary col">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div> 
+            </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
- 
-    <script type="text/javascript">    
-        function readURL(input) {
-            if (input.files && input.files[0] && input.files[0].type) {
-                var reader = new FileReader();
-                
-                reader.onload = function (e) {
-                    $('#preview-image').attr('src', e.target.result);
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        
-        $("#proof").change(function(){
-            readURL(this);
-        });
-    </script>
+    @push('custom-js')
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
+  @endpush
+
+    <link rel="stylesheet" href="{{ asset ('css/customerDetail.css') }}">
 @endsection

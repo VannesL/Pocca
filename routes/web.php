@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -50,7 +51,9 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::get('/order/customer', [OrderController::class, 'customerOrder']);
     Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
     Route::post('/order/customer/payment/{orderid}', [OrderController::class, 'orderPayment']);
-
+    //Review
+    Route::post('/review/{orderid}', [ReviewController::class, 'createReview']);
+    
     Route::post('/vendor/{vendor}/addToCart/{menuitem}', [CartController::class, 'addToCart']);
     Route::get('/vendor/{vendor}', [CustomerController::class, 'vendor']);
 
