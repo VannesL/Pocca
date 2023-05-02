@@ -25,9 +25,10 @@ $(document).ready(function(){
 
             for (let i = 0; i < amount; i++) {
                 let reader = new FileReader();
+                let fileName = event.target.files[i].name;
                 reader.onload = function(event) {
                     let html = `
-                        <div class="d-flex flex-column col-md-12 position-relative">
+                        <div id="${fileName}" class="d-flex flex-column col-md-12 position-relative">
                             <button type="button" class="delete-btn btn btn-danger bg-transparent position-absolute border-0" name="delete-btn" style="top:0px; right:0px;">
                                 <i class="delete fas fa-times fa-lg" style="color: #f70808;"></i>
                             </button>
@@ -43,6 +44,17 @@ $(document).ready(function(){
 
     $(window).click(function(event){
         if($(event.target).hasClass('delete')) {
+            const dt = new DataTransfer();
+            files = $('input[type="file"]')[0].files;
+            let name = $(event.target).parent().parent().attr("id");
+
+            for (let i = 0; i < files.length; i++) { 
+                if (name !== files[i].name) {
+                    dt.items.add(files[i]);
+                }
+            }
+            $('input[type="file"]')[0].files = dt.files;
+
             $(event.target).parent().parent().remove();
         }
     });

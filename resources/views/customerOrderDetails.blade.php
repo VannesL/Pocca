@@ -114,14 +114,15 @@
                     @endif
                     @break
                 @case(3)
-                    <div class="fw-bold text-center">Making your food...</div>
-                    <a href="/order/update-status/{{$order->id}}" class="btn btn-secondary fw-bold w-50 mx-auto" disabled>I got my order!</a>
+                    <button href="/order/update-status/{{$order->id}}" class="btn btn-outline-dark fw-bold w-50 mx-auto" disabled>I got my order!</button>
                     @break
                 @case(4)
                     <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto" >I got my order!</a>
                     @break
                 @case(5)
-                    <a href="/review/{{$order->id}}" class="btn btn-white border-dark fw-bold w-50 mx-auto"  data-bs-toggle="modal" data-bs-target="#reviewForm" @if ($order->reviewed) disabled @endif>Leave a Review</a>
+                    @if ($order->reviewed == false)
+                        <a class="btn btn-white border-dark fw-bold w-50 mx-auto"  data-bs-toggle="modal" data-bs-target="#reviewForm" @if ($order->reviewed) disabled @endif>Leave a Review</a>
+                    @endif
                 @break
             @endswitch
 
@@ -141,7 +142,7 @@
 
             <div class="modal fade bg-transparent" id="reviewForm" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered bg-transparent" style="" role="document">
-                    <form method="POST" action="/review/{{$order->id}}" class="modal-content">
+                    <form method="POST" action="/review/{{$order->id}}" class="modal-content" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="reviewTitle">Write a Review!</h5>
@@ -170,7 +171,7 @@
 
                             <div class="form-outline my-4">
                                 <label id="imgLabel" for="reviewImg" class="h6 fw-bold">Review Images</label>
-                                <input class="reviewImg form-control form-control-sm @error('reviewImg') is-invalid @enderror" id="reviewImg" name="reviewImg" type="file" accept="image/*" multiple>
+                                <input class="reviewImg form-control form-control-sm @error('reviewImg') is-invalid @enderror" id="reviewImg" name="reviewImg[]" type="file" accept="image/*" multiple>
             
                                 @error('reviewImg')
                                 <span class="invalid-feedback" role="alert">
