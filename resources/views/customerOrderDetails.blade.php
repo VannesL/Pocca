@@ -29,6 +29,9 @@
             case 5:
                 $color = "dark";
                 break;
+            case 6:
+                $color = "danger";
+                break;
             }
         @endphp
         <div class="d-flex justify-content-between mb-2">
@@ -123,6 +126,16 @@
                     @if ($order->reviewed == false)
                         <a class="btn btn-white border-dark fw-bold w-50 mx-auto"  data-bs-toggle="modal" data-bs-target="#reviewForm" @if ($order->reviewed) disabled @endif>Leave a Review</a>
                     @endif
+                    @break
+                @case(6)
+                    <form>
+                        <fieldset disabled>
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label fw-bold">Rejected for:</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ $order->rejection_reason }}">
+                            </div>
+                        </fieldset>
+                    </form>
                 @break
             @endswitch
 

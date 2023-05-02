@@ -28,8 +28,8 @@ class OrderController extends Controller
     {
         $orders = Order::where([
             ['vendor_id', auth()->guard('vendor')->user()->id],
-            ['status_id', 5],
-        ])->get();
+            ['status_id', '>=',  5],
+        ])->orderBy('created_at', 'desc')->get();
 
         $data = [
             'orders' => $orders,
@@ -90,8 +90,8 @@ class OrderController extends Controller
     {
         $orders = Order::where([
             ['customer_id', auth()->guard('customer')->user()->id],
-            ['status_id', 5],
-        ])->get();
+            ['status_id', '>=', 5],
+        ])->orderBy('created_at', 'desc')->get();
 
         $data = [
             'orders' => $orders,
@@ -118,5 +118,22 @@ class OrderController extends Controller
         $order->save();
 
         return redirect('/order/' . $request->orderid);
+    }
+
+    public function rejectOrder(Request $request)
+    {
+        Validator::make($request->all(), [
+            'reason'             => ['required', 'string'],
+        ])->validate();
+
+        $order = Order::where([
+            ['id', $request->orderid],
+        ])->get()->first();
+
+        $order->status_id = 6;
+        $order->rejection_reason = $request->reason;
+        $order->save();
+
+        return redirect('/order/' . $order->id);
     }
 }

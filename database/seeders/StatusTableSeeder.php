@@ -45,5 +45,10 @@ class StatusTableSeeder extends Seeder
             'name' => 'Complete',
             'description' => 'Customer picked up order and is complete',
         ]);
+
+        Status::create([
+            'name' => 'Rejected',
+            'description' => 'Vendor rejected the order',
+        ]);
     }
 }

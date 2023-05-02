@@ -25,6 +25,7 @@ class OrderTableSeeder extends Seeder
             'date' => Carbon::now(),
             'reviewed' => false,
             'payment_image' => '',
+            'rejection_reason' => '',
         ]);
 
         Order::create([
@@ -36,6 +37,7 @@ class OrderTableSeeder extends Seeder
             'date' => Carbon::now(),
             'reviewed' => false,
             'payment_image' => 'default.png',
+            'rejection_reason' => '',
         ]);
 
         Order::create([
@@ -47,6 +49,7 @@ class OrderTableSeeder extends Seeder
             'date' => Carbon::now(),
             'reviewed' => false,
             'payment_image' => 'default.png',
+            'rejection_reason' => '',
         ]);
 
         Order::create([
@@ -58,6 +61,7 @@ class OrderTableSeeder extends Seeder
             'date' => Carbon::now()->subMonth(1),
             'reviewed' => false,
             'payment_image' => '',
+            'rejection_reason' => '',
         ]);
     }
 }

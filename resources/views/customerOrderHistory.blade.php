@@ -24,12 +24,15 @@
                                     @else
                                         <div class="col-9">{{ $itemName[1] }}</div>
                                     @endif
-                                @endforeach
+                                @endforeach  
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
                                 @if ($order->type)
-                                    <div class="mt-2">Type: Eat-In</div>
+                                    <div class="">Type: Eat-In</div>
                                 @else
-                                    <div class="mt-2">Type: Takeout</div>
-                                @endif   
+                                    <div class="">Type: Takeout</div>
+                                @endif 
+                                <div class="">{{ $order->date }}</div>
                             </div>
                         </div>
                     </div>

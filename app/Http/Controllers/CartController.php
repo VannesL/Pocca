@@ -76,6 +76,7 @@ class CartController extends Controller
         $order->status_id = 1;
         $order->date = Carbon::now();
         $order->type = $request->type;
+        $order->rejection_reason = '';
         $order->save();
 
         $cartItems = CartItem::where('cart_id', $cart->id)->get();

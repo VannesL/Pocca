@@ -6,6 +6,12 @@
 
 @section('content')
     <div class="container">
+        @error('reason')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @enderror
+
         <h3 class="">Order for: {{ $order->customer->name }}</h3>
         <h6 class="mb-3">{{ $order->customer->phone_number }}</h6>
 
@@ -27,6 +33,9 @@
                 break;
             case 5:
                 $color = "dark";
+                break;
+            case 6:
+                $color = "danger";
                 break;
             }
         @endphp
@@ -93,15 +102,15 @@
 
             @switch($order->status->id)
                 @case(1)
-                    <div class="d-flex justify-content-around fw-bold w-75 mx-auto mt-3">
-                        <a href="/delete-order" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
-                        <a href="/order/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
+                    <div class="d-flex justify-content-around fw-bold w-100 mx-auto mt-2">
+                        <a class="btn btn-danger w-50 me-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
+                        <a href="/order/update-status/{{$order->id}}" class="btn btn-primary w-50 ms-1">Approve</a>
                     </div>
                     @break
                 @case(2)
                     @if ($order->payment_image != '')
                         <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
-                            <a href="/delete-order" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
                             <a href="/order/update-status/{{$order->id}}" class="btn btn-primary">Approve</a>
                         </div> 
                     @else
@@ -119,7 +128,7 @@
             <!-- Modal -->
             <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="" role="document">
-                <form method="POST" action="/order/vendor/delete/{{$order->id}}" class="modal-content">
+                <form method="POST" action="/order/reject/{{$order->id}}" class="modal-content">
                     @csrf
                     <div class="modal-header">
                     <h5 class="modal-title" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
