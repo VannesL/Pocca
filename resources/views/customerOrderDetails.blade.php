@@ -1,8 +1,10 @@
 @extends('layout')
 
-{{-- @push('custom-js')
+@push('custom-js')
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
     <script type="text/javascript" src="{{ asset ('js/refreshOrderDetails.js') }}"></script>
-@endpush --}}
+@endpush
 
 @section('content')
     <div class="container">
@@ -98,10 +100,10 @@
                             <img src="{{ asset('storage/qris/'.$order->vendor->qris) }}" alt="qris not found" class="img-thumbnail border-0 mb-4 w-100" style="height: 300px; object-fit:contain;" data-bs-toggle="modal" data-bs-target="#imgPreview">
     
                             <div class="form-outline mb-4">
-                                <label for="proof" class="h5 fw-bold">Proof of Payment</label>
-                                <input class="proof form-control form-control-sm @error('proof') is-invalid @enderror" id="proof" name="proof" type="file" accept="image/*">
+                                <label for="image" class="h5 fw-bold">Proof of Payment</label>
+                                <input class="image form-control form-control-sm @error('image') is-invalid @enderror" id="image" name="image" type="file" accept="image/*">
     
-                                @error('proof')
+                                @error('image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -212,12 +214,6 @@
             </div>
         </div>
     </div>
-
-@push('custom-js')
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
-    <script type="text/javascript" src="{{ asset ('js/refreshOrderDetails.js') }}"></script>
-@endpush
 
     <link rel="stylesheet" href="{{ asset ('css/customerDetail.css') }}">
 @endsection

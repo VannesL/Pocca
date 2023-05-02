@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if(session()->has('Success'))
+            <div class="alert alert-success">
+                {{ session()->get('Success') }}
+            </div>
+        @endif
         <div class="row mb-3">
             @if (!$items->isEmpty())
                 @foreach ($items as $item)

@@ -76,7 +76,7 @@ class MenuItemController extends Controller
 
         $menuItem->save();
         if (!is_null($menuItem)) {
-            return redirect('/vendor-menu')->with('Success', "Item Added");;
+            return redirect('/vendor-menu')->with('Success', "Successfully Added Item!");
         } else {
             return back()->withErrors('Failed', "There was an error adding the item!");
         }
@@ -141,7 +141,7 @@ class MenuItemController extends Controller
 
         $item->save();
 
-        return redirect('/vendor-menu/edit/' . $request->menuid);
+        return redirect('/vendor-menu/edit/' . $request->menuid)->with('Success', "Successfully Updated Item!");
     }
 
     public function deleteMenu(Request $request)

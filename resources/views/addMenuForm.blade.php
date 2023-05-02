@@ -1,5 +1,10 @@
 @extends('layout')
 
+@push('custom-js')
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="container py-3 h-100"> 
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -16,7 +21,6 @@
 
                   <div class="form-outline mb-4">
                     <label for="image" class="h5 fw-bold">Image</label>
-                    <img src="" class="img-top" alt="">
                     <input class="form-control form-control-md @error('image') is-invalid @enderror" id="image" name="image" type="file">
         
                     @error('image')
@@ -24,6 +28,8 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+
+                    <img id="preview-image" src="{{ asset('storage/payments/no-image.jpg') }}" alt="" class="img-thumbnail border-0 my-4 w-100" style="height: 300px; object-fit:contain;">
                   </div>
 
                   @php

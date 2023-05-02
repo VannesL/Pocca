@@ -12,7 +12,7 @@ function readURL(input) {
     }
 }
 
-$("#proof").change(function(){
+$("#image").change(function(){
     readURL(this);
 });
 

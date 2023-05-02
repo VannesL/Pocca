@@ -1,5 +1,10 @@
 @extends('layout')
 
+@push('custom-js')
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="container py-3 h-100"> 
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -7,6 +12,11 @@
         <div class="d-flex justify-content-center mb-3 pb-1">
             <span class="h1 fw-bold">Edit Menu</span>
         </div>
+        @if(session()->has('Success'))
+            <div class="alert alert-success">
+                {{ session()->get('Success') }}
+            </div>
+        @endif
         <div class="card" style="border-radius: 1rem;">
           <div class="row g-0">
               <div class="card-body p-4 p-lg-5 text-black">
@@ -16,9 +26,9 @@
                   <div class="form-outline mb-4">
                     <label for="image" class="h5 fw-bold">Image</label>
                     @if ($item->image != '')
-                        <img src="{{ asset('storage/menus/'.$item->image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 120px; object-fit:contain;">
+                        <img id="preview-image" src="{{ asset('storage/menus/'.$item->image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 300px; object-fit:contain;">
                     @else
-                        <img src="{{ asset('storage/menus/default.jpg') }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 120px; object-fit:contain;">
+                        <img id="preview-image" src="{{ asset('storage/menus/default.jpg') }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 300px; object-fit:contain;">
                     @endif
                     <input class="form-control form-control-md @error('image') is-invalid @enderror" id="image" name="image" type="file">
         
