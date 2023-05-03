@@ -59,12 +59,12 @@
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                           <div class="row">
                             <div class="container-fluid" style="">
-                                <div id="images" class="overflow-scroll row flex-row flex-nowrap ">
-                                    @foreach ($review->reviewImage as $img)    
-
-                                            <img id="preview-image" src="{{ asset('storage/reviewImages/'.$img->path) }}" class="border-0 p-2" style=" object-fit:contain; max-height:100px;max-width:150px" alt="nothing">
-                                    @endforeach
-                          
+                                <div id="images" class=" row flex-row flex-nowrap " style="overflow-x:scroll">
+                                        @foreach ($review->reviewImage as $img)   
+                                            <div class="col"> 
+                                                <img id="preview-image" src="{{ asset('storage/reviewImages/'.$img->path) }}" class="border-0 " style=" object-fit:contain; max-height:100px;max-width:150px" alt="nothing">
+                                            </div>
+                                        @endforeach
                             </div>
                           </div>
                         </div>

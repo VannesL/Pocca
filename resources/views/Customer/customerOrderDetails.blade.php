@@ -61,7 +61,7 @@
                     @foreach ($orderItems as $orderItem)
                     @php
                         $itemName = explode('_',$orderItem->menu->name);
-                        $price = $orderItem->quantity * $orderItem->menu->price;
+                        $price = $orderItem->quantity * $orderItem->price;
                     @endphp
                     <tr class="border-end-0">
                         <td class="col-md-1">{{ $orderItem->quantity }}x</td>
@@ -200,8 +200,6 @@
                                     <img id="preview-image" src="{{ asset('storage/payments/no-image.jpg') }}" alt="" class="img-thumbnail border-0 mb-4 w-100" style="height: 300px; object-fit:contain;">
                                 </div>
                             </div>
-                                
-                            
                         </div>
                         <input name="vendorid" type="hidden" value="{{$order->vendor->id}}">
                         <div class="modal-footer d-flex justify-content-around">  

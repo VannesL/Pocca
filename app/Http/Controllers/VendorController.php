@@ -232,7 +232,7 @@ class VendorController extends Controller
         $report = DB::table('orders')
            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->join('menu_items', 'order_items.menu_id', '=', 'menu_items.id')
-            ->select('menu_items.name', DB::raw('SUM(order_items.quantity) AS sold'), DB::raw('(SUM(order_items.quantity) * menu_items.price) AS profits'))
+            ->select('menu_items.name', DB::raw('SUM(order_items.quantity) AS sold'), DB::raw('SUM(order_items.quantity * order_items.price) AS profits'))
             ->where('orders.vendor_id', $userid)
             ->where('orders.date', $selectedDate)
             ->groupBy('menu_items.name')
@@ -263,7 +263,7 @@ class VendorController extends Controller
         }
 
         $countPerRate = Review::where('vendor_id', $userid)
-                        ->select(DB::raw('Count(rating) as rateCount'), 'rating')
+                        ->select(DB::raw('  Count(rating) as rateCount'), 'rating')
                         ->groupBy('rating')
                         ->get();
         

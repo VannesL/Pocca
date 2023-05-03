@@ -119,13 +119,16 @@ class CartController extends Controller
         $order->date = Carbon::now();
         $order->type = $request->type;
         $order->rejection_reason = '';
+        $order->payment_image = "";
         $order->save();
 
         $cartItems = CartItem::where('cart_id', $cart->id)->get();
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItems();
-            $orderItem->order_id = $order->id;
             $orderItem->menu_id = $cartItem->menu_id;
+            // $orderItem->save();
+            $orderItem->price = $orderItem->menu->price;
+            $orderItem->order_id = $order->id;
             $orderItem->quantity = $cartItem->quantity;
             $orderItem->notes = $cartItem->notes;
             $orderItem->save();

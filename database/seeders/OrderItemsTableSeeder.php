@@ -18,6 +18,7 @@ class OrderItemsTableSeeder extends Seeder
         OrderItems::create([
             'menu_id' => 1,
             'order_id' => 1,
+            'price' => 10000,
             'quantity' => 1,
             'notes' => '',
         ]);
@@ -25,6 +26,7 @@ class OrderItemsTableSeeder extends Seeder
         OrderItems::create([
             'menu_id' => 2,
             'order_id' => 1,
+            'price' => 6000,
             'quantity' => 1,
             'notes' => 'Extra crispy please!',
         ]);
@@ -32,6 +34,7 @@ class OrderItemsTableSeeder extends Seeder
         OrderItems::create([
             'menu_id' => 2,
             'order_id' => 2,
+            'price' => 6000,
             'quantity' => 1,
             'notes' => '',
         ]);
@@ -39,6 +42,7 @@ class OrderItemsTableSeeder extends Seeder
         OrderItems::create([
             'menu_id' => 3,
             'order_id' => 3,
+            'price' => 6000,
             'quantity' => 1,
             'notes' => '',
         ]);
@@ -46,6 +50,7 @@ class OrderItemsTableSeeder extends Seeder
         OrderItems::create([
             'menu_id' => 2,
             'order_id' => 3,
+            'price' => 6000,
             'quantity' => 1,
             'notes' => 'No cheese, I am allergic',
         ]);

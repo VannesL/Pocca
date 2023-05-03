@@ -91,7 +91,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
 });
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/order/{orderid}', [OrderController::class, 'orderDetails']);
+    Route::get('/order/{orderid}', [OrderController::class, 'orderDetails'])->name('order-details');
     Route::get('/order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
 });
 

@@ -64,7 +64,7 @@
                     @foreach ($orderItems as $orderItem)
                     @php
                         $itemName = explode('_',$orderItem->menu->name);
-                        $price = $orderItem->quantity * $orderItem->menu->price;
+                        $price = $orderItem->quantity * $orderItem->price;
                     @endphp
                     <tr class="border-end-0">
                         <td class="col-md-1">{{ $orderItem->quantity }}x</td>

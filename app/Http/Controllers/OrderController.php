@@ -56,6 +56,7 @@ class OrderController extends Controller
         if (auth()->guard('customer')->check()) {
             return view('Customer/customerOrderDetails', $data);
         } else {
+            // dd($order->status_id);
             return view('vendorOrderDetails', $data);
         }
     }
@@ -65,7 +66,7 @@ class OrderController extends Controller
         $order = Order::where([
             ['id', $request->orderid],
         ])->get()->first();
-
+            
         $order->status_id = $order->status_id + 1;
         $order->save();
 

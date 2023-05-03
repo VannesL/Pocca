@@ -40,19 +40,19 @@
         <div class="w-100">
             <nav class="nav navbar-light bg-light d-flex justify-content-evenly border-top border-bottom">
                 @if (auth()->guard('customer')->check())
-                    <a class="nav-link text-dark" href="{{ url('/home') }}">Home<span class="sr-only"></a>
+                    <a class="nav-link text-dark {{ request()->is('home') || request()->is('home/*') || request()->is('vendor/*') ? 'fw-bolder ' : '' }}" href="{{ url('/home') }}">Home<span class="sr-only"></a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/order/customer') }}">Order</a>
+                    <a class="nav-link text-dark {{ request()->is('order/customer') ||  (Route::currentRouteNamed('order-details') && $order->status_id<5)  ? 'fw-bolder ' : '' }}" href="{{ url('/order/customer') }}">Order</a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/order/customer/history') }}">History</a>
+                    <a class="nav-link text-dark  {{  request()->is('order/customer/history') || (Route::currentRouteNamed('order-details') && $order->status_id>=5) ? 'fw-bolder ' : '' }}" href="{{ url('/order/customer/history') }}">History</a>
                 @elseif (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null)
-                    <a class="nav-link text-dark" href="{{ url('/vendor-dash') }}">Home</a>
+                    <a class="nav-link text-dark {{ request()->is('vendor-dash') || request()->is('vendor-dash/reviews') ? 'fw-bolder ' : '' }}" href="{{ url('/vendor-dash') }}">Home</a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/order/vendor') }}">Orders<span class="sr-only"></a>
+                    <a class="nav-link text-dark {{ request()->is('order/vendor') ||  ( Route::currentRouteNamed('order-details') && $order->status_id<5 )  ? 'fw-bolder ' : '' }}" href="{{ url('/order/vendor') }}">Orders<span class="sr-only"></a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/order/vendor/history') }}">History</a>
+                    <a class="nav-link text-dark {{ request()->is('order/vendor/history') ||  (Route::currentRouteNamed('order-details') && $order->status_id>=5) ? 'fw-bolder ' : '' }}" href="{{ url('/order/vendor/history') }}">History</a>
                     <div class="vr"></div>
-                    <a class="nav-link text-dark" href="{{ url('/vendor-menu') }}">Menu</a>
+                    <a class="nav-link text-dark {{ request()->is('vendor-menu')|| request()->is('vendor-menu/add') || request()->is('vendor-menu/edit/*')  ? 'fw-bolder ' : '' }}" href="{{ url('/vendor-menu') }}">Menu</a>
                 @endif
                 
             </nav>
