@@ -3,7 +3,11 @@
 
 @section('content')
 @if (auth()->guard("vendor")->user()->upcoming_deletion_date != null)
-    <div>{{auth()->guard("vendor")->user()->rejection_reason}}</div>
+    <div class="container-fluid p-5" style="height:100vh">
+        <p class="h1 text-center mt-5">Sorry your account is rejected by Admin because:</p>
+        <p class="h1 text-center mt-5 alert alert-danger">{{auth()->guard("vendor")->user()->rejection_reason}}</p>
+        
+    </div>
 @elseif (auth()->guard("vendor")->user()->approved_by == null)
     <div class="container-fluid p-5" style="height:100vh">
         <p class="h1 text-center mt-5">Please wait for while Admin verify your account</p>
