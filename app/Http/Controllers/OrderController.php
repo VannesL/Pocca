@@ -54,7 +54,7 @@ class OrderController extends Controller
         ];
 
         if (auth()->guard('customer')->check()) {
-            return view('customerOrderDetails', $data);
+            return view('Customer/customerOrderDetails', $data);
         } else {
             return view('vendorOrderDetails', $data);
         }
@@ -83,7 +83,7 @@ class OrderController extends Controller
             'orders' => $orders,
         ];
 
-        return view('customerOrder', $data);
+        return view('Customer/customerOrder', $data);
     }
 
     public function customerOrderHistory(Request $request)
@@ -97,14 +97,14 @@ class OrderController extends Controller
             'orders' => $orders,
         ];
 
-        return view('customerOrderHistory', $data);
+        return view('Customer/customerOrderHistory', $data);
     }
 
     public function orderPayment(Request $request)
     {
-            Validator::make($request->all(), [
-                'image'             => ['required', 'mimes:jpg,bmp,png'],
-            ])->validate();
+        Validator::make($request->all(), [
+            'image'             => ['required', 'mimes:jpg,bmp,png'],
+        ])->validate();
 
         $order = Order::where('id', $request->orderid)->get()->first();
 

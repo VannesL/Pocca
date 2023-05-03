@@ -20,7 +20,6 @@ class CartController extends Controller
     {
         $user = auth()->guard('customer')->user();
         $cart = Cart::where('customer_id', $user->id)->first();
-        // dd($request);
         if (!is_null($cart) && $cart->vendor_id != $vendor->id) {
             $cartItem = CartItem::where('cart_id', $cart->id)->delete();
             $cart->delete();
@@ -34,21 +33,64 @@ class CartController extends Controller
             $cart->save();
         }
 
-        $cartItem = new CartItem();
-        $cartItem->cart_id = $cart->id;
-        $cartItem->menu_id = $menuitem->id;
+        $cartItem = CartItem::where([
+            ['menu_id', $menuitem->id],
+            ['cart_id', $cart->id],
+        ])->get()->first();
+
+        if (!$cartItem) {
+            $cartItem = new CartItem();
+            $cartItem->cart_id = $cart->id;
+            $cartItem->menu_id = $menuitem->id;
+            //calulate total for cart
+            $cart->total += ($request->quantity * $menuitem->price);
+            $cart->save();
+        } else {
+            //calulate total for cart when cart exists
+            $diff = $request->quantity - $cartItem->quantity;
+            $cart->total = $cart->total + ($diff * $cartItem->menu->price);
+            $cart->save();
+        }
+
         $cartItem->quantity = $request->quantity;
+
         if (is_null($request->notes)) {
             $cartItem->notes = '';
         } else {
             $cartItem->notes = $request->notes;
         }
         $cartItem->save();
-        //calulate total for cart
-        $cart->total += ($request->quantity * $menuitem->price);
-        $cart->save();
+
 
         return redirect('/vendor/' . $vendor->id);
+    }
+
+    public function updateCart(Request $request)
+    {
+        $cartItem = CartItem::where('id', $request->cartItemid)->get()->first();
+        $cart = Cart::where('id', $cartItem->cart_id)->get()->first();
+
+        $diff = $request->quantity - $cartItem->quantity;
+        $cart->total = $cart->total + ($diff * $cartItem->menu->price);
+        $cart->save();
+
+        $cartItem->notes = $request->notes;
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+
+        return redirect('/customer-cart');
+    }
+
+    public function removeCartItem(Request $request)
+    {
+        $cartItem = CartItem::where('id', $request->cartItemid)->get()->first();
+        $cart = Cart::where('id', $cartItem->cart_id)->get()->first();
+
+        $cart->total = $cart->total - $cartItem->menu->price * $cartItem->quantity;
+        $cart->save();
+
+        $cartItem->delete();
+        return back();
     }
 
     public function cartPage()
@@ -59,9 +101,9 @@ class CartController extends Controller
         if (!is_null($cart)) {
             $cartItems = CartItem::where('cart_id', $cart->id)->get();
 
-            return view('customerCart', ['cart' => $cart, 'cartItems' => $cartItems]);
+            return view('Customer/customerCart', ['cart' => $cart, 'cartItems' => $cartItems]);
         }
-        return view('customerCart', ['cart' => $cart]);
+        return view('Customer/customerCart', ['cart' => $cart]);
     }
 
     public function checkout(Request $request)

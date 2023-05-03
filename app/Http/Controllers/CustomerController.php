@@ -84,7 +84,7 @@ class CustomerController extends Controller
                     ->get();
             }
         }
-        return view('home', ['favorited_canteens' => $favorited_canteens, 'canteens' => $canteens, 'type' => $request->type, 'search' => $request->search]);
+        return view('Customer/home', ['favorited_canteens' => $favorited_canteens, 'canteens' => $canteens, 'type' => $request->type, 'search' => $request->search]);
     }
 
     public function canteen(Request $request, Canteen $canteen)
@@ -108,17 +108,17 @@ class CustomerController extends Controller
                     ->get();
             }
         }
-        return view('canteen', ['canteen' => $canteen, 'favorited_vendors' => $favorited_vendors, 'vendors' => $vendors, 'type' => $request->type, 'search' => $request->search]);
+        return view('Customer/canteen', ['canteen' => $canteen, 'favorited_vendors' => $favorited_vendors, 'vendors' => $vendors, 'type' => $request->type, 'search' => $request->search]);
     }
 
     public function vendor(Request $request, vendor $vendor)
     {
         $user = auth()->guard('customer')->user();
-        $cartCount = Cart::where('customer_id', $user->id)
-            ->where('vendor_id', $vendor->id)
-            ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
-            ->select(DB::raw('COUNT(cart_items.menu_id) AS total_order'))
-            ->get();
+        $cart = Cart::where('customer_id', $user->id)->where('vendor_id', $vendor->id)->get()->first();
+        $cartItems = collect();
+        if ($cart) {
+            $cartItems = CartItem::where('cart_id', $cart->id)->get();
+        }
 
         $categories = [];
         $menuByCat = [];
@@ -173,7 +173,7 @@ class CustomerController extends Controller
             }
         }
 
-        return view('customerMenu', ['vendor' => $vendor, 'menuByCat' => $menuByCat, 'categories' => $categories, 'search' => $request->search,  'vendor' => $vendor, 'cartCount' => $cartCount[0]->total_order]);
+        return view('Customer/customerMenu', ['vendor' => $vendor, 'menuByCat' => $menuByCat, 'categories' => $categories, 'search' => $request->search,  'vendor' => $vendor, 'cartItems' => $cartItems]);
     }
 
 

@@ -34,6 +34,7 @@ class MenuItemTableSeeder extends Seeder
             'availability' => true,
             'price' => 6000,
             'cook_time' => 2,
+            'recommended' => true,
             'image' => '',
         ]);
         MenuItem::create([
@@ -50,29 +51,20 @@ class MenuItemTableSeeder extends Seeder
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '1',
-            'name' => '1_Hamburger',
-            'description' => 'Standard burger patty between 2 buns',
+            'name' => '1_Cheeseburger',
+            'description' => 'Standard burger patty between 2 buns WITH CHEESE',
             'availability' => true,
-            'price' => 10000,
+            'price' => 12000,
             'cook_time' => 5,
+            'recommended' => true,
             'image' => '',
         ]);
 
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '1',
-            'name' => '1_Cheese French Fries',
-            'description' => 'Fresh fries seasoned with salt topped with our cheese topping',
-            'availability' => true,
-            'price' => 6000,
-            'cook_time' => 2,
-            'image' => '',
-        ]);
-        MenuItem::create([
-            'vendor_id' => '1',
-            'category_id' => '1',
-            'name' => '1_BBQ French Fries',
-            'description' => 'Fresh fries seasoned with salt topped with our cheese topping',
+            'name' => '1_Seaweed French Fries',
+            'description' => 'Fresh fries seasoned with our sepcial seaweed salt',
             'availability' => true,
             'price' => 6000,
             'cook_time' => 2,
@@ -81,10 +73,10 @@ class MenuItemTableSeeder extends Seeder
         MenuItem::create([
             'vendor_id' => '1',
             'category_id' => '2',
-            'name' => '1_Soda',
-            'description' => 'Standard soda',
+            'name' => '1_Badak',
+            'description' => 'Badak (you know what it is)',
             'availability' => true,
-            'price' => 3000,
+            'price' => 5000,
             'cook_time' => 1,
             'image' => '',
         ]);

@@ -44,7 +44,7 @@
                 </form>
                 <hr>
                 @foreach ($favorited_vendors as $vendor)
-                    <a href="" class="text-decoration-none">
+                    <a href="{{ url('/vendor/'.$vendor->id) }}" class="text-decoration-none">
                         <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">
@@ -70,7 +70,7 @@
                     </a>
                 @endforeach
                 @foreach ($vendors as $vendor)
-                    <a href="" class="text-decoration-none">
+                    <a href="{{ url('/vendor/'.$vendor->id) }}" class="text-decoration-none">
                         <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">
