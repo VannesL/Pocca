@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Canteen;
+use App\Models\Review;
 use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -190,6 +191,13 @@ class VendorController extends Controller
     public function vendorDash(Request $request)
     {
         $userid = auth()->guard('vendor')->user()->id;
+        $rating = 0;
+        $rate = Review::where('vendor_id',$userid)
+                    ->select(DB::raw('AVG(rating) as rating'))
+                    ->get();
+        if (!$rate->isEmpty()) {
+            $rating = round($rate[0]->rating, 1);
+        }
 
         $selectedDate = Carbon::today(); // initially todays date
 
@@ -231,6 +239,42 @@ class VendorController extends Controller
             ->get(); 
         $totalProfits = $report->sum('profits');
 
-        return view('vendorDash', ['report' => $report, 'totalProfits' => $totalProfits, 'selectedDate' => $selectedDate, 'revenueOrders' => $curr_revOrd, 'revDiff' =>  $revDiff, 'ordDiff' => $ordDiff]);
+        $data =  [
+            'report' => $report, 
+            'totalProfits' => $totalProfits, 
+            'selectedDate' => $selectedDate, 
+            'revenueOrders' => $curr_revOrd, 
+            'revDiff' =>  $revDiff, 
+            'ordDiff' => $ordDiff,
+            'rating' => $rating
+        ];
+
+        return view('vendorDash', $data);
+    }
+
+    public function getReviews(){
+        $userid = auth()->guard('vendor')->user()->id;
+        $avgRating = 0;
+        $avgRate = Review::where('vendor_id',$userid)
+                    ->select(DB::raw('AVG(rating) as rating'))
+                    ->get();
+        if (!$avgRate->isEmpty()) {
+            $avgRating = round($avgRate[0]->rating, 1);
+        }
+
+        $countPerRate = Review::where('vendor_id', $userid)
+                        ->select(DB::raw('Count(rating) as rateCount'), 'rating')
+                        ->groupBy('rating')
+                        ->get();
+        
+        $reviews = Review::where('vendor_id',$userid)->get();
+
+        $data = [
+            'avgRating' => $avgRating,
+            'countPerRate' => $countPerRate,
+            'reviews' => $reviews
+        ];
+        // dd($data);
+        return view('vendorReview', $data);
     }
 }

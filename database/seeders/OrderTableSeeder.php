@@ -47,7 +47,7 @@ class OrderTableSeeder extends Seeder
             'total' => 9000,
             'type' => true,
             'date' => Carbon::now(),
-            'reviewed' => false,
+            'reviewed' => true,
             'payment_image' => 'default.png',
             'rejection_reason' => '',
         ]);
@@ -59,7 +59,7 @@ class OrderTableSeeder extends Seeder
             'total' => 300000,
             'type' => true,
             'date' => Carbon::now()->subMonth(1),
-            'reviewed' => false,
+            'reviewed' => true,
             'payment_image' => '',
             'rejection_reason' => '',
         ]);

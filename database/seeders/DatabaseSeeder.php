@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             StatusTableSeeder::class,
             OrderTableSeeder::class,
             OrderItemsTableSeeder::class,
+            ReviewsTableSeeder::class
         ]);
     }
 }
