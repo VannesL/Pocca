@@ -5,7 +5,10 @@
 @if (auth()->guard("vendor")->user()->upcoming_deletion_date != null)
     <div>{{auth()->guard("vendor")->user()->rejection_reason}}</div>
 @elseif (auth()->guard("vendor")->user()->approved_by == null)
-    <div>Please wait for account verification</div>
+    <div class="container-fluid p-5" style="height:100vh">
+        <p class="h1 text-center mt-5">Please wait for while Admin verify your account</p>
+        
+    </div>
 @else
 <div class="container-fluid  px-4">
     <div class="col">
