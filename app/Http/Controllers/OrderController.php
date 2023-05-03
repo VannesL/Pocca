@@ -102,17 +102,17 @@ class OrderController extends Controller
 
     public function orderPayment(Request $request)
     {
-        Validator::make($request->all(), [
-            'proof'             => ['required', 'mimes:jpg,bmp,png'],
-        ])->validate();
+            Validator::make($request->all(), [
+                'image'             => ['required', 'mimes:jpg,bmp,png'],
+            ])->validate();
 
         $order = Order::where('id', $request->orderid)->get()->first();
 
-        $ext = $request->file('proof')->extension();
-        $imgName = md5($request->proof);
+        $ext = $request->file('image')->extension();
+        $imgName = md5($request->image);
         $order->payment_image = "payment_" . $order->id . "_" . $imgName . $ext;
 
-        $image = $request->file('proof');
+        $image = $request->file('image');
         Storage::putFileAs('public/payments', $image, "payment_" . $order->id . "_" . $imgName . $ext);
 
         $order->save();
