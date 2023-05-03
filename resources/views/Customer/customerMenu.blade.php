@@ -118,8 +118,8 @@
                                             @if ($item->availability)
                                             </a>    
                                             <!-- Modal -->
-                                            <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog position-absolute w-100 mb-0 ms-0 bottom-0 " style="max-height: 90%" role="document">
+                                            <div class="modal fade  " id="{{$item->id}}addToCart" tabindex="-1"  aria-hidden="true">
+                                                <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="max-height: 90%" >
                                                     
                                                     <div class="modal-content" style="">
                                                         <div class="container">
@@ -132,70 +132,73 @@
 
                                                         <div class="modal-header">
                                                             @if ($item->image != '')
-                                                                <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="" >
+                                                                <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 " alt="image error" style="" >
                                                             @else
-                                                                <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="" >
+                                                                <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0" alt="image error" style="" >
                                                             @endif
                                                         </div>
                                                     
                                                         <div class="modal-body">     
-                                                            <div class="row px-2">
-                                                                <div class="col-8">
-                                                                    <h5 class="text-break">{{$itemName[1]}}</h5>
-                                                                    
-                                                                </div>
-                                                                <div class="col-4 text-end fw-medium"> 
-                                                                    <p> <i class="fa-solid fa-hourglass-end me-1"></i> {{$item->cook_time}}  <span class="">min</span></p>
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            <div class="row px-3"> 
-                                                                <p>{{$item->description}}</p>
-                                                            </div>
-                                                            <div class="row px-3 d-flex align-items-center flex-column">
-                                                                <form action="{{ url('/vendor/'.$vendor->id.'/addToCart/'.$item->id) }}" method="post" class="form-loading mb-3">
-                                                                    @csrf
-                                                                    <div class="mb-3">
-                                                                        <label for="notes" class="form-label fw-medium" >Notes</label>
-                                                                        <textarea class="form-control" id="notes" name='notes' rows="3" placeholder="ex. Make it good!">{{$notes ? $notes : ''}}</textarea>
-                                                                    </div>
-                                                                    <div class="row mb-4 d-flex align-items-center">
-                                                                        <div class="col-6 fw-medium h4 mb-0">
-                                                                            Rp {{$item->price}}
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <div class="input-group inline-group">
-                                                                                <div class="input-group-prepend">
-                                                                                <a class="btn btn-minus rounded-0 btn-secondary">
-                                                                                    <i class="fa fa-minus"></i>
-                                                                                </a>
-                                                                                </div>
-                                                                                <input class="form-control quantity" min="0" name="quantity" value={{$quantity !== 0 ? $quantity : "1"}} type="number">
-                                                                                <div class="input-group-append">
-                                                                                <a class="btn btn-plus rounded-0 btn-secondary">
-                                                                                    <i class="fa fa-plus"></i>
-                                                                                </a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        @if ($quantity > 0)
-                                                                            <div class="d-flex justify-content-around">
-                                                                                <a href="{{ url('/remove-item/'.$cartItemId) }}" class="btn btn-danger w-50 me-1">Remove Item</a>
-                                                                                <button class="btn btn-primary w-50 ms-1" type="submit">Update Item</button>
-                                                                            </div>
-                                                                        @else
-                                                                            <button class="btn btn-primary w-100" type="submit">Add Item</button>
-                                                                        @endif
+                                                            <div class="container">
+                                                                <div class="row px-2">
+                                                                    <div class="col-8">
+                                                                        <h5 class="text-break">{{$itemName[1]}}</h5>
                                                                         
                                                                     </div>
-                                                                </form>
+                                                                    <div class="col-4 text-end fw-medium"> 
+                                                                        <p> <i class="fa-solid fa-hourglass-end me-1"></i> {{$item->cook_time}}  <span class="">min</span></p>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row px-3"> 
+                                                                    <p>{{$item->description}}</p>
+                                                                </div>
+                                                                <div class="row px-3 d-flex align-items-center flex-column">
+                                                                    <form action="{{ url('/vendor/'.$vendor->id.'/addToCart/'.$item->id) }}" method="post" class="form-loading mb-3">
+                                                                        @csrf
+                                                                        <div class="mb-3">
+                                                                            <label for="notes" class="form-label fw-medium" >Notes</label>
+                                                                            <textarea class="form-control" id="notes" name='notes' rows="3" placeholder="ex. Make it good!">{{$notes ? $notes : ''}}</textarea>
+                                                                        </div>
+                                                                        <div class="row mb-4 d-flex align-items-center">
+                                                                            <div class="col-6 fw-medium h4 mb-0">
+                                                                                Rp {{$item->price}}
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <div class="input-group inline-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                    <a class="btn btn-minus rounded-0 btn-secondary">
+                                                                                        <i class="fa fa-minus"></i>
+                                                                                    </a>
+                                                                                    </div>
+                                                                                    <input class="form-control quantity" min="0" name="quantity" value={{$quantity !== 0 ? $quantity : "1"}} type="number">
+                                                                                    <div class="input-group-append">
+                                                                                    <a class="btn btn-plus rounded-0 btn-secondary">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                    </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            @if ($quantity > 0)
+                                                                                <div class="d-flex justify-content-around">
+                                                                                    <a href="{{ url('/remove-item/'.$cartItemId) }}" class="btn btn-danger w-50 me-1">Remove Item</a>
+                                                                                    <button class="btn btn-primary w-50 ms-1" type="submit">Update Item</button>
+                                                                                </div>
+                                                                            @else
+                                                                                <button class="btn btn-primary w-100" type="submit">Add Item</button>
+                                                                            @endif
+                                                                            
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>     
+                                              
                                             @endif
                                             </a>           
                                         </div>

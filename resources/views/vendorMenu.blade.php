@@ -63,6 +63,8 @@
                     </div>
                 </div>
                 @endforeach 
+            @else
+            <h2 class="mt-4 text-center text-wrap">The menu is stil empty!</h2>
             @endif
         </div>
 

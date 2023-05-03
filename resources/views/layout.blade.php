@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-100">
+        <div class="w-100" >
             <nav class="nav navbar-light bg-light d-flex justify-content-evenly border-top border-bottom">
                 @if (auth()->guard('customer')->check())
                     <a class="nav-link text-dark {{ request()->is('home') || request()->is('home/*') || request()->is('vendor/*') ? 'fw-bolder ' : '' }}" href="{{ url('/home') }}">Home<span class="sr-only"></a>
@@ -58,7 +58,7 @@
             </nav>
         </div>
 
-        <div class="mt-3">
+        <div class="mt-3" style="overflow-x: hidden"    >
             @yield('content')
         </div>
         @stack('custom-js')

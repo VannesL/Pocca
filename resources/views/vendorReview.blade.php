@@ -6,7 +6,7 @@
 
 @section('content')    
     <div class="container">
-        <div class="row ">
+        <div class="row  mb-5">
             <h3 class="text-center">Reviews</h3>
             <h2 class=" text-center fw-bold" style="font-size: 30px">
                 <i class="fa-solid fa-star" style="color: #ffec00;"></i>
@@ -14,7 +14,7 @@
             </h2>
         </div>
         
-            {{-- <div class="card mx-2 mb-5" style="">
+                {{-- <div class="card mx-2 mb-5" style="">
                 @foreach ($countPerRate as $rateCount)
                     <div class="row">
 

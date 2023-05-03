@@ -21,7 +21,7 @@
                   <div class="d-flex justify-content-center mb-3 pb-1">
                     <span class="h1 text-white fw-bold">Register</span>
                   </div>
-                  <div class="card" style="border-radius: 1rem;">
+                  <div class="card mb-5" style="border-radius: 1rem;">
                     <div class="row g-0">
                      
                       
