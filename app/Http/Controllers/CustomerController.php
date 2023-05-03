@@ -49,7 +49,6 @@ class CustomerController extends Controller
 
     public function home(Request $request)
     {
-        // dd($request);
         $favorited_canteens = Canteen::whereHas('favorite_canteens')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         $canteens = Canteen::whereDoesntHave('favorite_canteens')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         if ($request->search) {
@@ -73,7 +72,7 @@ class CustomerController extends Controller
                     ->get();
             }
         }
-        return view('home', ['favorited_canteens' => $favorited_canteens, 'canteens' => $canteens, 'search' => $request->search]);
+        return view('home', ['favorited_canteens' => $favorited_canteens, 'canteens' => $canteens, 'type' => $request->type, 'search' => $request->search]);
     }
 
     public function canteen(Request $request, Canteen $canteen)
@@ -84,15 +83,20 @@ class CustomerController extends Controller
 
         if ($request->search) {
             if ($request->type == 'vendor') {
-                $vendors = Vendor::where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->get()
-                    ->sortByDesc('favorites'); //->whereNotIn($favorites->id);
+                $favorited_vendors = Vendor::whereHas('favorite_vendors')
+                    ->where('name', 'LIKE', '%' . $request->search . '%')
+                    ->orderByDesc('favorites') //->whereNotIn($favorites->id);
+                    ->get();
+                $vendors = Vendor::whereDoesntHave('favorite_vendors')
+                    ->where('name', 'LIKE', '%' . $request->search . '%')
+                    ->orderByDesc('favorites') //->whereNotIn($favorites->id);
+                    ->get();
             } elseif ($request->type == 'menu_item') {
                 $vendors = MenuItem::whereIn('vendor_id', $vendor_ids)->where('name', 'LIKE', '%' . $request->search . '%')
                     ->get();
             }
         }
-        return view('canteen', ['canteen' => $canteen, 'favorited_vendors' => $favorited_vendors, 'vendors' => $vendors, 'search' => $request->search]);
+        return view('canteen', ['canteen' => $canteen, 'favorited_vendors' => $favorited_vendors, 'vendors' => $vendors, 'type' => $request->type, 'search' => $request->search]);
     }
 
     public function updateFavoriteCanteen(Request $request, Canteen $canteen)
@@ -118,12 +122,12 @@ class CustomerController extends Controller
             $vendor->favorite_vendors()->detach([$user->id] ?? []);
             $vendor->favorites -= 1;
             $vendor->save();
-            return redirect(url('/home/'.$canteen->id));
+            return redirect(url('/home/' . $canteen->id));
         } elseif ($request->favorite == 1) {
             $vendor->favorite_vendors()->attach([$user->id] ?? []);
             $vendor->favorites += 1;
             $vendor->save();
-            return redirect(url('/home/'.$canteen->id));
+            return redirect(url('/home/' . $canteen->id));
         };
     }
 

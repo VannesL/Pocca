@@ -10,8 +10,8 @@
                         <div class="col-4">
                             <div class="form-group @error('type') has-error @enderror">
                                 <select name="type" id="" class="form-control">
-                                    <option value="canteen">Canteen</option>
-                                    <option value="vendor">Vendor</option>
+                                    <option value="canteen" {{$type == 'canteen' ? 'selected' : ''}}>Canteen</option>
+                                    <option value="vendor" {{$type == 'vendor' ? 'selected' : ''}}>Vendor</option>
                                 </select>
                                 @error('type')
                                     <span class="form-text m-b-none text-danger">{{ $message }}</span>

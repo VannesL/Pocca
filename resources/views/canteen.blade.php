@@ -19,8 +19,8 @@
                         <div class="col-4">
                             <div class="form-group @error('type') has-error @enderror">
                                 <select name="type" id="" class="form-control">
-                                    <option value="vendor">Vendor</option>
-                                    <option value="menu_item">Menu Item</option>
+                                    <option value="vendor" {{$type == 'vendor' ? 'selected' : ''}}>Vendor</option>
+                                    <option value="menu_item" {{$type == 'menu_item' ? 'selected' : ''}}>Menu Item</option>
                                 </select>
                                 @error('type')
                                     <span class="form-text m-b-none text-danger">{{ $message }}</span>
