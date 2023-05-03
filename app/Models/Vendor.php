@@ -24,6 +24,11 @@ class Vendor extends Authenticatable
         return $this->belongsTo(Canteen::class);
     }
 
+    public function menuItems()
+    {
+        return $this->belongsTo(MenuItem::class);
+    }
+
     public function priceRange()
     {
         return $this->belongsTo(PriceRange::class);
@@ -32,5 +37,10 @@ class Vendor extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function favorite_vendors()
+    {
+        return $this->belongsToMany(Vendor::class, 'favorite_vendors', 'vendor_id', 'customer_id');
     }
 }
