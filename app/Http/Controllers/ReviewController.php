@@ -40,8 +40,8 @@ class ReviewController extends Controller
                 $imgName = $img->getClientOriginalName();
                 $reviewImage->path = 'review_' . $review->id . '_' . $count . '_' . $imgName;
 
+                Storage::putFileAs('public/reviewImages', $img, 'review_' . $review->id . '_' . $count . '_' . $imgName);
                 $count = $count + 1;
-                Storage::putFileAs('public/reviews', $img, 'review_' . $review->id . '_' . $count . '_' . $imgName);
 
                 $reviewImage->save();
             }

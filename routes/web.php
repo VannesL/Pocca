@@ -61,6 +61,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 });
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
+    Route::get('/vendor-dash/reviews', [VendorController::class, 'getReviews']);
     //Profile
     Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
     Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
@@ -76,7 +77,6 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);
     Route::get('/order/vendor/history', [OrderController::class, 'vendorOrderHistory']);
     // Sales Report
-    Route::get('/vendor-home', [VendorController::class, 'getSalesReport']);
 });
 
 Route::group(['middleware' => ['web']], function () {

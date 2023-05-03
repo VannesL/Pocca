@@ -12,12 +12,12 @@
         <div class="row"> {{-- page widget--}}
             <div class="col-md-4  mb-3">
                 <div class="card bg-warning ">
-                    <a class="text-white text-decoration-none" href="#">
+                    <a class="text-white text-decoration-none" href="{{url('/vendor-dash/reviews')}}">
                         <div class="card-body p-3">
                             <h5 class="mb-3" style="font-size: 15px">Rating</h5>
                             <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
                                 <i class="fa-solid fa-star"></i>
-                                5
+                                {{$rating}}
                             </h2>
                             <h6 class="card-text font-weight-light" style="font-size: 12px">See review 
                                 <i class="fa-solid fa-angle-right" style="color: #ffffff;"></i>
