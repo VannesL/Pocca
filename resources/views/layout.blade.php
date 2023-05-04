@@ -58,7 +58,7 @@
             </nav>
         </div>
 
-        <div class="mt-3" style="overflow-x: hidden"    >
+        <div class="mt-3" style="overflow-x: hidden">
             @yield('content')
         </div>
         @stack('custom-js')

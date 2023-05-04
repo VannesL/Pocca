@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\MenuItem;
+use App\Models\Review;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -111,7 +112,7 @@ class CustomerController extends Controller
         return view('Customer/canteen', ['canteen' => $canteen, 'favorited_vendors' => $favorited_vendors, 'vendors' => $vendors, 'type' => $request->type, 'search' => $request->search]);
     }
 
-    public function vendor(Request $request, vendor $vendor)
+    public function viewMenu(Request $request, vendor $vendor)
     {
         $user = auth()->guard('customer')->user();
         $cart = Cart::where('customer_id', $user->id)->where('vendor_id', $vendor->id)->get()->first();
@@ -119,6 +120,13 @@ class CustomerController extends Controller
         if ($cart) {
             $cartItems = CartItem::where('cart_id', $cart->id)->get();
         }
+        $rating = Review::where('vendor_id', $vendor->id)
+            ->select(DB::raw('AVG(rating) as rating'))
+            ->get();
+        if (!$rating->isEmpty()) {
+            $rating = round($rating[0]->rating, 1);
+        }
+        //add favorite
 
         $categories = [];
         $menuByCat = [];
@@ -173,7 +181,17 @@ class CustomerController extends Controller
             }
         }
 
-        return view('Customer/customerMenu', ['vendor' => $vendor, 'menuByCat' => $menuByCat, 'categories' => $categories, 'search' => $request->search,  'vendor' => $vendor, 'cartItems' => $cartItems]);
+        $data = [
+            'vendor' => $vendor,
+            'menuByCat' => $menuByCat,
+            'categories' => $categories,
+            'search' => $request->search,
+            'vendor' => $vendor,
+            'cartItems' => $cartItems,
+            'rating' => $rating,
+        ];
+
+        return view('Customer/customerMenu', $data);
     }
 
 

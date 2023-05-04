@@ -7,7 +7,7 @@
 
 @section('content')
     @if ($cartItems->count()>0)    
-        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:30px;">
+        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
             <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{$cartItems->count()}}
@@ -25,11 +25,11 @@
                     <div class="row"> <h4>{{$vendor->name}}</h4></div>
                     <div class="row"> <p>{{$vendor->description}}</p></div>
                     <div class="row "> 
-                        {{-- ADD RATING AND PRICE RANGE --}}
-                        <div class="col-3"><i class="fa-solid fa-star me-1"></i>1</div>
-                        <div class="col-9 ">Rp 10-30k</div>
+                        <div class="col-3"><i class="fa-solid fa-star me-1"></i>{{$rating}}</div>
+                        <div class="col-9 ">{{$vendor->priceRange->value}}</div>
                     </div>
                 </div>
+                {{-- Add favorite function --}}
                 <div class="col-2 align-self-center text-center">
                     <i class="fa fa-heart fa-2xl"></i>
                 </div>
@@ -118,7 +118,7 @@
                                             @if ($item->availability)
                                             </a>    
                                             <!-- Modal -->
-                                            <div class="modal fade  " id="{{$item->id}}addToCart" tabindex="-1"  aria-hidden="true">
+                                            <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1"  aria-hidden="true">
                                                 <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="max-height: 90%" >
                                                     
                                                     <div class="modal-content" style="">

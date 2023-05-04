@@ -9,6 +9,8 @@ class PriceRange extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id', 'value', 'min', 'max'];
+
     public function vendors()
     {
         return $this->hasMany(Vendor::class);

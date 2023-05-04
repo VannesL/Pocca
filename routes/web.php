@@ -51,8 +51,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::put('/home/update-favorite-canteen/{canteen}', [CustomerController::class, 'updateFavoriteCanteen']);
     Route::put('/home/{canteen}/update-favorite-vendor/{vendor}', [CustomerController::class, 'updateFavoriteVendor']);
 
-    //VendorMenu
-    Route::get('/vendor/{vendor}', [CustomerController::class, 'vendor']);
+    //View Menu
+    Route::get('/vendor/{vendor}', [CustomerController::class, 'viewMenu']);
     Route::post('/vendor/{vendor}/addToCart/{menuitem}', [CartController::class, 'addToCart']);
 
     //Checkout

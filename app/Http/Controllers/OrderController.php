@@ -66,7 +66,7 @@ class OrderController extends Controller
         $order = Order::where([
             ['id', $request->orderid],
         ])->get()->first();
-            
+
         $order->status_id = $order->status_id + 1;
         $order->save();
 
@@ -111,10 +111,10 @@ class OrderController extends Controller
 
         $ext = $request->file('image')->extension();
         $imgName = md5($request->image);
-        $order->payment_image = "payment_" . $order->id . "_" . $imgName . $ext;
+        $order->payment_image = "payment_" . $order->id . "_" . $imgName . "_" . $ext;
 
         $image = $request->file('image');
-        Storage::putFileAs('public/payments', $image, "payment_" . $order->id . "_" . $imgName . $ext);
+        Storage::putFileAs('public/payments', $image, "payment_" . $order->id . "_" . $imgName . "_" . $ext);
 
         $order->save();
 

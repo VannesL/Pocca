@@ -12,11 +12,11 @@ class Vendor extends Authenticatable
     use Notifiable;
 
     protected $guarded = ['id'];
-    protected $fillable = ['email', 'password', 'name', 'store_name', 'canteen_id', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image','rejection_reason','upcoming_deletion_date'];
+    protected $fillable = ['email', 'password', 'name', 'store_name', 'canteen_id', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image', 'rejection_reason', 'upcoming_deletion_date'];
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class, 'approved_by', 'id');
     }
 
     public function canteen()
@@ -31,7 +31,7 @@ class Vendor extends Authenticatable
 
     public function priceRange()
     {
-        return $this->belongsTo(PriceRange::class);
+        return $this->belongsTo(PriceRange::class, 'range_id', 'id');
     }
 
     public function orders()
