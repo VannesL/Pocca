@@ -123,6 +123,13 @@
                             </div>
                         </div>          
                     @endforeach
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                <a class="text-decoration-none fw-medium btn btn-outline-dark mt-2 w-100" href="{{ url('/vendor/'.$cart->vendor->id) }}">
+                                    Add More <i class="fa-solid fa-plus"></i>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <hr>
@@ -139,10 +146,7 @@
                         <option value="0">Takeout</option>
                     </select>
                 </div>
-                <div class="addBtn text-center d-flex justify-content-between align-items-end w-100 mb-3">
-                    <a href="{{ url('vendor/'.$cart->vendor->id) }}" class="btn btn-secondary w-50 me-1">Back</a>
-                    <button class="btn rounded btn-primary w-50 ms-1" type="submit">Confirm Order</button>
-                </div>
+                <button class="btn rounded btn-primary w-100 ms-1 py-2 fw-medium" type="submit">Confirm Order</button>
             </form>
                 
         </div>

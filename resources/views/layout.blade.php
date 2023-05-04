@@ -40,7 +40,7 @@
         <div class="w-100" >
             <nav class="nav navbar-light bg-light d-flex justify-content-evenly border-top border-bottom">
                 @if (auth()->guard('customer')->check())
-                    <a class="nav-link text-dark {{ request()->is('home') || request()->is('home/*') || request()->is('vendor/*') ? 'fw-bolder ' : '' }}" href="{{ url('/home') }}">Home<span class="sr-only"></a>
+                    <a class="nav-link text-dark {{ request()->is('home') || request()->is('home/*') || request()->is('vendor/*') || request()->is('customer-cart') ? 'fw-bolder ' : '' }}" href="{{ url('/home') }}">Home<span class="sr-only"></a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark {{ request()->is('order/customer') ||  (Route::currentRouteNamed('order-details') && $order->status_id<5)  ? 'fw-bolder ' : '' }}" href="{{ url('/order/customer') }}">Order</a>
                     <div class="vr"></div>

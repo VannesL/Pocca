@@ -8,9 +8,8 @@
 
 @section('content')
     <div class="container">
-        <h6>{{ $order->vendor->canteen->name }}</h6>
         <h3 class="">{{ $order->vendor->store_name }}</h3>
-        <h6 class="mb-3">{{ $order->vendor->phone_number }}</h6>
+        <h6 class="mb-3">{{ $order->vendor->canteen->name }} • {{ $order->vendor->phone_number }}</h6>
 
         @php
             $color = "";

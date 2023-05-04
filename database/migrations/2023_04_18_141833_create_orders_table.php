@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('reviewed');
             $table->string('payment_image');
             $table->string('rejection_reason');
+            $table->datetime('finish_time')->nullable();
             $table->timestamps();
         });
     }

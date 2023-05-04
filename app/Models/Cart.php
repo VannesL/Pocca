@@ -10,7 +10,7 @@ class Cart extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $fillable = ['customer_id','vendor_id','total'];
+    protected $fillable = ['customer_id', 'vendor_id', 'total'];
 
 
     public function customer()
@@ -21,5 +21,10 @@ class Cart extends Model
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
     }
 }

@@ -2,6 +2,17 @@
 
 @section('content')
     <div class="container">
+        @if ($cartItems->count()>0)    
+            <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
+                <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{$cartItems->count()}}
+                        <span class="visually-hidden">number of items</span>
+                    </span>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 <form action="{{ url('/home') }}" method="get" class="form-loading">

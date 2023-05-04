@@ -85,7 +85,21 @@ class CustomerController extends Controller
                     ->get();
             }
         }
-        return view('Customer/home', ['favorited_canteens' => $favorited_canteens, 'canteens' => $canteens, 'type' => $request->type, 'search' => $request->search]);
+
+        $customer = auth()->guard('customer')->user();
+        $cartItems = collect();
+        if ($customer->cart) {
+            $cartItems = $customer->cart->cartItems;
+        }
+
+        $data = [
+            'favorited_canteens' => $favorited_canteens,
+            'canteens' => $canteens, 'type' => $request->type,
+            'search' => $request->search,
+            'cartItems' => $cartItems,
+        ];
+
+        return view('Customer/home', $data);
     }
 
     public function canteen(Request $request, Canteen $canteen)
@@ -109,7 +123,24 @@ class CustomerController extends Controller
                     ->get();
             }
         }
-        return view('Customer/canteen', ['canteen' => $canteen, 'favorited_vendors' => $favorited_vendors, 'vendors' => $vendors, 'type' => $request->type, 'search' => $request->search]);
+
+        $customer = auth()->guard('customer')->user();
+        $cartItems = collect();
+        if ($customer->cart) {
+            $cartItems = $customer->cart->cartItems;
+        }
+
+
+        $data = [
+            'canteen' => $canteen,
+            'favorited_vendors' => $favorited_vendors,
+            'vendors' => $vendors,
+            'type' => $request->type,
+            'search' => $request->search,
+            'cartItems' => $cartItems,
+        ];
+
+        return view('Customer/canteen', $data);
     }
 
     public function viewMenu(Request $request, vendor $vendor)
