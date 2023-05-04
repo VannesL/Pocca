@@ -111,7 +111,7 @@
                                                             <h6 class="card-title ">{{$itemName[1]}}</h6>
                                                         </div>
                                                         <div class="row h-25">
-                                                            <p class="card-text">Rp {{$item->price}}</p>
+                                                            <p class="card-text">{{rupiah($item->price ?? '', true)}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -162,7 +162,7 @@
                                                                         </div>
                                                                         <div class="row mb-4 d-flex align-items-center justify-content-between">
                                                                             <div class="col-6 fw-medium h4 mb-0">
-                                                                                Rp {{$item->price}}
+                                                                                {{rupiah($item->price ?? '', true)}}
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <div class="input-group inline-group">

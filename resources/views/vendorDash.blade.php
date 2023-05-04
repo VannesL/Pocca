@@ -40,7 +40,7 @@
                             <div class="card-body text-light p-3">
                                 <h5 class="mb-3" style="font-size: 15px">This Month Revenue</h5>
                                 <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
-                                    RP {{$revenueOrders[0]->revenue}}
+                                    {{rupiah($revenueOrders[0]->revenue ?? '', true)}}
                                 </h2>
                                 @if ($revDiff >=0)
                                 <h6 class="card-text font-weight-light" style="font-size: 12px" > Increase by {{ $revDiff }}%</h6>
@@ -72,7 +72,7 @@
         </div>
         <div class="row px-2"> {{--Sales Report--}}
             <h2 class="text-center mb-3">Sales Report</h2>
-            <form action="{{ url('/vendor-home') }}" method="GET" class="form-loading mb-3" style="padding: 0">
+            <form action="{{ url('/vendor-dash') }}" method="GET" class="form-loading mb-3" style="padding: 0">
                 @csrf
                 <div class="row ">
                     <div class="col-10" >
@@ -104,13 +104,13 @@
                             <th class="text-center" scope="row">{{$loop->iteration}}</th>
                             <td class="text-break">{{$menuName[1]}}</td>
                             <td class="text-break text-center">{{$menu->sold}}</td>
-                            <td class="text-end">Rp {{$menu->profits}}</td>
+                            <td class="text-end">{{rupiah($menu->profits ?? '',true)}}</td>
                         </tr>
                        
                     @endforeach
                   <tr>
                     <td  class="text-center fw-bold" colspan="3">Total Profits</td>
-                    <td class="text-end fw-bold">Rp {{$totalProfits}}</td>
+                    <td class="text-end fw-bold">{{rupiah($totalProfits ?? '', true)}}</td>
                   </tr>
                 </tbody>
               </table>

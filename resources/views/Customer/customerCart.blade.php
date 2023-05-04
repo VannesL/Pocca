@@ -33,7 +33,7 @@
                         <tr class="border-end-0" data-bs-toggle="modal" data-bs-target="#{{$cartItem->menu->id}}addToCart">
                             <td class="col-1">{{ $cartItem->quantity }}x</td>
                             <td class="col-6">{{ $itemName[1] }}</td>
-                            <td class="col-4">Rp. {{ $price }}</td>
+                            <td class="col-4">{{ rupiah($price ?? '',true) }}</td>
                             <td class="col-1"><i class="fa-solid fa-pen-to-square"></i></button></td>
                         </tr>
                             
@@ -46,7 +46,7 @@
 
                         <!-- Modal -->
                         <div class="modal fade" id="{{$cartItem->menu->id}}addToCart" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog position-absolute w-100 mb-0 ms-0 bottom-0 " style="max-height: 90%" role="document">
+                            <div class=" z-3 modal-dialog position-absolute  mb-0 start-0 end-0 bottom-0" style="max-height: 90%" role="document">
                                 
                                 <div class="modal-content" style="">
                                     <div class="container">
@@ -88,7 +88,7 @@
                                                 </div>
                                                 <div class="row mb-4 d-flex align-items-center">
                                                     <div class="col-6 fw-medium h4 mb-0">
-                                                        Rp {{$cartItem->menu->price}}
+                                                        {{rupiah($cartItem->menu->price ?? '',true)}}
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="input-group inline-group">
@@ -135,7 +135,7 @@
                 <hr>
                 <div class="footer d-flex justify-content-between px-2">
                     <div>Total:</div>
-                    <div class="h4">Rp. {{ $cart->total }}</div>
+                    <div class="h4">{{ rupiah($cart->total ?? '',true) }}</div>
                 </div>
             </div>
             <form action="{{ url('/checkout') }}" method="post">

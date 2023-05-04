@@ -65,7 +65,7 @@
                     <tr class="border-end-0">
                         <td class="col-md-1">{{ $orderItem->quantity }}x</td>
                         <td class="col-md-9">{{ $itemName[1] }}</td>
-                        <td class="col-md-2">Rp. {{ $price }}</td>
+                        <td class="col-md-2">{{ rupiah($price ?? '',true) }}</td>
                     </tr>
                     @if ($orderItem->notes != '')
                         <tr>
@@ -79,7 +79,7 @@
             <hr>
             <div class="footer d-flex justify-content-between px-2">
                 <div>Total:</div>
-                <div class="h4">Rp. {{ $order->total }}</div>
+                <div class="h4">{{ rupiah($order->total ?? '', true) }}</div>
             </div>
         </div>
 
