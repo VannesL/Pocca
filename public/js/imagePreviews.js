@@ -59,3 +59,29 @@ $(document).ready(function(){
         }
     });
 })
+
+//register images
+function readURL_register(input, $form_id) {
+    console.log($form_id);
+    if (input.files && input.files[0] && input.files[0].type) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            if ($form_id == 'qris') {
+                $('#preview-qris').attr('src', e.target.result);
+                $('#preview-qris').css('max-height','300px');
+                
+            } else {
+                $('#preview-profile').attr('src', e.target.result);
+                $('#preview-profile').css('max-height','300px');
+            }
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".input-img").change(function(){
+    $form_id =$(this).attr('id');
+    readURL_register(this, $form_id);
+});

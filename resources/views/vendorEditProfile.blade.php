@@ -4,6 +4,7 @@
 @push('custom-js')
   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="{{ asset ('js/toogleEditProfile.js') }}"></script>
+  <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
 @endpush
 
 
@@ -29,7 +30,7 @@
                           <form method="POST" action="{{url("/vendor-editProfile")}}"   enctype="multipart/form-data" autocomplete="off">
                             @csrf
 
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-4"> 
                               <label for="canteenName" class="h4 fw-bold">Canteen Name</label>
                               <p id="canteenName" class="form-control form-control-md " name="canteenName">{{$canteenName}}</p>
                             </div>
@@ -173,28 +174,28 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                              <label for="image" class="h4 fw-bold">Profile Image</label>
-                              <img src="{{ asset('storage/profiles/'.auth()->guard('vendor')->user()->image) }}" class="img-fluid w-100" alt="No image Included"> 
-                              <input class="form-control form-control-sm" id="image" name="image" type="file">
-
-                              @error('image')
-                                <span class="invalid-feedback d-block" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                              <label for="profile" class="h4 fw-bold">Profile Image</label>
+                              <input class="form-control form-control-sm input-img" id="profile" name="profile" type="file">
+                              
+                              @error('profile')
+                              <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
                               @enderror
+                              <img id="preview-profile"  src="{{ asset('storage/profiles/'.auth()->guard('vendor')->user()->image) }}"alt="" class="img-thumbnail border-0 my-4 w-100" alt="No image Included" style="max-height:300px; object-fit:contain;">
                             </div>
 
                             <div class="form-outline mb-4">
                               <label for="qris" class="h4 fw-bold">QRIS</label>
                               
-                              <img src="{{ asset('storage/qris/'.auth()->guard('vendor')->user()->qris) }}" class="img-fluid w-100" alt="No image Included">
-                              <input class="form-control form-control-sm" id="qris" name="qris" type="file">
-
+                              <input class="form-control form-control-sm input-img" id="qris" name="qris" type="file">
+                              
                               @error('qris')
-                                <span class="invalid-feedback d-block" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                              <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
                               @enderror
+                              <img id="preview-qris"  src="{{ asset('storage/qris/'.auth()->guard('vendor')->user()->qris) }}"alt="" class="img-thumbnail border-0 my-4 w-100" style=" max-height:300px;object-fit:contain;">
                             </div>
 
                             <div class="d-flex justify-content-center pt-1 mt-3">

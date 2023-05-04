@@ -137,7 +137,7 @@ class VendorController extends Controller
             'store_name'         => [ 'string', 'min:8'],
             'address'           => [ 'string', 'min: 8'],
             'description'       => [ 'string', 'min: 8'],
-            'image'             => ['mimes:jpg,bmp,png'],
+            'profile'             => ['mimes:jpg,bmp,png'],
             'qris'              => ['mimes:jpg,bmp,png'],
         ])->validate();
         
@@ -147,7 +147,7 @@ class VendorController extends Controller
         if ($request->qris && Storage::exists("public/qris/$user->qris")) {
             Storage::delete("public/qris/$user->qris");
         }
-        if ($request->image && Storage::exists("public/profiles/$user->image")) {
+        if ($request->profile && Storage::exists("public/profiles/$user->image")) {
             Storage::delete("public/profiles/$user->image");
         }
         $data = request()->collect()->filter(function ($value) {
@@ -163,11 +163,11 @@ class VendorController extends Controller
             $qris = $request->file('qris');
             Storage::putFileAs('public/qris', $qris, "$user->qris");
         }
-        if ($request->image) {
-            $img_ext = $request->file('image')->extension();
+        if ($request->profile) {
+            $profile_ext = $request->file('profile')->extension();
 
-            $user->image = 'profile' . $imgName . '.' . $img_ext;
-            $image = $request->file('image');
+            $user->image = 'profile' . $imgName . '.' . $profile_ext;
+            $image = $request->file('profile');
             Storage::putFileAs('public/profiles', $image, "$user->image");
         }
         $user->save();

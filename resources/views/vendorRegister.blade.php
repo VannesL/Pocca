@@ -151,24 +151,26 @@
 
                             <div class="form-outline mb-4">
                               <label for="profile" class="h4 fw-bold">Profile Image</label>
-                              <input class="form-control form-control-sm" id="profile" name="profile" type="file">
+                              <input class="form-control form-control-sm input-img" id="profile" name="profile" type="file">
 
                               @error('profile')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                               @enderror
+                              <img id="preview-profile"  src=""alt="" class="img-thumbnail border-0 my-4 w-100" style=" object-fit:contain;">
                             </div>
                             
                             <div class="form-outline mb-4">
                               <label for="qris" class="h4 fw-bold">QRIS</label>
-                              <input class="form-control form-control-sm" id="qris" name="qris" type="file">
+                              <input class="form-control form-control-sm input-img" id="qris" name="qris" type="file">
 
                               @error('qris')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                               @enderror
+                              <img id="preview-qris"  src=""alt="" class="img-thumbnail border-0 my-4 w-100" style=" object-fit:contain;">
                             </div>
 
                             <div class="d-flex justify-content-center pt-1 my-4">
@@ -183,7 +185,9 @@
               </div>
             </div>
           </section>
+          <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
           <script src="{{ asset('js/formShowhiddenField.js')}}"></script>
+          <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
     </body> 
       
 </html>
