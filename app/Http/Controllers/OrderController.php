@@ -73,7 +73,7 @@ class OrderController extends Controller
         }
 
         if ($order->status_id == 4) {
-            $order->finish_time = Carbon::now()->addMinutes(1);
+            $order->finish_time = Carbon::now()->addMinutes(15);
         }
 
         $order->save();

@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
             DB::table('orders')
                 ->where('finish_time', '<=', Carbon::now())
                 ->update(['status_id' => 5]);
-        })->everyMinute();
+        })->everyTenMinutes();
     }
 
     /**

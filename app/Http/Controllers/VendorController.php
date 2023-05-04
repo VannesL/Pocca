@@ -74,7 +74,6 @@ class VendorController extends Controller
         // insert vendor 
         $vendor = new Vendor();
         //$vendor->approved_by = null, value initialized as null, only set when admin finished approving
-        $vendor->range_id = 1;    // price range cannot be null so need change in DB if want null
         $vendor->email = $request->email;
         $vendor->name = $request->name;
         $vendor->password = Hash::make($request->password);
@@ -122,25 +121,24 @@ class VendorController extends Controller
     }
 
     public function updateVendorProfile(Request $request)
-    { 
+    {
         $user = auth()->guard('vendor')->user();
         if ($request->email == $user->email) {
             $request['email'] = null;
-            
         }
         Validator::make($request->all(), [
             'name'              => ['string'],
             'email'             => ['nullable', 'email' => 'email:rfc,dns', 'unique:vendors'],
             'password'          => ['nullable', 'min:8'],
             'passwordConfirm'   => ['sometimes', 'same:password'],
-            'phone_number'      => [ 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
-            'store_name'         => [ 'string', 'min:8'],
-            'address'           => [ 'string', 'min: 8'],
-            'description'       => [ 'string', 'min: 8'],
+            'phone_number'      => ['numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
+            'store_name'         => ['string', 'min:8'],
+            'address'           => ['string', 'min: 8'],
+            'description'       => ['string', 'min: 8'],
             'profile'             => ['mimes:jpg,bmp,png'],
             'qris'              => ['mimes:jpg,bmp,png'],
         ])->validate();
-        
+
 
 
         $request['password'] = Hash::make($request->password);
@@ -192,9 +190,9 @@ class VendorController extends Controller
     {
         $userid = auth()->guard('vendor')->user()->id;
         $rating = 0;
-        $rate = Review::where('vendor_id',$userid)
-                    ->select(DB::raw('AVG(rating) as rating'))
-                    ->get();
+        $rate = Review::where('vendor_id', $userid)
+            ->select(DB::raw('AVG(rating) as rating'))
+            ->get();
         if (!$rate->isEmpty()) {
             $rating = round($rate[0]->rating, 1);
         }
@@ -230,21 +228,21 @@ class VendorController extends Controller
 
         //query for sales report depend on the selected date
         $report = DB::table('orders')
-           ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->join('menu_items', 'order_items.menu_id', '=', 'menu_items.id')
             ->select('menu_items.name', DB::raw('SUM(order_items.quantity) AS sold'), DB::raw('SUM(order_items.quantity * order_items.price) AS profits'))
             ->where('orders.vendor_id', $userid)
             ->where('orders.date', $selectedDate)
             ->groupBy('menu_items.name')
-            ->get(); 
+            ->get();
         $totalProfits = $report->sum('profits');
 
         $data =  [
-            'report' => $report, 
-            'totalProfits' => $totalProfits, 
-            'selectedDate' => $selectedDate, 
-            'revenueOrders' => $curr_revOrd, 
-            'revDiff' =>  $revDiff, 
+            'report' => $report,
+            'totalProfits' => $totalProfits,
+            'selectedDate' => $selectedDate,
+            'revenueOrders' => $curr_revOrd,
+            'revDiff' =>  $revDiff,
             'ordDiff' => $ordDiff,
             'rating' => $rating
         ];
@@ -252,22 +250,23 @@ class VendorController extends Controller
         return view('vendorDash', $data);
     }
 
-    public function getReviews(){
+    public function getReviews()
+    {
         $userid = auth()->guard('vendor')->user()->id;
         $avgRating = 0;
-        $avgRate = Review::where('vendor_id',$userid)
-                    ->select(DB::raw('AVG(rating) as rating'))
-                    ->get();
+        $avgRate = Review::where('vendor_id', $userid)
+            ->select(DB::raw('AVG(rating) as rating'))
+            ->get();
         if (!$avgRate->isEmpty()) {
             $avgRating = round($avgRate[0]->rating, 1);
         }
 
         $countPerRate = Review::where('vendor_id', $userid)
-                        ->select(DB::raw('  Count(rating) as rateCount'), 'rating')
-                        ->groupBy('rating')
-                        ->get();
-        
-        $reviews = Review::where('vendor_id',$userid)->get();
+            ->select(DB::raw('  Count(rating) as rateCount'), 'rating')
+            ->groupBy('rating')
+            ->get();
+
+        $reviews = Review::where('vendor_id', $userid)->get();
 
         $data = [
             'avgRating' => $avgRating,

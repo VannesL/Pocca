@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('canteen_id')->constrained('canteens')->restrictOnDelete();
             $table->foreignId('approved_by')->nullable()->constrained('admins')->restrictOnDelete()->default(null);
-            $table->foreignId('range_id')->nullable()->constrained('price_ranges')->restrictOnDelete();
+            $table->foreignId('range_id')->nullable()->constrained('price_ranges')->restrictOnDelete()->default(null);
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');

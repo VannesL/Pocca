@@ -34,7 +34,7 @@ class VendorTableSeeder extends Seeder
         Vendor::create([
             'canteen_id' => 1,
             'approved_by' => null,
-            'range_id' => 1,
+            'range_id' => null,
             'email' => 'booklet@pocca.com',
             'password' => Hash::make('12345678'),
             'name' => 'Brokey',
@@ -49,7 +49,7 @@ class VendorTableSeeder extends Seeder
         Vendor::create([
             'canteen_id' => 2,
             'approved_by' => 1,
-            'range_id' => 1,
+            'range_id' => null,
             'email' => 'Hog@pocca.com',
             'password' => Hash::make('12345678'),
             'name' => 'Chains',
@@ -65,7 +65,7 @@ class VendorTableSeeder extends Seeder
         Vendor::create([
             'canteen_id' => 2,
             'approved_by' => null,
-            'range_id' => 1,
+            'range_id' => null,
             'email' => 'Chick@pocca.com',
             'password' => Hash::make('12345678'),
             'name' => 'kiki',

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\MenuItem;
+use App\Models\PriceRange;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -75,6 +77,27 @@ class MenuItemController extends Controller
         }
 
         $menuItem->save();
+
+        //Set price range
+        $avgPrice = MenuItem::where('vendor_id', auth()->guard('vendor')->user()->id)
+            ->avg('price');
+
+        $avg = (int)$avgPrice;
+        $priceRanges = PriceRange::get();
+        $vendor = Vendor::where('id', auth()->guard('vendor')->user()->id)->get()->first();
+
+        foreach ($priceRanges as $range) {
+            //Set max value for highest price range
+            if ($range->max == 0) {
+                $range->max = $avg;
+            }
+            if ($avg >= $range->min && $avg <= $range->max) {
+                $vendor->range_id = $range->id;
+                $vendor->save();
+                break;
+            }
+        }
+
         if (!is_null($menuItem)) {
             return redirect('/vendor-menu')->with('Success', "Successfully Added Item!");
         } else {
@@ -140,6 +163,26 @@ class MenuItemController extends Controller
         }
 
         $item->save();
+
+        //Set price range
+        $avgPrice = MenuItem::where('vendor_id', auth()->guard('vendor')->user()->id)
+            ->avg('price');
+
+        $avg = (int)$avgPrice;
+        $priceRanges = PriceRange::get();
+        $vendor = Vendor::where('id', auth()->guard('vendor')->user()->id)->get()->first();
+
+        foreach ($priceRanges as $range) {
+            //Set max value for highest price range
+            if ($range->max == 0) {
+                $range->max = $avg;
+            }
+            if ($avg >= $range->min && $avg <= $range->max) {
+                $vendor->range_id = $range->id;
+                $vendor->save();
+                break;
+            }
+        }
 
         return redirect('/vendor-menu/edit/' . $request->menuid)->with('Success', "Successfully Updated Item!");
     }
