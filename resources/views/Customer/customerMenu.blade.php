@@ -171,7 +171,7 @@
                                                                                         <i class="fa fa-minus"></i>
                                                                                     </a>
                                                                                     </div>
-                                                                                    <input class="form-control quantity" min="0" name="quantity" value={{$quantity !== 0 ? $quantity : "1"}} type="number">
+                                                                                    <input class="form-control quantity" min="1" name="quantity" value={{$quantity !== 0 ? $quantity : "1"}} type="number">
                                                                                     <div class="input-group-append">
                                                                                     <a class="btn btn-plus rounded-0 btn-secondary">
                                                                                         <i class="fa fa-plus"></i>

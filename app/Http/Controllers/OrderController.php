@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItems;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +16,7 @@ class OrderController extends Controller
         $orders = Order::where([
             ['vendor_id', auth()->guard('vendor')->user()->id],
             ['status_id', '<', 5],
-        ])->get();
+        ])->orderBy('status_id', 'asc')->orderBy('created_at', 'asc')->get();
 
         $data = [
             'orders' => $orders,
@@ -67,7 +68,14 @@ class OrderController extends Controller
             ['id', $request->orderid],
         ])->get()->first();
 
-        $order->status_id = $order->status_id + 1;
+        if ($order->status_id < 5) {
+            $order->status_id = $order->status_id + 1;
+        }
+
+        if ($order->status_id == 4) {
+            $order->finish_time = Carbon::now()->addMinutes(1);
+        }
+
         $order->save();
 
         return redirect('/order/' . $order->id);
@@ -78,7 +86,7 @@ class OrderController extends Controller
         $orders = Order::where([
             ['customer_id', auth()->guard('customer')->user()->id],
             ['status_id', '<', 5],
-        ])->get();
+        ])->orderBy('status_id', 'asc')->orderBy('created_at', 'asc')->get();
 
         $data = [
             'orders' => $orders,
@@ -111,10 +119,10 @@ class OrderController extends Controller
 
         $ext = $request->file('image')->extension();
         $imgName = md5($request->image);
-        $order->payment_image = "payment_" . $order->id . "_" . $imgName . "_" . $ext;
+        $order->payment_image = "payment_" . $order->id . "_" . $imgName . "." . $ext;
 
         $image = $request->file('image');
-        Storage::putFileAs('public/payments', $image, "payment_" . $order->id . "_" . $imgName . "_" . $ext);
+        Storage::putFileAs('public/payments', $image, "payment_" . $order->id . "_" . $imgName . "." . $ext);
 
         $order->save();
 
