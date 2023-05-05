@@ -86,6 +86,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
 
     //Category
     Route::post('/vendor-menu/addCategory',[MenuItemController::class, 'addCategory']);
+    Route::post('/vendor-menu/deleteCategory/{category}',[MenuItemController::class, 'deleteCategory']);
 
     //Order
     Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);

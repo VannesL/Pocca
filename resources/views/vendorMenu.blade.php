@@ -3,7 +3,9 @@
 @section('content')
     <div class="container">
         @if(session()->has('Success'))
-            
+            <div class="alert alert-success">
+                <strong>{{ session()->get('Success') }}</strong>
+            </div>
         @endif
         @error('name')
             <div class="alert alert-danger">
@@ -28,12 +30,80 @@
             </div>
             </div>
         </form>
-        <div class="container px-3">
+        <div class="container px-4" style="margin-bottom: 20%">
            
             @if (sizeof($menuByCat))
-            @foreach ($menuByCat as $cat)
-                    <div class="row mb-2">
-                        <h3>{{$categories[$loop->index]->name}}</h3>
+                @foreach ($menuByCat as $cat)
+                    @php
+                        $curr_cat = $categories[$loop->index];
+                        $sizeofItem = $cat->count();
+                    @endphp
+                    <!-- Modal -->
+                    @if ($curr_cat->vendor_id != null)  
+                        <div class="modal fade" id="deleteCat{{$curr_cat->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="" role="document">
+                                <div class="modal-content" style="height: 500px">
+                                    <div class="container">
+                                        <div class="row">
+                                            <a class="btn btn-plus rounded-0 btn-danger" data-bs-dismiss="modal">
+                                                <i class="fa-solid fa-times"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="modal-header ">
+                                        <h5 class="modal-title mx-auto" id="addToCartLabel">Are you sure you want to delete {{$curr_cat->name}}?</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{url('/vendor-menu/deleteCategory/'.$curr_cat->id)}}" method="POST" name="deleteCat">
+                                            @csrf
+                                            <div class="form-outline mb-4 container d-flex flex-nowrap flex-row">
+                                                <div class="col-6">
+                                                    <div class="row h5 fw-medium">From</div>
+                                                    <div class="row h-50 d-flex align-items-center p-2">
+                                                        {{$curr_cat->name}} 
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="row h5 fw-medium">To</div>
+                                                    <div class="row">
+                                                        <select class="form-select @error('selectCategory') is-invalid @enderror" id="selectCategory" name="selectCategory">
+                                                            @foreach ($categories as $category)
+                                                                @if ($curr_cat->id != $category->id)
+                                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="container">
+                                                <div class="buttons row d-flex justify-content-around pt-1 mt-5">
+                                                    <div class="btn btn-secondary col-3 m-2"  data-bs-dismiss="modal">
+                                                        Cancel
+                                                    </div>
+                                                    <button href="{{url('/vendor-menu/deleteCategory/'.$curr_cat->id)}}" class="btn btn-danger btn-md w-100 col m-2" type="submit">Delete</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <div class="container">
+                        <div class="row mb-2 border-bottom">
+                            <div class="col-8 ps-0">
+                                <h3>{{$curr_cat->name.' ('.$sizeofItem.')'}}</h3>
+                            </div>
+                            <div class="col-4 text-end d-flex align-items-center justify-content-end">
+                                @if ($curr_cat->vendor_id != null)
+                                    <a href="" class="text-decoration-none fs-6 text-danger" data-bs-toggle="modal" data-bs-target="#deleteCat{{$curr_cat->id}}">Delete</a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="row mb-4 px-2">
                     @foreach ($cat as $item)
@@ -71,7 +141,7 @@
                     </div>
                 @endforeach
             @else
-            <h2 class="mt-4 text-center text-wrap">The menu is stil empty!</h2>
+                <h2 class="mt-4 text-center text-wrap">The menu is stil empty!</h2>
             @endif
             
         </div>
@@ -83,7 +153,7 @@
                     Add Menu
                 </a></li>
                 <li class="px-2"><hr class="" style="border-top: 3px solid #000000"></li>
-                <li><a href="" class="text-decoration-none text-dark fw-medium" data-bs-toggle="modal" data-bs-target="#categoryForm"">
+                <li><a href="" class="text-decoration-none text-dark fw-medium" data-bs-toggle="modal" data-bs-target="#categoryForm">
                     Add Category
                 </a></li>
               </ul>
@@ -116,7 +186,7 @@
                           </div>
                           <div class="container">
                               <div class="buttons row d-flex justify-content-around pt-1 mt-5">
-                                <div class="btn btn-danger col-3 m-2"  data-bs-dismiss="modal">
+                                <div class="btn btn-secondary col-3 m-2"  data-bs-dismiss="modal">
                                     Cancel
                                 </div>
                                 <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Add</button>

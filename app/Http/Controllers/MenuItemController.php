@@ -46,7 +46,11 @@ class MenuItemController extends Controller
 
     public function addMenuForm(Request $request)
     {
-        $categories = Category::all();
+        
+        $user = auth()->guard('vendor')->user();
+        $categories = Category::where('vendor_id',$user->id)
+                        ->orWhere('vendor_id',null)
+                        ->get();
 
         $data = [
             'categories' => $categories,
@@ -125,7 +129,10 @@ class MenuItemController extends Controller
 
     public function editMenuForm(Request $request)
     {
-        $categories = Category::all();
+        $user = auth()->guard('vendor')->user();
+        $categories = Category::where('vendor_id',$user->id)
+                        ->orWhere('vendor_id',null)
+                        ->get();
         $item = MenuItem::find($request->menuid);
 
         $data = [
@@ -219,6 +226,7 @@ class MenuItemController extends Controller
     }
 
     public function addCategory(Request $request){
+        // dd($request);
         $user = auth()->guard('vendor')->user();
         
         Validator::make($request->all(), [
@@ -232,5 +240,15 @@ class MenuItemController extends Controller
         $category->vendor_id = $user->id;
         $category->save();
         return redirect('/vendor-menu');
+    }
+
+    public function deleteCategory(Request $request, Category $category){
+        $message = $category->name.' category has been deleted successfully';
+
+        $user = auth()->guard('vendor')->user();
+        $menus = MenuItem::where('category_id',$category->id)
+                ->update(['category_id' => $request->selectCategory]);
+        $category->delete();
+        return redirect('/vendor-menu')->with('Success', $message);
     }
 }
