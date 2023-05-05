@@ -163,15 +163,15 @@ class CustomerController extends Controller
         $menuByCat = [];
 
         if ($request->search) {
-            $categories = MenuItem::where('vendor_id', $vendor->id)
+            $categories = MenuItem::where('menu_items.vendor_id', $vendor->id)
                 ->where('menu_items.name', 'LIKE', '%_' . $request->search . '%')
                 ->join('categories', 'categories.id', '=', 'menu_items.category_id')
-                ->select('categories.name AS category_name', 'categories.description AS category_desc', 'menu_Items.category_id')
+                ->select('categories.name AS category_name', 'menu_Items.category_id')
                 ->distinct()
                 ->get();
 
             foreach ($categories as $category) {
-                $item = MenuItem::where('vendor_id', $vendor->id)
+                $item = MenuItem::where('menu_items.vendor_id', $vendor->id)
                     ->where('menu_items.name', 'LIKE', '%' . $request->search . '%')
                     ->where('category_id', $category->category_id)
                     ->where('availability', true)   // the app will only show available menu if they search
@@ -181,9 +181,9 @@ class CustomerController extends Controller
             }
         } else {
 
-            $categories = MenuItem::where('vendor_id', $vendor->id)
+            $categories = MenuItem::where('menu_items.vendor_id', $vendor->id)
                 ->join('categories', 'categories.id', '=', 'menu_items.category_id')
-                ->select('categories.name AS category_name', 'categories.description AS category_desc', 'menu_Items.category_id')
+                ->select('categories.name AS category_name', 'menu_Items.category_id')
                 ->distinct()
                 ->get();
             foreach ($categories as $category) {

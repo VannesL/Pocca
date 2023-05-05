@@ -3,76 +3,137 @@
 @section('content')
     <div class="container">
         @if(session()->has('Success'))
-            <div class="alert alert-success">
-                {{ session()->get('Success') }}
-            </div>
+            
         @endif
-        <div class="row mb-5">
-            @if (!$items->isEmpty())
-                @foreach ($items as $item)
-                @php
-                    $itemName = explode('_',$item->name)
-                @endphp
-                <div class="col-6 p-1">           
-                    
-                    <div class="card border-white text-center h-100" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
-                        @if ($item->recommended)
-                        <span class="z-2 d-flex position-absolute translate-middle badge rounded-pill bg-warning text-center align-items-center" style="width:32px; height:32px; left:98%; top:5%;vertical-align: middle">
-                            <i class="fa-solid fa-thumbs-up fa-xl my-auto" style="color: #ffffff;"></i>
-                        </span>
-                        @endif
-                        @if ($item->image != '')
-                            <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:cover;">
-                        @else
-                            <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:cover;">
-                        @endif
-                        <div class="card-body h-100">
-                            <h6 class="card-title h-50">{{$itemName[1]}}</h6>
-                            <div class="h-50 mb-3">
-                                <a href="/vendor-menu/edit/{{$item->id}}" class="btn btn-light border-dark me-3 mt-2">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <a data-bs-toggle="modal" data-bs-target="#{{$item->id}}" class="btn btn-danger mt-2">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            </div>  
-                        </div>
+        @error('name')
+            <div class="alert alert-danger">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
+        <form action="{{ url('/vendor-menu') }}" method="get" class="form-loading mb-3">
+            @csrf
+            <div class="row">
+                <div class="col-10 ">
+                    <div class="form-group @error('search') has-error @enderror">
+                        <input name="search" type="text" value="{{ $search }}" class="form-control"
+                            placeholder="Search">
+                        @error('search')
+                            <span class="form-text m-b-none text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog" style="" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addToCartLabel">Are you sure?</h5>
-                        </div>
-                        <div class="modal-body">
-                            This menu item will be deleted from the database.
-                        </div>
-                        <div class="modal-footer d-flex justify-content-around">
-                            <div class="col-3"></div>
-                            <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
-                            @csrf
-                            <button type ="submit" class="btn btn-danger col">
-                                Yes
-                            </button>
-                            </form>
-                            <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
-                        </div>
-                        </div>
-                    </div>
+                <div class="col-2 ps-1">
+                    <button type="submit" class="btn btn-primary btn-block btn_submit text"><i class="fa fa-search"></i></button>
                 </div>
-                @endforeach 
+            </div>
+            </div>
+        </form>
+        <div class="container px-3">
+           
+            @if (sizeof($menuByCat))
+            @foreach ($menuByCat as $cat)
+                    <div class="row mb-2">
+                        <h3>{{$categories[$loop->index]->name}}</h3>
+                    </div>
+                    <div class="row mb-4 px-2">
+                    @foreach ($cat as $item)
+                        @php
+                            $itemName = explode('_',$item->name)
+                        @endphp
+                        
+                        <div class="col-6 p-1">           
+                            
+                            <a href="/vendor-menu/edit/{{$item->id}}" class="border-dark me-3 mt-2 text-decoration-none text-dark">
+                            <div class="card border-white text-center h-100" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
+                                    @if ($item->recommended)
+                                        <span class="z-3 d-flex position-absolute translate-middle badge rounded-pill bg-warning text-center align-items-center" style="width:32px; height:32px; left:98%; top:5%;vertical-align: middle">
+                                            <i class="fa-solid fa-thumbs-up fa-xl my-auto" style="color: #ffffff;"></i>
+                                        </span>
+                                    @endif
+                                    @if ($item->image != '')
+                                        <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:cover;">
+                                    @else
+                                        <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:cover;">
+                                    @endif
+                                    
+                                    <div class="card-body h-50">
+                                        <h6 class="card-title h-50">{{$itemName[1]}}</h6>
+                                        <div class="h-50 mb-3">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    @endforeach
+                
+                    </div>
+                @endforeach
             @else
             <h2 class="mt-4 text-center text-wrap">The menu is stil empty!</h2>
             @endif
+            
         </div>
 
-        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
-            <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
+        <div class="text-center position-fixed z-3 dropup" style="bottom:20px; right:20px;">
+            <button class="btn rounded btn-primary p-3 rotate" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"><i class="fa-solid fa-plus fa-2x rotate" id=""></i></button>
+            <ul class="dropdown-menu text-center mb-2 p-3" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
+                <li><a href="{{ url('/vendor-menu/add') }}" class="text-decoration-none text-dark fw-medium">
+                    Add Menu
+                </a></li>
+                <li class="px-2"><hr class="" style="border-top: 3px solid #000000"></li>
+                <li><a href="" class="text-decoration-none text-dark fw-medium" data-bs-toggle="modal" data-bs-target="#categoryForm"">
+                    Add Category
+                </a></li>
+              </ul>
+            {{-- <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
                 <i class="fa-solid fa-plus fa-2xl"></i>
-            </a>
+            </a> --}}
         </div>
     </div>
-    
+
+    <!-- Modal -->
+    <div class="modal fade" id="categoryForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="" role="document">
+            <div class="modal-content" style="height: 500px">
+                <div class="container">
+                    <div class="row">
+                        <a class="btn btn-plus rounded-0 btn-danger" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-header ">
+                    <h5 class="modal-title mx-auto" id="addToCartLabel">New Category</h5>
+
+                </div>
+                <div class="modal-body">
+                    <form action="{{url('/vendor-menu/addCategory')}}" method="POST">
+                        @csrf
+                        <div class="form-outline mb-4">
+                            <input id="name" type="text" class="form-control form-control-md @error('name') is-invalid @enderror" name="name" placeholder="New Category"/>
+                          </div>
+                          <div class="container">
+                              <div class="buttons row d-flex justify-content-around pt-1 mt-5">
+                                <div class="btn btn-danger col-3 m-2"  data-bs-dismiss="modal">
+                                    Cancel
+                                </div>
+                                <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Add</button>
+                              </div>
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{{ asset ('css/vendorMenu.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script>
+        $(".rotate").click(function(){
+        $(this.children).toggleClass("down"); 
+    });
+    </script>
 @endsection
