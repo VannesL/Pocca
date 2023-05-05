@@ -113,17 +113,48 @@
                 @endforeach
                 <!-- Modal -->
                 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog pt-2" role="document">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="infoModalLabel">Order Status</h5>
-                            <a data-bs-dismiss="modal" class="">
-                                <i class="fa fa-times fa-lg" style="color: #f70808;"></i>
-                            </a>
-                        </div>
-                        <div class="modal-body">
-                            <p>Tooltip content goes here.</p>
-                        </div>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="infoModalLabel">Types of Order Status!</h5>
+                                <a data-bs-dismiss="modal" class="">
+                                    <i class="fa fa-times fa-lg" style="color: #f70808;"></i>
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                @foreach ($statuses as $status)
+                                    @php
+                                        $color = "";
+
+                                        switch ($status->id) {
+                                        case 1:
+                                            $color = "warning";
+                                            break;
+                                        case 2:
+                                            $color = "secondary";
+                                            break;
+                                        case 3:
+                                            $color = "primary";
+                                            break;
+                                        case 4:
+                                            $color = "success";
+                                            break;
+                                        case 5:
+                                            $color = "dark";
+                                            break;
+                                        case 6:
+                                            $color = "danger";
+                                            break;
+                                        }
+                                    @endphp
+                                    <div class="mb-2">
+                                        <div id="orderStatus" class="text-bg-{{$color}} text-center fs-4 fw-bold px-2 py-1">
+                                            {{ $status->name }}
+                                        </div> 
+                                        <h6 class="px-2 mt-2 mb-4">{{ $status->description }}</h6>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

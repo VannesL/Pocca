@@ -23,32 +23,32 @@ class StatusTableSeeder extends Seeder
 
         Status::create([
             'name' => 'Processing',
-            'description' => 'Waiting for customer to complete payment',
+            'description' => 'Waiting for vendor to confirm the order.',
         ]);
 
         Status::create([
             'name' => 'In Payment',
-            'description' => 'Waiting for vendor to approve customer payment proof',
+            'description' => 'Waiting for customer to pay OR vendor to approve payment.',
         ]);
 
         Status::create([
             'name' => 'Cooking',
-            'description' => 'Vendor making/cooking order',
+            'description' => 'Vendor is currently making the order.',
         ]);
 
         Status::create([
             'name' => 'Ready',
-            'description' => 'Order is ready to be taken by customer',
+            'description' => 'Order is ready to be taken by customer.',
         ]);
 
         Status::create([
             'name' => 'Complete',
-            'description' => 'Customer picked up order and is complete',
+            'description' => 'Customer picked up the order. The order is completed.',
         ]);
 
         Status::create([
             'name' => 'Rejected',
-            'description' => 'Vendor rejected the order',
+            'description' => 'Vendor has rejected the order.',
         ]);
     }
 }

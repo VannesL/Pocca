@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItems;
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,8 +19,11 @@ class OrderController extends Controller
             ['status_id', '<', 5],
         ])->orderBy('status_id', 'asc')->orderBy('created_at', 'asc')->get();
 
+        $statuses = Status::all();
+
         $data = [
             'orders' => $orders,
+            'statuses' => $statuses,
         ];
 
         return view('vendorOrder', $data);
@@ -70,9 +74,12 @@ class OrderController extends Controller
             ['order_id', $request->orderid],
         ])->get();
 
+        $statuses = Status::all();
+
         $data = [
             'order' => $order,
-            'orderItems' => $orderItems
+            'orderItems' => $orderItems,
+            'statuses' => $statuses,
         ];
 
         if (auth()->guard('customer')->check()) {
