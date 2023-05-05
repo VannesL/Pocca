@@ -25,6 +25,27 @@ class OrderController extends Controller
         return view('vendorOrder', $data);
     }
 
+    public function refreshOrderPage(Request $request)
+    {
+        $orders = Order::where([
+            ['vendor_id', auth()->guard('vendor')->user()->id],
+            ['status_id', '<', 5],
+        ])->get();
+
+        if ($orders->count() > $request->count) {
+            return true;
+        }
+
+        $order = $orders->find($request->orderId);
+        $newUpdate = Carbon::parse($order->updated_at)->format('Y-m-d-H-i-s');
+
+        if ($newUpdate > $request->datetime) {
+            return true;
+        };
+
+        return false;
+    }
+
     public function vendorOrderHistory(Request $request)
     {
         $orders = Order::where([
@@ -60,6 +81,21 @@ class OrderController extends Controller
             // dd($order->status_id);
             return view('vendorOrderDetails', $data);
         }
+    }
+
+    public function refreshOrderDetails(Request $request)
+    {
+        $order = Order::where([
+            ['id', $request->orderid],
+        ])->get()->first();
+
+        $newUpdate = Carbon::parse($order->updated_at)->format('Y-m-d-H-i-s');
+
+        if ($newUpdate > $request->update) {
+            return true;
+        };
+
+        return false;
     }
 
     public function orderUpdateStatus(Request $request)

@@ -1,17 +1,34 @@
 @extends('layout')
 
 @push('custom-js')
-  <script type="text/javascript" src="{{ asset ('js/refreshOrderPage.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset ('js/updateOrderPage.js') }}"></script>
 @endpush
 
 @section('content')    
     <div class="container">
-        <h3>Current Orders</h3>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-0">Current Orders</h3>
+            <a class="text-decoration-none text-reset" data-bs-toggle="modal" data-bs-target="#infoModal"><i class="fa-solid fa-circle-info fa-lg"></i></a>
+        </div>
+        
+        @php
+            $guard = "vendor";
+            $updateArr = array();
+            $orderArr = array();
+            $totalOrders = $orders->count();
+        @endphp
+
         <div class="row">
             @if (!$orders->isEmpty())
                 @foreach ($orders as $order)
+                    @php
+                        $updateTime = \Carbon\Carbon::parse($order->updated_at)->format('Y-m-d-H-i-s');
+                        array_push($updateArr, $updateTime);
+                        array_push($orderArr, $order->id);
+                    @endphp
                     @if ($order->status_id == 1)  
-                        <a href="/order/{{$order->id}}" class="text-decoration-none text-dark"> 
+                        <a id="{{$loop->index}}" href="/order/{{$order->id}}" class="text-decoration-none text-dark"> 
                             <div class="card mb-3 text-bg-light border-danger border-3 border-bg" style="box-shadow: 0px 2px 10px 2px #8b9ce956;">
                                 <span class="position-absolute top-100 start-50 translate-middle badge rounded-pill bg-danger">
                                     NEW
@@ -95,30 +112,31 @@
                     @endif
                 @endforeach
                 <!-- Modal -->
-                <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" style="" role="document">
-                    <form method="POST" action="/order/vendor/delete/{{$order->id}}" class="modal-content">
-                        @csrf
+                <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
+                            <h5 class="modal-title" id="infoModalLabel">Order Status</h5>
+                            <a data-bs-dismiss="modal" class="">
+                                <i class="fa fa-times fa-lg" style="color: #f70808;"></i>
+                            </a>
                         </div>
                         <div class="modal-body">
-                            <div class="form-outline">
-                                <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Out of ingredients, fake payment..." rows="3" style="resize:none;"></textarea>
-                            </div>
+                            <p>Tooltip content goes here.</p>
                         </div>
-                        <div class="modal-footer d-flex justify-content-around">  
-                            <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                                Submit
-                            </button>
-                            <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">Cancel</button> 
                         </div>
-                    </form>
-                    </div> 
+                    </div>
                 </div>
             @else
                 <h2 class="mt-4 text-center text-wrap">There are no orders yet, check again later!</h2>
             @endif
+
+            <script>
+                var guard = @json($guard);
+                var updateArr = @json($updateArr);
+                var orderArr = @json($orderArr);
+                var totalOrders = @json($totalOrders);
+            </script>
         </div>
     </div>
 @endsection

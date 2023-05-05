@@ -1,7 +1,8 @@
 @extends('layout')
 
 @push('custom-js')
-  <script type="text/javascript" src="{{ asset ('js/refreshOrderDetails.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset ('js/updateOrderDetailPage.js') }}"></script>
 @endpush
 
 @section('content')
@@ -11,6 +12,15 @@
                 {{ $message }}
             </div>
         @enderror
+
+        @php
+            $update = \Carbon\Carbon::parse($order->updated_at)->format('Y-m-d-H-i-s');
+        @endphp
+
+        <script>
+            var update = @json($update);
+            var orderid = @json($order->id);
+        </script>
 
         <h3 class="">Order for: {{ $order->customer->name }}</h3>
         <h6 class="mb-3">{{ $order->customer->phone_number }}</h6>

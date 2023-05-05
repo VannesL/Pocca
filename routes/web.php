@@ -63,19 +63,24 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 
     //Order
     Route::get('/order/customer', [OrderController::class, 'customerOrder']);
+    Route::get('/order/customer/{orderid}/{update}', [OrderController::class, 'refreshOrderDetails']);
     Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
     Route::post('/order/customer/payment/{orderid}', [OrderController::class, 'orderPayment']);
 
     //Review
     Route::post('/review/{orderid}', [ReviewController::class, 'createReview']);
 });
+
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
+    //Dashboard
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
     Route::get('/vendor-dash/reviews', [VendorController::class, 'getReviews']);
+
     //Profile
     Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
     Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
     Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
+
     //Menu
     Route::get('/vendor-menu', [MenuItemController::class, 'vendorMenu']);
     Route::get('/vendor-menu/add', [MenuItemController::class, 'addMenuForm']);
@@ -83,15 +88,17 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenuForm']);
     Route::post('/vendor-menu/edit/{menuid}', [MenuItemController::class, 'editMenu']);
     Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
+
     //Order
     Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);
+    Route::get('/order/vendor/{orderId}/{datetime}/{count}', [OrderController::class, 'refreshOrderPage']);
     Route::get('/order/vendor/history', [OrderController::class, 'vendorOrderHistory']);
     Route::post('/order/reject/{orderid}', [OrderController::class, 'rejectOrder']);
-    // Sales Report
 });
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/order/{orderid}', [OrderController::class, 'orderDetails'])->name('order-details');
+    Route::get('/order/refresh/{orderid}/{update}', [OrderController::class, 'refreshOrderDetails']);
     Route::get('/order/update-status/{orderid}', [OrderController::class, 'orderUpdateStatus']);
 });
 
