@@ -92,11 +92,16 @@ class CustomerController extends Controller
             $cartItems = $customer->cart->cartItems;
         }
 
+        $cartTotal = 0;
+        foreach ($cartItems as $cartItem) {
+            $cartTotal = $cartTotal + $cartItem->quantity;
+        }
+
         $data = [
             'favorited_canteens' => $favorited_canteens,
             'canteens' => $canteens, 'type' => $request->type,
             'search' => $request->search,
-            'cartItems' => $cartItems,
+            'cartTotal' => $cartTotal,
         ];
 
         return view('Customer/home', $data);
@@ -130,6 +135,11 @@ class CustomerController extends Controller
             $cartItems = $customer->cart->cartItems;
         }
 
+        $cartTotal = 0;
+        foreach ($cartItems as $cartItem) {
+            $cartTotal = $cartTotal + $cartItem->quantity;
+        }
+
 
         $data = [
             'canteen' => $canteen,
@@ -137,7 +147,7 @@ class CustomerController extends Controller
             'vendors' => $vendors,
             'type' => $request->type,
             'search' => $request->search,
-            'cartItems' => $cartItems,
+            'cartTotal' => $cartTotal,
         ];
 
         return view('Customer/canteen', $data);

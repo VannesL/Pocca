@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('canteens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('approved_by')->nullable()->constrained('admins')->restrictOnDelete()->default(null);
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('address');
             $table->integer('favorites');
             $table->timestamps();
