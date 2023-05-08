@@ -131,8 +131,11 @@ class OrderController extends Controller
             ['status_id', '<', 5],
         ])->orderBy('status_id', 'asc')->orderBy('created_at', 'asc')->get();
 
+        $statuses = Status::all();
+
         $data = [
             'orders' => $orders,
+            'statuses' => $statuses,
         ];
 
         return view('Customer/customerOrder', $data);

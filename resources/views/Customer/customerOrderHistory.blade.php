@@ -39,7 +39,9 @@
                 </a>
                 @endforeach
             @else
-                <h2 class="mt-4 text-center text-wrap">There are no orders yet, check again later!</h2>
+                <div class="container d-flex align-items-center justify-content-center" style="height: 50vh">
+                    <h2 class="text-center text-wrap">There are no orders yet, check again later!</h2>
+                </div>
             @endif
         </div>
     </div>

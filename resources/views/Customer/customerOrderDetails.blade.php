@@ -3,13 +3,22 @@
 @push('custom-js')
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset ('js/imagePreviews.js') }}"></script>
-    <script type="text/javascript" src="{{ asset ('js/refreshOrderDetails.js') }}"></script>
+    <script type="text/javascript" src="{{ asset ('js/updateOrderDetailPage.js') }}"></script>
 @endpush
 
 @section('content')
     <div class="container">
         <h3 class="">{{ $order->vendor->store_name }}</h3>
         <h6 class="mb-3">{{ $order->vendor->canteen->name }} • {{ $order->vendor->phone_number }}</h6>
+
+        @php
+            $update = \Carbon\Carbon::parse($order->updated_at)->format('Y-m-d-H-i-s');
+        @endphp
+
+        <script>
+            var update = @json($update);
+            var orderid = @json($order->id);
+        </script>
 
         @php
             $color = "";

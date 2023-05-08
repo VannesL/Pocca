@@ -10,7 +10,9 @@ function updateOrderDetails() {
             
             success: function(response) {  
                 if (response) {
-                    document.location.reload();
+                    if (!($('#infoModal').is(':visible'))) {
+                        document.location.reload();
+                    }
                 }
             }
         });
