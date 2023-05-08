@@ -201,12 +201,14 @@ class VendorController extends Controller
 
         $curr_revOrd = DB::table('orders') // query get total revenue and order in current month
             ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
+            ->where('vendor_id',$userid)
             ->whereMonth('date', '=', $selectedDate->month)
             ->whereYear('date', '=', $selectedDate->year)
             ->get();
 
         $past_revOrd = DB::table('orders') // query get total revenue and order last month
             ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
+            ->where('vendor_id',$userid)
             ->whereMonth('date', '=', $selectedDate->month - 1)
             ->whereYear('date', '=', $selectedDate->year)
             ->get();

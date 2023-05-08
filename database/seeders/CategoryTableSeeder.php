@@ -17,12 +17,10 @@ class CategoryTableSeeder extends Seeder
     {
         Category::create([
             'name' => 'Food',
-            'description' => 'Solid food',
         ]);
 
         Category::create([
             'name' => 'Drink',
-            'description' => 'Liquid food',
         ]);
     }
 }

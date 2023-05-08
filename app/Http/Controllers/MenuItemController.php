@@ -10,17 +10,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class MenuItemController extends Controller
 {
     public function vendorMenu(Request $request)
     {
-        $items = DB::table('menu_items')
-            ->where('vendor_id', auth()->guard('vendor')->user()->id)
-            ->get();
+        $user = auth()->guard('vendor')->user();
+        $search =  $request->search;
+        $categories = [];
+        $menuByCat = [];
+        $categories = Category::where('vendor_id',$user->id)
+                    ->orWhere('vendor_id',null)
+                    ->get();
 
+        foreach ($categories as $category) {
+            $item = MenuItem::where('vendor_id', $user->id)  
+                ->where('category_id', $category->id)
+                ->when($search,function($query,$search){
+                            return $query->where('name', 'LIKE', '%' . $search . '%');
+                    })
+                ->get()
+                ->sortByDesc('availability');
+            $cat = $category->name;
+            $menuByCat[$cat] = $item;
+                }
         $data = [
-            'items' => $items,
+            'categories' => $categories,
+            'menuByCat' => $menuByCat,
+            'search' =>$request->search
         ];
 
         return view('vendorMenu', $data);
@@ -28,7 +46,11 @@ class MenuItemController extends Controller
 
     public function addMenuForm(Request $request)
     {
-        $categories = Category::all();
+        
+        $user = auth()->guard('vendor')->user();
+        $categories = Category::where('vendor_id',$user->id)
+                        ->orWhere('vendor_id',null)
+                        ->get();
 
         $data = [
             'categories' => $categories,
@@ -107,7 +129,10 @@ class MenuItemController extends Controller
 
     public function editMenuForm(Request $request)
     {
-        $categories = Category::all();
+        $user = auth()->guard('vendor')->user();
+        $categories = Category::where('vendor_id',$user->id)
+                        ->orWhere('vendor_id',null)
+                        ->get();
         $item = MenuItem::find($request->menuid);
 
         $data = [
@@ -198,5 +223,32 @@ class MenuItemController extends Controller
         $item->delete();
 
         return redirect('/vendor-menu');
+    }
+
+    public function addCategory(Request $request){
+        // dd($request);
+        $user = auth()->guard('vendor')->user();
+        
+        Validator::make($request->all(), [
+            'name'              => ['required', 'string',Rule::unique('categories')->where(function($query) use ($user){
+                return $query->where('vendor_id', $user->id)->orWhere('vendor_id',null);
+            })]
+        ])->validate();
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->vendor_id = $user->id;
+        $category->save();
+        return redirect('/vendor-menu');
+    }
+
+    public function deleteCategory(Request $request, Category $category){
+        $message = $category->name.' category has been deleted successfully';
+
+        $user = auth()->guard('vendor')->user();
+        $menus = MenuItem::where('category_id',$category->id)
+                ->update(['category_id' => $request->selectCategory]);
+        $category->delete();
+        return redirect('/vendor-menu')->with('Success', $message);
     }
 }
