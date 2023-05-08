@@ -30,7 +30,7 @@
             </div>
             </div>
         </form>
-        <div class="container px-4" style="margin-bottom: 20%">
+        <div class="container px-4" style="margin-bottom: 40%">
            
             @if (sizeof($menuByCat))
                 @foreach ($menuByCat as $cat)
@@ -55,6 +55,7 @@
 
                                     </div>
                                     <div class="modal-body">
+                                        <div class="fs-5 mb-2">Select a new category for all your items:</div>
                                         <form action="{{url('/vendor-menu/deleteCategory/'.$curr_cat->id)}}" method="POST" name="deleteCat">
                                             @csrf
                                             <div class="form-outline mb-4 container d-flex flex-nowrap flex-row">
@@ -157,9 +158,6 @@
                     Add Category
                 </a></li>
               </ul>
-            {{-- <a href="{{ url('/vendor-menu/add') }}" class="btn rounded btn-primary p-3">
-                <i class="fa-solid fa-plus fa-2xl"></i>
-            </a> --}}
         </div>
     </div>
 
