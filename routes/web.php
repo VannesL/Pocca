@@ -46,10 +46,9 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
 
     //Home
-    Route::get('/home', [CustomerController::class, 'home']);
-    Route::get('/home/{canteen}', [CustomerController::class, 'canteen']);
-    Route::put('/home/update-favorite-canteen/{canteen}', [CustomerController::class, 'updateFavoriteCanteen']);
     Route::put('/home/{canteen}/update-favorite-vendor/{vendor}', [CustomerController::class, 'updateFavoriteVendor']);
+    Route::get('/home/{canteen}', [CustomerController::class, 'canteen']);
+    Route::get('/home', [CustomerController::class, 'home']);
 
     //View Menu
     Route::get('/vendor/{vendor}', [CustomerController::class, 'viewMenu']);
@@ -69,6 +68,10 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 
     //Review
     Route::post('/review/{orderid}', [ReviewController::class, 'createReview']);
+    Route::put('/home/update-favorite-canteen/{canteen}', [CustomerController::class, 'updateFavoriteCanteen']);
+    Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
+    Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
+    Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {

@@ -21,8 +21,8 @@
                         <div class="col-4">
                             <div class="form-group @error('type') has-error @enderror">
                                 <select name="type" id="" class="form-control">
-                                    <option value="canteen" {{$type == 'canteen' ? 'selected' : ''}}>Canteen</option>
-                                    <option value="vendor" {{$type == 'vendor' ? 'selected' : ''}}>Vendor</option>
+                                    <option value="canteen" {{ $type == 'canteen' ? 'selected' : '' }}>Canteen</option>
+                                    <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
                                 </select>
                                 @error('type')
                                     <span class="form-text m-b-none text-danger">{{ $message }}</span>
@@ -45,66 +45,80 @@
                     </div>
                 </form>
                 <hr>
-                @foreach ($favorited_canteens as $canteen)
-                    <a href="{{ url('/home', $canteen->id) }}" class="text-decoration-none">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{ $canteen->name }}</h5>
-                                        <p class="card-text">{{ $canteen->address }}</p>
-                                    </div>
-                                    <div class="col-3 align-self-center">
-                                        <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}"
-                                            method="post" class="form-loading">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="search" value="{{ $search }}">
-                                            <input type="hidden" name="favorite" value="0">
-                                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
-                                            </button>
-                                        </form>
+                @foreach ($items as $item)
+                    @php
+                        $url = '/home/' . $item->id;
+                        $favoriteUrl = 'home/update-favorite-canteen/' . $item->id;
+                        if ($type == 'vendor') {
+                            $url = '/home/' . $item->canteen_id . '/' . $item->id;
+                            $favoriteUrl = '/home/' . $item->canteen_id . '/update-favorite-vendor/' . $item->id;
+                        }
+                    @endphp
+                    @if ($item->favoritedCustomers->contains('id', $userId))
+                        <a href="{{ url($url) }}" class="text-decoration-none">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h5 class="card-title">{{ $item->name }}</h5>
+                                            <p class="card-text">{{ $item->address }}</p>
+                                        </div>
+                                        <div class="col-3 align-self-center">
+                                            <form action="{{ url($favoriteUrl) }}"
+                                                method="post" class="form-loading">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="search" value="{{ $search }}">
+                                                <input type="hidden" name="favorite" value="0">
+                                                <button type="submit" class="btn btn-block shadow-none"><i
+                                                        class="fa fa-heart fa-2xl"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endif
                 @endforeach
-                @foreach ($canteens as $canteen)
-                    <a href="{{ url('/home', $canteen->id) }}" class="text-decoration-none">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{ $canteen->name }}</h5>
-                                        <p class="card-text">{{ $canteen->address }}</p>
-                                    </div>
-                                    <div class="col-3 align-self-center">
-                                        <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}"
-                                            method="post" class="form-loading">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="search" value="{{ $search }}">
-                                            <input type="hidden" name="favorite" value="1">
-                                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart-o fa-2xl"></i>
-                                            </button>
-                                        </form>
+                @foreach ($items as $item)
+                    @php
+                        $url = '/home/' . $item->id;
+                        $favoriteUrl = 'home/update-favorite-canteen/' . $item->id;
+                        if ($type == 'vendor') {
+                            $url = '/home/' . $item->canteen_id . '/' . $item->id;
+                            $favoriteUrl = '/home/' . $item->canteen_id . '/update-favorite-vendor/' . $item->id;
+                        }
+                    @endphp
+                    @if (!$item->favoritedCustomers->contains('id', $userId))
+                        <a href="{{ url($url) }}" class="text-decoration-none">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h5 class="card-title">{{ $item->name }}</h5>
+                                            <p class="card-text">{{ $item->address }}</p>
+                                        </div>
+                                        <div class="col-3 align-self-center">
+                                            <form action="{{ url($favoriteUrl) }}" method="post" class="form-loading">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="search" value="{{ $search }}">
+                                                <input type="hidden" name="favorite" value="1">
+                                                <button type="submit" class="btn btn-block shadow-none"><i
+                                                        class="fa fa-heart-o fa-2xl"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>
     </div>
 @endsection
 @push('js')
-    <script>
-        $(document).ready(function() {
-            $('i').click(function() {
-                $(this).toggleClass('fa-heart fa-heart-o');
-            });
-        });
-    </script>
 @endpush

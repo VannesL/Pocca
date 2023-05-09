@@ -39,8 +39,8 @@ class Vendor extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function favorite_vendors()
+    public function favoritedCustomers()
     {
-        return $this->belongsToMany(Vendor::class, 'favorite_vendors', 'vendor_id', 'customer_id');
+        return $this->belongsToMany(Customer::class, 'favorite_vendors', 'vendor_id', 'customer_id');
     }
 }
