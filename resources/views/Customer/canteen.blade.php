@@ -82,19 +82,19 @@
                     </div>
                 </form>
                 <hr>
-                @foreach ($vendors as $vendor)
-                    @if ($vendor->favoritedCustomers->contains('id', $userId))
+                @foreach ($items as $item)
+                    @if ($item->favoritedCustomers->contains('id', $userId))
                         <a href="" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-9">
-                                            <h5 class="card-title">{{ $vendor->name }}</h5>
-                                            <p class="card-text">{{ $vendor->description }}</p>
+                                            <h5 class="card-title">{{ $item->name }}</h5>
+                                            <p class="card-text">{{ $item->description }}</p>
                                         </div>
                                         <div class="col-3 align-self-center">
                                             <form
-                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $vendor->id) }}"
+                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
                                                 method="post" class="form-loading">
                                                 @csrf
                                                 @method('put')
@@ -111,19 +111,19 @@
                         </a>
                     @endif
                 @endforeach
-                @foreach ($vendors as $vendor)
-                    @if (!$vendor->favoritedCustomers->contains('id', $userId))
+                @foreach ($items as $item)
+                    @if (!$item->favoritedCustomers->contains('id', $userId))
                         <a href="" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-9">
-                                            <h5 class="card-title">{{ $vendor->name }}</h5>
-                                            <p class="card-text">{{ $vendor->description }}</p>
+                                            <h5 class="card-title">{{ $item->name }}</h5>
+                                            <p class="card-text">{{ $item->description }}</p>
                                         </div>
                                         <div class="col-3 align-self-center">
                                             <form
-                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $vendor->id) }}"
+                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
                                                 method="post" class="form-loading">
                                                 @csrf
                                                 @method('put')

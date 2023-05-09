@@ -96,19 +96,9 @@ class CustomerController extends Controller
         $userId = auth()->guard('customer')->user()->id;
         $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         $item_ids = $items->pluck('id');
-
         if ($request->search) {
-            if ($request->type == 'vendor') {
-                $favorited_vendors = Vendor::whereHas('favorite_vendors')
-                    ->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->orderByDesc('favorites') //->whereNotIn($favorites->id);
-                    ->get();
-                $vendors = Vendor::whereDoesntHave('favorite_vendors')
-                    ->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->orderByDesc('favorites') //->whereNotIn($favorites->id);
-                    ->get();
-            } elseif ($request->type == 'menu_item') {
-                $vendors = MenuItem::whereIn('vendor_id', $item_ids)->where('name', 'LIKE', '%' . $request->search . '%')
+            if ($request->type == 'menu_item') {
+                $items = MenuItem::whereIn('vendor_id', $item_ids)->where('name', 'LIKE', '%' . $request->search . '%')
                     ->get();
             }
         }
@@ -124,11 +114,10 @@ class CustomerController extends Controller
             $cartTotal = $cartTotal + $cartItem->quantity;
         }
 
-
         $data = [
             'canteen' => $canteen,
-            'favorited_vendors' => $favorited_vendors,
-            'vendors' => $vendors,
+            'items' => $items,
+            'userId' => $userId,
             'type' => $request->type,
             'search' => $request->search,
             'cartTotal' => $cartTotal,
