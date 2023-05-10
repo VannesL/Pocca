@@ -32,7 +32,11 @@
                     <div class="row"> <p>{{$vendor->description}}</p></div>
                     <div class="row "> 
                         <div class="col-3"><i class="fa-solid fa-star me-1"></i>{{$rating}}</div>
-                        <div class="col-9 ">{{$vendor->priceRange->value}}</div>
+                        <div class="col-9 ">
+                            @if ($vendor->priceRange)
+                                {{$vendor->priceRange->value}}
+                            @endif
+                        </div>
                     </div>
                 </div>
                 {{-- Add favorite function --}}

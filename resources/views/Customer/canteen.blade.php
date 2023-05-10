@@ -84,7 +84,7 @@
                 <hr>
                 @foreach ($items as $item)
                     @if ($item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url('/vendor/' . $item->id) }}" class="text-decoration-none">
+                        <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
@@ -121,7 +121,7 @@
                 @endforeach
                 @foreach ($items as $item)
                     @if (!$item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url('/vendor/' . $item->id) }}" class="text-decoration-none">
+                        <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
