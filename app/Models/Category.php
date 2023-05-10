@@ -9,11 +9,16 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id', 'vendor_id', ];
+    protected $guarded = ['id', 'vendor_id',];
     protected $fillable = ['name'];
 
     public function menuItems()
     {
         return $this->hasMany(MenuItem::class);
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
     }
 }
