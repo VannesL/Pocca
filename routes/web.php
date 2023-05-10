@@ -47,13 +47,12 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
     Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
 
     //Home
-    Route::get('/home', [CustomerController::class, 'home']);
-    Route::get('/home/{canteen}', [CustomerController::class, 'canteen']);
-    Route::put('/home/update-favorite-canteen/{canteen}', [CustomerController::class, 'updateFavoriteCanteen']);
     Route::put('/home/{canteen}/update-favorite-vendor/{vendor}', [CustomerController::class, 'updateFavoriteVendor']);
+    Route::get('/home/{canteen}', [CustomerController::class, 'canteen']);
+    Route::get('/home', [CustomerController::class, 'home']);
 
     //View Menu
-    Route::get('/vendor/{vendor}', [CustomerController::class, 'viewMenu']);
+    Route::get('/home/{canteen}/{vendor}', [CustomerController::class, 'viewMenu']);
     Route::post('/vendor/{vendor}/addToCart/{menuitem}', [CartController::class, 'addToCart']);
 
     //Checkout
@@ -70,6 +69,10 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 
     //Review
     Route::post('/review/{orderid}', [ReviewController::class, 'createReview']);
+    Route::put('/home/update-favorite-canteen/{canteen}', [CustomerController::class, 'updateFavoriteCanteen']);
+    Route::get('/editProfile', [CustomerController::class, 'getCustomerEditProfile']);
+    Route::post('/editProfile', [CustomerController::class, 'updateProfile']);
+    Route::post('/deleteProfile', [CustomerController::class, 'deleteCustomer']);
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
@@ -77,7 +80,7 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
     Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
     Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
-    
+
     //Dashboard
     Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
     Route::get('/vendor-dash/reviews', [VendorController::class, 'getReviews']);
@@ -91,8 +94,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
 
     //Category
-    Route::post('/vendor-menu/addCategory',[CategoryController::class, 'addCategory']);
-    Route::post('/vendor-menu/deleteCategory/{category}',[CategoryController::class, 'deleteCategory']);
+    Route::post('/vendor-menu/addCategory', [CategoryController::class, 'addCategory']);
+    Route::post('/vendor-menu/deleteCategory/{category}', [CategoryController::class, 'deleteCategory']);
 
     //Order
     Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);

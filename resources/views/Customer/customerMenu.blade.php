@@ -12,7 +12,7 @@
             $cartTotal = $cartTotal + $cartItem->quantity;
         }
     @endphp
-    @if ($cartTotal > 0)    
+    @if ($cartTotal > 0)
         <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
             <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -30,9 +30,13 @@
                 <div class="col-10">
                     <div class="row"> <h4>{{$vendor->name}}</h4></div>
                     <div class="row"> <p>{{$vendor->description}}</p></div>
-                    <div class="row "> 
+                    <div class="row ">
                         <div class="col-3"><i class="fa-solid fa-star me-1"></i>{{$rating}}</div>
-                        <div class="col-9 ">{{$vendor->priceRange->value}}</div>
+                        <div class="col-9 ">
+                            @if ($vendor->priceRange)
+                                {{$vendor->priceRange->value}}
+                            @endif
+                        </div>
                     </div>
                 </div>
                 {{-- Add favorite function --}}
@@ -96,7 +100,7 @@
                                                 <div class="row h-100">
 
                                         @endif
-                                       
+
                                         <div class="col-6 p-1">
                                             @if ($item->availability)
                                             <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#{{$item->id}}addToCart" href="">
@@ -122,11 +126,11 @@
                                                     </div>
                                                 </div>
                                             @if ($item->availability)
-                                            </a>    
+                                            </a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="{{$item->id}}addToCart" tabindex="-1"  aria-hidden="true">
                                                 <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="max-height: 90%" >
-                                                    
+
                                                     <div class="modal-content" style="">
                                                         <div class="container">
                                                             <div class="row">
@@ -143,20 +147,20 @@
                                                                 <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0" alt="image error" style="" >
                                                             @endif
                                                         </div>
-                                                    
-                                                        <div class="modal-body">     
+
+                                                        <div class="modal-body">
                                                             <div class="container">
                                                                 <div class="row px-2">
                                                                     <div class="col-8">
                                                                         <h5 class="text-break">{{$itemName[1]}}</h5>
-                                                                        
+
                                                                     </div>
-                                                                    <div class="col-4 text-end fw-medium"> 
+                                                                    <div class="col-4 text-end fw-medium">
                                                                         <p> <i class="fa-solid fa-hourglass-end me-1"></i> {{$item->cook_time}}  <span class="">min</span></p>
-                                                                        
+
                                                                     </div>
                                                                 </div>
-                                                                <div class="row px-3"> 
+                                                                <div class="row px-3">
                                                                     <p>{{$item->description}}</p>
                                                                 </div>
                                                                 <div class="row px-3 d-flex align-items-center flex-column">
@@ -195,7 +199,7 @@
                                                                             @else
                                                                                 <button class="btn btn-primary w-100" type="submit">Add Item</button>
                                                                             @endif
-                                                                            
+
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -203,28 +207,28 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>     
-                                              
+                                            </div>
+
                                             @endif
-                                            </a>           
+                                            </a>
                                         </div>
-                                        
+
                                         @if($loop->index%2 !=0 || $loop->last)
                                             </div>
                                         </div>
                                         @endif
-                
+
                                     @endforeach
                                 </div>
                             </div>
-                        </div> 
-                    </div>            
-                @endforeach 
+                        </div>
+                    </div>
+                @endforeach
             @else
-            <h3 class="col p-5 text-center">Sorry the menu for this vendor is currently not available.</h3>    
+            <h3 class="col p-5 text-center">Sorry the menu for this vendor is currently not available.</h3>
             @endif
         </div>
 
     </div>
-    
+
 @endsection

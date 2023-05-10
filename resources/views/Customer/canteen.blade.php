@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        @if ($cartTotal>0)    
+        @if ($cartTotal > 0)
             <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
                 <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{$cartTotal}}
+                        {{ $cartTotal }}
                         <span class="visually-hidden">number of items</span>
                     </span>
                     <i class="fa-solid fa-cart-shopping"></i>
@@ -21,6 +21,33 @@
                             <h5 class="card-title">{{ $canteen->name }}</h5>
                             <p class="card-text">{{ $canteen->address }}</p>
                         </div>
+                        @if ($canteen->favoritedCustomers->contains('id', $userId))
+                            <div class="col-3 align-self-center">
+                                <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}" method="post"
+                                    class="form-loading">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="search" value="{{ $search }}">
+                                    <input type="hidden" name="favorite" value="0">
+                                    <button type="submit" class="btn btn-block shadow-none"><i
+                                            class="fa fa-heart fa-2xl"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @else
+                            <div class="col-3 align-self-center">
+                                <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}" method="post"
+                                    class="form-loading">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="search" value="{{ $search }}">
+                                    <input type="hidden" name="favorite" value="1">
+                                    <button type="submit" class="btn btn-block shadow-none"><i
+                                            class="fa fa-heart-o fa-2xl"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div><br>
 
@@ -30,8 +57,9 @@
                         <div class="col-4">
                             <div class="form-group @error('type') has-error @enderror">
                                 <select name="type" id="" class="form-control">
-                                    <option value="vendor" {{$type == 'vendor' ? 'selected' : ''}}>Vendor</option>
-                                    <option value="menu_item" {{$type == 'menu_item' ? 'selected' : ''}}>Menu Item</option>
+                                    <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
+                                    <option value="menu_item" {{ $type == 'menu_item' ? 'selected' : '' }}>Menu Item
+                                    </option>
                                 </select>
                                 @error('type')
                                     <span class="form-text m-b-none text-danger">{{ $message }}</span>
@@ -54,57 +82,85 @@
                     </div>
                 </form>
                 <hr>
-                @foreach ($favorited_vendors as $vendor)
-                    <a href="{{ url('/vendor/'.$vendor->id) }}" class="text-decoration-none">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{ $vendor->name }}</h5>
-                                        <p class="card-text">{{ $vendor->description }}</p>
-                                    </div>
-                                    <div class="col-3 align-self-center">
-                                        <form action="{{ url('home/'.$canteen->id.'/update-favorite-vendor/'.$vendor->id) }}"
-                                            method="post" class="form-loading">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="search" value="{{ $search }}">
-                                            <input type="hidden" name="favorite" value="0">
-                                            <button type="submit" class="btn btn-block shadow-none"><i
-                                                    class="fa fa-heart fa-2xl"></i>
-                                            </button>
-                                        </form>
+                @foreach ($items as $item)
+                    @if ($item->favoritedCustomers->contains('id', $userId))
+                        <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h5 class="card-title">{{ $item->name }}</h5>
+                                            @if ($type == 'menu_item')
+                                                <p class="card-text">
+                                                    @foreach ($item->menuItems->take(3) as $menuItem)
+                                                        @php
+                                                            $itemName = explode('_', $menuItem->name);
+                                                        @endphp
+                                                        {{ $itemName[1] }},
+                                                    @endforeach
+                                                </p>
+                                            @else
+                                                <p class="card-text">{{ $item->description }}</p>
+                                            @endif
+                                        </div>
+                                        <div class="col-3 align-self-center">
+                                            <form
+                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
+                                                method="post" class="form-loading">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="search" value="{{ $search }}">
+                                                <input type="hidden" name="favorite" value="0">
+                                                <button type="submit" class="btn btn-block shadow-none"><i
+                                                        class="fa fa-heart fa-2xl"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endif
                 @endforeach
-                @foreach ($vendors as $vendor)
-                    <a href="{{ url('/vendor/'.$vendor->id) }}" class="text-decoration-none">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{ $vendor->name }}</h5>
-                                        <p class="card-text">{{ $vendor->description }}</p>
-                                    </div>
-                                    <div class="col-3 align-self-center">
-                                        <form action="{{ url('home/'.$canteen->id.'/update-favorite-vendor/'.$vendor->id) }}"
-                                            method="post" class="form-loading">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="search" value="{{ $search }}">
-                                            <input type="hidden" name="favorite" value="1">
-                                            <button type="submit" class="btn btn-block shadow-none"><i
-                                                    class="fa fa-heart-o fa-2xl"></i>
-                                            </button>
-                                        </form>
+                @foreach ($items as $item)
+                    @if (!$item->favoritedCustomers->contains('id', $userId))
+                        <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h5 class="card-title">{{ $item->name }}</h5>
+                                            @if ($type == 'menu_item')
+                                                <p class="card-text">
+                                                    @foreach ($item->menuItems->take(3) as $menuItem)
+                                                        @php
+                                                            $itemName = explode('_', $menuItem->name);
+                                                        @endphp
+                                                        {{ $itemName[1] }},
+                                                    @endforeach
+                                                </p>
+                                            @else
+                                                <p class="card-text">{{ $item->description }}</p>
+                                            @endif
+                                        </div>
+                                        <div class="col-3 align-self-center">
+                                            <form
+                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
+                                                method="post" class="form-loading">
+                                                @csrf
+                                                @method('put')
+                                                <input type="hidden" name="search" value="{{ $search }}">
+                                                <input type="hidden" name="favorite" value="1">
+                                                <button type="submit" class="btn btn-block shadow-none"><i
+                                                        class="fa fa-heart-o fa-2xl"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>
