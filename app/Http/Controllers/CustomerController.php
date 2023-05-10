@@ -95,11 +95,15 @@ class CustomerController extends Controller
 
         $userId = auth()->guard('customer')->user()->id;
         $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
-        $item_ids = $items->pluck('id');
         if ($request->search) {
             if ($request->type == 'menu_item') {
-                $items = MenuItem::whereIn('vendor_id', $item_ids)->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->get();
+                $items = Vendor::with(['favoritedCustomers',
+                'menuItems' => function ($q) use($request){
+                    $q->where('name', 'LIKE', '%' . $request->search . '%');
+                }])
+                ->where('canteen_id', $canteen->id)
+                ->whereHas('menuItems')
+                ->orderByDesc('favorites')->get();
             }
         }
 

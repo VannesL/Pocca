@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        @if ($cartTotal>0)
+        @if ($cartTotal > 0)
             <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
                 <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{$cartTotal}}
+                        {{ $cartTotal }}
                         <span class="visually-hidden">number of items</span>
                     </span>
                     <i class="fa-solid fa-cart-shopping"></i>
@@ -84,13 +84,21 @@
                 <hr>
                 @foreach ($items as $item)
                     @if ($item->favoritedCustomers->contains('id', $userId))
-                        <a href="" class="text-decoration-none">
+                        <a href="{{ url('/vendor/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-9">
                                             <h5 class="card-title">{{ $item->name }}</h5>
-                                            <p class="card-text">{{ $item->description }}</p>
+                                            @if ($type == 'menu_item')
+                                                <p class="card-text">
+                                                    @foreach ($item->menuItems->take(3) as $menuItem)
+                                                        {{ $menuItem->name }},
+                                                    @endforeach
+                                                </p>
+                                            @else
+                                                <p class="card-text">{{ $item->description }}</p>
+                                            @endif
                                         </div>
                                         <div class="col-3 align-self-center">
                                             <form
@@ -113,13 +121,21 @@
                 @endforeach
                 @foreach ($items as $item)
                     @if (!$item->favoritedCustomers->contains('id', $userId))
-                        <a href="" class="text-decoration-none">
+                        <a href="{{ url('/vendor/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-9">
                                             <h5 class="card-title">{{ $item->name }}</h5>
-                                            <p class="card-text">{{ $item->description }}</p>
+                                            @if ($type == 'menu_item')
+                                                <p class="card-text">
+                                                    @foreach ($item->menuItems->take(3) as $menuItem)
+                                                        {{ $menuItem->name }},
+                                                    @endforeach
+                                                </p>
+                                            @else
+                                                <p class="card-text">{{ $item->description }}</p>
+                                            @endif
                                         </div>
                                         <div class="col-3 align-self-center">
                                             <form

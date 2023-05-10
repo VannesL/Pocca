@@ -26,7 +26,7 @@ class Vendor extends Authenticatable
 
     public function menuItems()
     {
-        return $this->belongsTo(MenuItem::class);
+        return $this->hasMany(MenuItem::class);
     }
 
     public function priceRange()
