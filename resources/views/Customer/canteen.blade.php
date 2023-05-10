@@ -93,7 +93,10 @@
                                             @if ($type == 'menu_item')
                                                 <p class="card-text">
                                                     @foreach ($item->menuItems->take(3) as $menuItem)
-                                                        {{ $menuItem->name }},
+                                                        @php
+                                                            $itemName = explode('_', $menuItem->name);
+                                                        @endphp
+                                                        {{ $itemName[1] }},
                                                     @endforeach
                                                 </p>
                                             @else
@@ -130,7 +133,10 @@
                                             @if ($type == 'menu_item')
                                                 <p class="card-text">
                                                     @foreach ($item->menuItems->take(3) as $menuItem)
-                                                        {{ $menuItem->name }},
+                                                        @php
+                                                            $itemName = explode('_', $menuItem->name);
+                                                        @endphp
+                                                        {{ $itemName[1] }},
                                                     @endforeach
                                                 </p>
                                             @else

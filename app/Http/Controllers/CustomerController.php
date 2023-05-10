@@ -130,7 +130,7 @@ class CustomerController extends Controller
         return view('Customer/canteen', $data);
     }
 
-    public function viewMenu(Request $request, vendor $vendor)
+    public function viewMenu(Request $request, Canteen $canteen, Vendor $vendor)
     {
         $user = auth()->guard('customer')->user();
         $cart = Cart::where('customer_id', $user->id)->where('vendor_id', $vendor->id)->get()->first();
