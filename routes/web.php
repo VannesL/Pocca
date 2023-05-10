@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuItemController;
@@ -75,14 +76,14 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 });
 
 Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
-    //Dashboard
-    Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
-    Route::get('/vendor-dash/reviews', [VendorController::class, 'getReviews']);
-
     //Profile
     Route::get('/vendor-editProfile', [VendorController::class, 'getVendorEditProfile']);
     Route::post('/vendor-editProfile', [VendorController::class, 'updateVendorProfile']);
     Route::post('/vendor-deleteProfile', [VendorController::class, 'deleteVendor']);
+    
+    //Dashboard
+    Route::get('/vendor-dash', [VendorController::class, 'vendorDash']);
+    Route::get('/vendor-dash/reviews', [VendorController::class, 'getReviews']);
 
     //Menu
     Route::get('/vendor-menu', [MenuItemController::class, 'vendorMenu']);
@@ -93,8 +94,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:vendor']], function () {
     Route::post('/vendor-menu/delete/{menuid}', [MenuItemController::class, 'deleteMenu']);
 
     //Category
-    Route::post('/vendor-menu/addCategory',[MenuItemController::class, 'addCategory']);
-    Route::post('/vendor-menu/deleteCategory/{category}',[MenuItemController::class, 'deleteCategory']);
+    Route::post('/vendor-menu/addCategory',[CategoryController::class, 'addCategory']);
+    Route::post('/vendor-menu/deleteCategory/{category}',[CategoryController::class, 'deleteCategory']);
 
     //Order
     Route::get('/order/vendor', [OrderController::class, 'vendorOrder']);
