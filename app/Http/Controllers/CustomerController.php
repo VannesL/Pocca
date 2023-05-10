@@ -133,6 +133,7 @@ class CustomerController extends Controller
     public function viewMenu(Request $request, Canteen $canteen, Vendor $vendor)
     {
         $user = auth()->guard('customer')->user();
+        $userId = $user->id;
         $cart = Cart::where('customer_id', $user->id)->where('vendor_id', $vendor->id)->get()->first();
         $cartItems = collect();
         if ($cart) {
@@ -200,6 +201,7 @@ class CustomerController extends Controller
         }
 
         $data = [
+            'userId' => $userId,
             'vendor' => $vendor,
             'menuByCat' => $menuByCat,
             'categories' => $categories,
@@ -221,12 +223,12 @@ class CustomerController extends Controller
             $canteen->favoritedCustomers()->detach([$user->id] ?? []);
             $canteen->favorites -= 1;
             $canteen->save();
-            return redirect(url('/home'));
+            return redirect()->back();
         } elseif ($request->favorite == 1) {
             $canteen->favoritedCustomers()->attach([$user->id] ?? []);
             $canteen->favorites += 1;
             $canteen->save();
-            return redirect(url('/home'));
+            return redirect()->back();
         };
     }
 
@@ -237,12 +239,12 @@ class CustomerController extends Controller
             $vendor->favoritedCustomers()->detach([$user->id] ?? []);
             $vendor->favorites -= 1;
             $vendor->save();
-            return redirect(url('/home/' . $canteen->id));
+            return redirect()->back();
         } elseif ($request->favorite == 1) {
             $vendor->favoritedCustomers()->attach([$user->id] ?? []);
             $vendor->favorites += 1;
             $vendor->save();
-            return redirect(url('/home/' . $canteen->id));
+            return redirect()->back();
         };
     }
 
