@@ -5,7 +5,6 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('js/inputNumberWithButton.js') }}"></script>
 @endpush
-
 @section('content')
     @php
         $cartTotal = 0;
@@ -54,7 +53,7 @@
                             @method('put')
                             <input type="hidden" name="search" value="{{ $search }}">
                             <input type="hidden" name="favorite" value="0">
-                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl"></i>
+                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl" style="color: white"></i>
                             </button>
                         </form>
                     </div>
@@ -66,7 +65,7 @@
                             @method('put')
                             <input type="hidden" name="search" value="{{ $search }}">
                             <input type="hidden" name="favorite" value="1">
-                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart-o fa-2xl"></i>
+                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart-o fa-2xl" style="color: white"></i>
                             </button>
                         </form>
                     </div>
