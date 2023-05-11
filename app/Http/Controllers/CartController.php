@@ -62,7 +62,7 @@ class CartController extends Controller
         $cartItem->save();
 
 
-        return redirect('/vendor/' . $vendor->id);
+        return redirect('/home/'.$vendor->canteen->id.'/'. $vendor->id);
     }
 
     public function updateCart(Request $request)
@@ -90,6 +90,11 @@ class CartController extends Controller
         $cart->save();
 
         $cartItem->delete();
+
+        $cartItem = CartItem::where('cart_id', $cart->id)->get()->first();
+        if (is_null($cartItem)) {
+            $cart->delete();
+        }
         return back();
     }
 

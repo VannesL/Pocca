@@ -16,9 +16,9 @@
         <div class="container py-3">
             <div class="row flex-nowrap align-items-center">
                 <div class="col-4">
-                    <a href="{{ url('/logout') }}" class="btn btn-danger">
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutConfirmation">
                         <i class="fa-solid fa-right-from-bracket"></i>
-                    </a>
+                    </button>
                 </div>
                 <div class="col-4 d-flex align-items-center justify-content-center text-center">
                     <h2 class="logo mb-0">POCCA</h2>
@@ -62,5 +62,24 @@
             @yield('content')
         </div>
         @stack('custom-js')
+        <!-- Modal -->
+        <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you want to logout?</h5>
+                </div>
+                {{-- <div class="modal-body">
+                  This account will be deleted from the database.
+                </div> --}}
+                <div class="modal-footer d-flex justify-content-around">
+                  <div class="col-3"></div>
+                 
+                  <a href="{{ url('/logout') }}" class="btn btn-danger col" >Yes</a>
+                  <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                </div>
+              </div>
+            </div>
+        </div>
     </body>
 </html>

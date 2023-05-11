@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-4 text-end d-flex align-items-center justify-content-end">
                                 @if ($curr_cat->vendor_id != null)
-                                    <a href="" class="text-decoration-none fs-6 text-danger" data-bs-toggle="modal" data-bs-target="#deleteCat{{$curr_cat->id}}">Delete</a>
+                                    <a href="" class="text-decoration-none fs-6 text-danger" data-bs-toggle="modal" data-bs-target="#deleteCat{{$curr_cat->id}}"><i class="fa-solid fa-trash-can"></i>  </a>
                                 @endif
                             </div>
                         </div>

@@ -151,7 +151,7 @@
                                   <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
                                 </div>
                                 <div class="modal-body">
-                                  This menu item will be deleted from the database.
+                                  This account will be deleted from the database.
                                 </div>
                                 <div class="modal-footer d-flex justify-content-around">
                                   <div class="col-3"></div>
