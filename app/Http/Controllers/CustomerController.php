@@ -87,7 +87,7 @@ class CustomerController extends Controller
             'cartTotal' => $cartTotal,
         ];
 
-        return view('Customer/home', $data);
+        return view('Customer/customerHome', $data);
     }
 
     public function canteen(Request $request, Canteen $canteen)
@@ -97,13 +97,15 @@ class CustomerController extends Controller
         $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         if ($request->search) {
             if ($request->type == 'menu_item') {
-                $items = Vendor::with(['favoritedCustomers',
-                'menuItems' => function ($q) use($request){
-                    $q->where('name', 'LIKE', '%' . $request->search . '%');
-                }])
-                ->where('canteen_id', $canteen->id)
-                ->whereHas('menuItems')
-                ->orderByDesc('favorites')->get();
+                $items = Vendor::with([
+                    'favoritedCustomers',
+                    'menuItems' => function ($q) use ($request) {
+                        $q->where('name', 'LIKE', '%' . $request->search . '%');
+                    }
+                ])
+                    ->where('canteen_id', $canteen->id)
+                    ->whereHas('menuItems')
+                    ->orderByDesc('favorites')->get();
             }
         }
 
@@ -127,7 +129,7 @@ class CustomerController extends Controller
             'cartTotal' => $cartTotal,
         ];
 
-        return view('Customer/canteen', $data);
+        return view('Customer/customerCanteenView', $data);
     }
 
     public function viewMenu(Request $request, Canteen $canteen, Vendor $vendor)
