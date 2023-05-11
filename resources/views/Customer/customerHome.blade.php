@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-1">
         @if ($cartTotal > 0)    
             <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
                 <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
