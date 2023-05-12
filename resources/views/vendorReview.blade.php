@@ -56,7 +56,7 @@
                                     @endfor
                                 </p>
                             </div>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <p class="card-text">{{$review->description}}</p>
                           <div class="row">
                             <div class="container-fluid" style="">
                                 <div id="images" class=" row flex-row flex-nowrap " style="overflow-x:scroll">
