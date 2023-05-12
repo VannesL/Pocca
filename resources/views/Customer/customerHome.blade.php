@@ -52,22 +52,34 @@
                                     </div>
                                 </div>
                                 @if ($type == 'vendor')
-                                    <div class="card-footer">
+                                    <ol class="list-group list-group-flush">
                                         @foreach ($item->vendors->take(3) as $vendor)
-                                            <div class="row">
-                                                <div class="col">{{ $vendor->store_name }}</div>
-                                                <div class="col">{{ $vendor->priceRange->value }}</div>
-                                                <div class="col">
-                                                    @if ($vendor->rating )
-                                                        {{ $vendor->avg_rating }}
-                                                    @else {
-                                                        0
-                                                    }
-                                                    @endif
-                                                </div>   
-                                            </div>                                      
+                                            <li class="list-group-item">
+                                                <div class="row d-flex flex-row justify-content-between mb-1">
+                                                    <div class="col-5 fw-semibold">
+                                                        {{ $vendor->store_name }}
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        @if ($vendor->priceRange)
+                                                            {{ $vendor->priceRange->value }}
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-3 text-center">
+                                                        @if ($vendor->avg_rating )
+                                                            {{ $vendor->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="text-truncate" style="font-size: 0.875em; max-width:100%">
+                                                    {{ $vendor->description }}
+                                                </div>
+                                            </li> 
                                         @endforeach
-                                    </div>
+                                    </ol>
                                 @endif
                             </div>
                         </a>
@@ -99,13 +111,34 @@
                                         </div>
                                     </div>
                                     @if ($type == 'vendor')
-                                        <div class="card-footer">
+                                        <ol class="list-group list-group-flush">
                                             @foreach ($item->vendors->take(3) as $vendor)
-                                                {{ $vendor->store_name }}
-                                                {{ $vendor->priceRange->value }}
-                                                {{ $vendor->rating }}
+                                                <li class="list-group-item">
+                                                    <div class="row d-flex flex-row justify-content-between mb-1">
+                                                        <div class="col-5 fw-semibold">
+                                                            {{ $vendor->store_name }}
+                                                        </div>
+                                                        <div class="col-4 text-center">
+                                                            @if ($vendor->priceRange)
+                                                                {{ $vendor->priceRange->value }}
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-3 text-center">
+                                                            @if ($vendor->avg_rating )
+                                                                {{ $vendor->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-truncate" style="font-size: 0.875em; max-width:100%">
+                                                        {{ $vendor->description }}
+                                                    </div>
+                                                </li> 
                                             @endforeach
-                                        </div>
+                                        </ol>
                                     @endif
                                 </div>
                             </a>

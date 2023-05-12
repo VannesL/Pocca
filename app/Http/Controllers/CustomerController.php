@@ -63,7 +63,7 @@ class CustomerController extends Controller
             $items = Canteen::with([
                 'favoritedCustomers',
                 'vendors' => function ($q) use ($request) {
-                    $q->where('name', 'LIKE', '%' . $request->search . '%');
+                    $q->where('store_name', 'LIKE', '%' . $request->search . '%');
                 }
             ])
                 ->whereHas('vendors')
