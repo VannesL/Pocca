@@ -17,31 +17,13 @@
             <div class="col-lg-12">
                 <form action="{{ url('/home') }}" method="get" class="form-loading">
                     @csrf
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group @error('type') has-error @enderror">
-                                <select name="type" id="" class="form-control">
-                                    <option value="canteen" {{ $type == 'canteen' ? 'selected' : '' }}>Canteen</option>
-                                    <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
-                                </select>
-                                @error('type')
-                                    <span class="form-text m-b-none text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group @error('search') has-error @enderror">
-                                <input name="search" type="text" value="{{ $search }}" class="form-control"
-                                    placeholder="Search">
-                                @error('search')
-                                    <span class="form-text m-b-none text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-2 ps-1">
-                            <button type="submit" class="btn btn-primary btn-block btn_submit ms-0"><i
-                                    class="fa fa-search"></i></button>
-                        </div>
+                    <div class="input-group mb-3">
+                        <select name="type" id="" class="input-group-text">
+                            <option value="canteen" {{ $type == 'canteen' ? 'selected' : '' }}>Canteen</option>
+                            <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
+                        </select>
+                        <input name="search" type="text" value="{{ $search }}" class="form-control"placeholder="Search" id="search">
+                        <button type="submit" class="btn btn-primary btn-block btn_submit ms-0 input-group-text"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
                 <hr>
@@ -119,6 +101,7 @@
             </div>
         </div>
     </div>
+<link rel="stylesheet" href="{{ asset ('css/searchbar.css') }}">
 @endsection
 @push('js')
 @endpush

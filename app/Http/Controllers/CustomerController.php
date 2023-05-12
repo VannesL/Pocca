@@ -58,11 +58,12 @@ class CustomerController extends Controller
     {
         $userId = auth()->guard('customer')->user()->id;
 
-        $items = Canteen::with('favoritedCustomers')->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+        $items = Canteen::with('favoritedCustomers')->where('name', 'LIKE', '%' . $request->search . '%')->whereNotNull('approved_by')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         if ($request->search) {
             if ($request->type == 'vendor') {
                 $items = Vendor::with('favoritedCustomers')->orderByDesc('favorites')
                     ->where('name', 'LIKE', '%' . $request->search . '%')
+                    ->whereNotNull('approved_by')
                     ->orderByDesc('favorites') //->whereNotIn($favorites->id);
                     ->get();
             }
@@ -94,7 +95,7 @@ class CustomerController extends Controller
     {
 
         $userId = auth()->guard('customer')->user()->id;
-        $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+        $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->whereNotNull('approved_by')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         if ($request->search) {
             if ($request->type == 'menu_item') {
                 $items = Vendor::with([
@@ -102,11 +103,12 @@ class CustomerController extends Controller
                     'menuItems' => function ($q) use ($request) {
                         $q->where('name', 'LIKE', '%' . $request->search . '%');
                     }
-                ])
+                    ])
                     ->where('canteen_id', $canteen->id)
+                    ->whereNotNull('approved_by')
                     ->whereHas('menuItems')
                     ->orderByDesc('favorites')->get();
-            }
+                }
         }
 
         $customer = auth()->guard('customer')->user();

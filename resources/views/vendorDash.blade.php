@@ -73,17 +73,12 @@
             <h2 class="text-center mb-3">Sales Report</h2>
             <form action="{{ url('/vendor-dash') }}" method="GET" class="form-loading mb-3" style="padding: 0">
                 @csrf
-                <div class="row ">
-                    <div class="col-10" >
-                        <div class="form-group @error('search') has-error @enderror">
-                            <input name="selectedDate"  id="selectedDate" type="date" value="{{ $selectedDate}}" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-2 ps-1 ">
-                        <button type="submit" class="btn btn-primary btn-block btn_submit ms-0"><i
-                                class="fa fa-search"></i></button>
-                    </div>
+                <div class="input-group @error('search') has-error @enderror">
+                    <input name="selectedDate"  id="selectedDate" type="date" value="{{ $selectedDate}}" class="form-control">
+                    <button type="submit" class="btn btn-primary btn-block btn_submit ms-0 input-group-text"><i
+                        class="fa fa-search"></i></button>
                 </div>
+
             </form>
             <table class="table table-striped table-bordered " style="">
                 <thead>
@@ -118,5 +113,6 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="{{ asset ('css/searchbar.css') }}">
 @endif
 @endsection

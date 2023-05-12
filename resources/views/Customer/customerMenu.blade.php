@@ -4,6 +4,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('js/inputNumberWithButton.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset ('css/searchbar.css') }}">
 @endpush
 @section('content')
     @php
@@ -72,26 +73,19 @@
                 @endif
             </div>
         </div>
-        <form action="{{ url('/vendor', $vendor->id) }}" method="get" class="form-loading mb-3">
+        <form action="{{ url('/home/'. $vendor->canteen->id.'/'.$vendor->id) }}" method="get" class="form-loading mb-3">
             @csrf
-            <div class="row">
-                <div class="col-10 ">
-                    <div class="form-group @error('search') has-error @enderror">
-                        <input name="search" type="text" value="{{ $search }}" class="form-control"
-                            placeholder="Search">
-                        @error('search')
+            <div class="input-group @error('search') has-error @enderror">
+                <input name="search" type="text" value="{{ $search }}" class="form-control"
+                            placeholder="Search" id="search">
+                            @error('search')
                             <span class="form-text m-b-none text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
-                </div>
-                <div class="col-2 ps-1">
-                    <button type="submit" class="btn btn-primary btn-block btn_submit text"><i
+                        <button type="submit" class="btn btn-primary btn-block btn_submit input-group-text"><i
                             class="fa fa-search"></i></button>
-                </div>
             </div>
-    </div>
-    </form>
-    <div class="row px-3">
+        </form>
+        <div class="row px-3">
         @if (!$categories->isEmpty())
             @foreach ($menuByCat as $cat)
                 <div class="accordion accordion-flush mb-4" id="accordion{{ $loop->index }}">
@@ -282,9 +276,6 @@
                         </div>
             @endif
         @endforeach
-    </div>
-    </div>
-    </div>
     </div>
     @endforeach
 @else

@@ -14,21 +14,16 @@
         @enderror
         <form action="{{ url('/vendor-menu') }}" method="get" class="form-loading mb-3">
             @csrf
-            <div class="row">
-                <div class="col-10 ">
-                    <div class="form-group @error('search') has-error @enderror">
-                        <input name="search" type="text" value="{{ $search }}" class="form-control"
-                            placeholder="Search">
-                        @error('search')
+            <div class="input-group @error('search') has-error @enderror">
+                <input name="search" type="text" value="{{ $search }}" class="form-control"
+                            placeholder="Search" id="search">
+                            @error('search')
                             <span class="form-text m-b-none text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
-                </div>
-                <div class="col-2 ps-1">
-                    <button type="submit" class="btn btn-primary btn-block btn_submit text"><i class="fa fa-search"></i></button>
-                </div>
+                        <button type="submit" class="btn btn-primary btn-block btn_submit input-group-text"><i
+                            class="fa fa-search"></i></button>
             </div>
-            </div>
+
         </form>
         <div class="container px-4" style="margin-bottom: 40%">
            
@@ -197,6 +192,8 @@
     </div>
 
     <link rel="stylesheet" href="{{ asset ('css/vendorMenu.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/searchbar.css') }}">
+
 
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script>

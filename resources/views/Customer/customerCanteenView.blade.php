@@ -51,40 +51,25 @@
                     </div>
                 </div><br>
 
+
                 <form action="{{ url('/home', $canteen->id) }}" method="get" class="form-loading">
                     @csrf
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group @error('type') has-error @enderror">
-                                <select name="type" id="" class="form-control">
-                                    <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
-                                    <option value="menu_item" {{ $type == 'menu_item' ? 'selected' : '' }}>Menu Item
-                                    </option>
-                                </select>
-                                @error('type')
-                                    <span class="form-text m-b-none text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group @error('search') has-error @enderror">
-                                <input name="search" type="text" value="{{ $search }}" class="form-control"
-                                    placeholder="Search">
-                                @error('search')
-                                    <span class="form-text m-b-none text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-2 ps-1">
-                            <button type="submit" class="btn btn-primary btn-block btn_submit ms-0"><i
-                                    class="fa fa-search"></i></button>
-                        </div>
+                    <div class="input-group mb-3">
+                        <select name="type" id="" class="input-group-text">
+                            <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
+                            <option value="menu_item" {{ $type == 'menu_item' ? 'selected' : '' }}>Menu Item</option>
+                        </select>
+                        <input name="search" type="text" value="{{ $search }}" class="form-control"placeholder="Search" id="search">
+                        <button type="submit" class="btn btn-primary btn-block btn_submit ms-0 input-group-text"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
                 <hr>
                 @foreach ($items as $item)
                     @if ($item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
+                        @if ($type == 'menu_item' && $item->menuItems->count()<1)
+                            
+                        @else    
+                            <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
@@ -119,52 +104,58 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                            </a>
+                        @endif
                     @endif
                 @endforeach
                 @foreach ($items as $item)
                     @if (!$item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <h5 class="card-title">{{ $item->name }}</h5>
-                                            @if ($type == 'menu_item')
-                                                <p class="card-text">
-                                                    @foreach ($item->menuItems->take(3) as $menuItem)
-                                                        @php
-                                                            $itemName = explode('_', $menuItem->name);
-                                                        @endphp
-                                                        {{ $itemName[1] }},
-                                                    @endforeach
-                                                </p>
-                                            @else
-                                                <p class="card-text">{{ $item->description }}</p>
-                                            @endif
-                                        </div>
-                                        <div class="col-3 align-self-center">
-                                            <form
-                                                action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
-                                                method="post" class="form-loading">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="search" value="{{ $search }}">
-                                                <input type="hidden" name="favorite" value="1">
-                                                <button type="submit" class="btn btn-block shadow-none"><i
-                                                        class="fa fa-heart-o fa-2xl"></i>
-                                                </button>
-                                            </form>
+                        @if ($type == 'menu_item' && $item->menuItems->count()<1)
+                        @else
+                            <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="card-title">{{ $item->name }}</h5>
+                                                @if ($type == 'menu_item')
+                                                    <p class="card-text">
+                                                        @foreach ($item->menuItems->take(3) as $menuItem)
+                                                            @php
+                                                                $itemName = explode('_', $menuItem->name);
+                                                            @endphp
+                                                            {{ $itemName[1] }},
+                                                        @endforeach
+                                                    </p>
+                                                @else
+                                                    <p class="card-text">{{ $item->description }}</p>
+                                                @endif
+                                            </div>
+                                            <div class="col-3 align-self-center">
+                                                <form
+                                                    action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
+                                                    method="post" class="form-loading">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="search" value="{{ $search }}">
+                                                    <input type="hidden" name="favorite" value="1">
+                                                    <button type="submit" class="btn btn-block shadow-none"><i
+                                                            class="fa fa-heart-o fa-2xl"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @endif
                     @endif
                 @endforeach
             </div>
         </div>
     </div>
+<link rel="stylesheet" href="{{ asset ('css/searchbar.css') }}">
+
 @endsection
 @push('js')
     <script>
