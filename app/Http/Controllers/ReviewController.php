@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Review;
 use App\Models\ReviewImage;
+use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,6 +31,13 @@ class ReviewController extends Controller
         $order = Order::where('id', $request->orderid)->get()->first();
         $order->reviewed = true;
         $order->save();
+
+        $rating = Review::where('vendor_id', $request->vendorid)
+            ->select(DB::raw('AVG(rating) as rating'))
+            ->get();
+        $vendor = Vendor::where('id', $request->vendorid)->get()->first();
+        $vendor->avg_rating = round($rating[0]->rating, 1);
+        $vendor->save();
 
         $count = 1;
         if ($request->hasFile('reviewImg')) {

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('rejection_reason')->nullable();
             $table->date('upcoming_deletion_date')->nullable();
+            $table->float('avg_rating')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

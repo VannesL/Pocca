@@ -141,12 +141,6 @@ class CustomerController extends Controller
         if ($cart) {
             $cartItems = CartItem::where('cart_id', $cart->id)->get();
         }
-        $rating = Review::where('vendor_id', $vendor->id)
-            ->select(DB::raw('AVG(rating) as rating'))
-            ->get();
-        if (!$rating->isEmpty()) {
-            $rating = round($rating[0]->rating, 1);
-        }
         //add favorite
 
         $categories = [];
@@ -210,7 +204,6 @@ class CustomerController extends Controller
             'search' => $request->search,
             'vendor' => $vendor,
             'cartItems' => $cartItems,
-            'rating' => $rating,
         ];
 
         return view('Customer/customerMenu', $data);

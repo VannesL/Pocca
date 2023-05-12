@@ -29,6 +29,7 @@ class VendorTableSeeder extends Seeder
             'favorites' => 0,
             'qris' => 'qris_pocca.jpg',
             'image' => 'Image',
+            'avg_rating' => 4.0,
         ]);
 
         Vendor::create([
