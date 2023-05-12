@@ -39,10 +39,11 @@
                             <a class="text-white text-decoration-none" href="{{url('/vendor-dash/reviews')}}">
                                 <div class="card-body text-light p-3">
                                     <h5 class="mb-3" style="font-size: 15px">Rating</h5>
-                                    <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
+                                    <div class="mb-3 text-break fw-bold" style="font-size: 18px">
                                         <i class="fa-solid fa-star"></i>
                                         {{$rating}}
-                                    </h2>
+                                        <small>/ 5</small>
+                                    </div>
                                     <h6 class="card-text font-weight-light" style="font-size: 12px">See review 
                                         <i class="fa-solid fa-angle-right" style="color: #ffffff;"></i>
                                     </h6>

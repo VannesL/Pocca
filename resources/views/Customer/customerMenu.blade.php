@@ -36,9 +36,13 @@
                     <div class="row">
                         <p>{{ $vendor->description }}</p>
                     </div>
-                    <div class="row ">
-                        <div class="col-3"><i class="fa-solid fa-star me-1"></i>{{ $rating }}</div>
-                        <div class="col-9 ">
+                    <div class="row fs-6">
+                        <div class="col-5 fw-bold">
+                            <i class="fa-solid fa-star me-1"></i>
+                            {{ $rating }}
+                            <small class="fw-light">/ 5</small>
+                        </div>
+                        <div class="col-7 fw-bold">
                             @if ($vendor->priceRange)
                                 {{ $vendor->priceRange->value }}
                             @endif
@@ -141,11 +145,11 @@
                                             @if ($item->image != '')
                                                 <img src="{{ asset('storage/menus/' . $item->image) }}"
                                                     class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif"
-                                                    alt="image error" style="height: 120px; object-fit:contain;">
+                                                    alt="image error" style="height: 120px; object-fit:cover;">
                                             @else
                                                 <img src="{{ asset('storage/menus/default.jpg') }}"
                                                     class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif"
-                                                    alt="image error" style="height: 120px; object-fit:contain;">
+                                                    alt="image error" style="height: 120px; object-fit:cover;">
                                             @endif
                                             <div class="card-body">
                                                 <div class="row h-75">
@@ -178,11 +182,11 @@
                                                             @if ($item->image != '')
                                                                 <img src="{{ asset('storage/menus/' . $item->image) }}"
                                                                     class="card-img-top img-thumbnail p-2 border-0 "
-                                                                    alt="image error" style="">
+                                                                    alt="image error" style="height: 300px; object-fit:cover;">
                                                             @else
                                                                 <img src="{{ asset('storage/menus/default.jpg') }}"
                                                                     class="card-img-top img-thumbnail p-2 border-0"
-                                                                    alt="image error" style="">
+                                                                    alt="image error" style="height: 300px; object-fit:cover;">
                                                             @endif
                                                         </div>
 

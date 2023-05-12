@@ -55,9 +55,9 @@
                 <form action="{{ url('/home', $canteen->id) }}" method="get" class="form-loading">
                     @csrf
                     <div class="input-group mb-3">
-                        <select name="type" id="" class="input-group-text">
+                        <select name="type" id="" class="input-group-text px-1">
                             <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
-                            <option value="menu_item" {{ $type == 'menu_item' ? 'selected' : '' }}>Menu Item</option>
+                            <option value="menu_item" {{ $type == 'menu_item' ? 'selected' : '' }}>Menu</option>
                         </select>
                         <input name="search" type="text" value="{{ $search }}" class="form-control"placeholder="Search" id="search">
                         <button type="submit" class="btn btn-primary btn-block btn_submit ms-0 input-group-text"><i class="fa fa-search"></i></button>

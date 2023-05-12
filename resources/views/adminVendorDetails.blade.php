@@ -155,31 +155,29 @@
                                     </div>
                                   </div>
                                 @else
-                                <div class="d-flex justify-content-center pt-1 mt-4">
-                                  
-                                    <button class="btn btn-danger btn-md mx-auto" data-bs-toggle="modal" data-bs-target="#removeConfirmation"><i class="fa-solid fa-trash-can"></i></button>
-                                  
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="removeConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                                  <div class="modal-dialog" style="" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteConfirmationLabel">Are you want to remove vendor?</h5>
-                                      </div>
-                                      <div class="modal-body">
-                                        This vendor account will be deleted from the database.
-                                      </div>
-                                      <div class="modal-footer d-flex justify-content-around">
-                                        <div class="col-3"></div>
-                                        <form action="{{url('/admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
-                                        @csrf
-                                        <button  class="btn btn-danger col" >Yes</button>
-                                        </form>
-                                        <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                  <div class="d-flex justify-content-center pt-1 mt-4">
+                                      <button class="btn btn-danger btn-md mx-auto" data-bs-toggle="modal" data-bs-target="#removeConfirmation"><i class="fa-solid fa-trash-can me-1"></i> Remove Vendor</button>                                 
+                                  </div>
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="removeConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" style="" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you want to remove vendor?</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                          This vendor account will be deleted from the database.
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-around">
+                                          <div class="col-3"></div>
+                                          <form action="{{url('/admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
+                                          @csrf
+                                          <button  class="btn btn-danger col" >Yes</button>
+                                          </form>
+                                          <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
                                 @endif
                 
                                 </div>
