@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Canteen;
 use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -52,5 +53,22 @@ class AdminController extends Controller
         $vendor->approved_by = auth()->guard('admin')->user()->id;
         $vendor->save();
         return redirect('/admin-dash');
+    }
+
+    public function removeVendor(Request $request){
+        $vendor=  Vendor::where('id',$request->vendorid)
+        ->with('canteen')
+        ->first();
+        $canteen = $vendor->canteen;
+        $vendor->delete();
+
+        $vendor = Vendor::where('canteen_id',$canteen->id)
+        ->first();
+        if (is_null($vendor)) {
+            $canteen->delete();
+        }
+
+        return redirect('/admin-dash');
+
     }
 }

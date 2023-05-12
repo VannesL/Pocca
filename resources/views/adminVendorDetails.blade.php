@@ -114,34 +114,70 @@
                                       </div>
                                     </div>
                                     <div class="col d-flex">
-                                      <form action="/admin-acceptVendor/{{$vendor->id}}" method="POST" class="ms-0">
+                                      <form action="{{url('/admin-acceptVendor/'.$vendor->id)}}" method="POST" class="ms-0">
                                         @csrf
                                         <button class="btn btn-primary btn-md" type="submit">Accept</button>
                                       </form>
                                     </div>
                                   </div>
-                                  <!-- Modal -->
+
                                   <div class="modal fade" id="rejectForm" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" style="" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
+                                    <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="" role="document">
+                                        <div class="modal-content" style="height: 500px">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <a class="btn btn-plus rounded-0 btn-danger" data-bs-dismiss="modal">
+                                                        <i class="fa-solid fa-times"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="modal-header ">
+                                                <h5 class="modal-title mx-auto" id="addToCartLabel">Rejection Reason</h5>
+                            
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{url('/admin-rejectVendor/'.$vendor->id)}}" method="POST">
+                                                    @csrf
+                                                    <div class="form-outline mb-4">
+                                                      <textarea name="rejection_reason" id="rejection_reason"  class="form-control form-control-md" rows="3" placeholder="Please Input the rejection reason to help vendor fix their details!" required></textarea>
+                                                      </div>
+                                                      <div class="container">
+                                                          <div class="buttons row d-flex justify-content-around pt-1 mt-5">
+                                                            <button class="btn btn-danger btn-md w-100 col m-2" type="submit">Send</button>
+                                                            <div class="btn btn-secondary col-6 m-2"  data-bs-dismiss="modal">
+                                                                Cancel
+                                                            </div>
+                                                          </div>
+                                                      </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <form action="/admin-rejectVendor/{{$vendor->id}}" method="POST">
-                                          @csrf
-                                          <div class="modal-body">
-                                            <textarea name="rejection_reason" id="rejection_reason"  class="form-control form-control-md" rows="3" placeholder="Please Input the rejection reason to help vendor fix their details!" required></textarea>
-                                          </div>
-                                          <div class="modal-footer d-flex justify-content-around">
-                                      
-                                            <button type="submit" class="btn btn-danger col">Send</button>
-                              
-                                            <div class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">Cancel</div> 
-                                          </div>
-                                        </form>
-                                      </div>
                                     </div>
                                   </div>
+                                @else
+                                  <div class="d-flex justify-content-center pt-1 mt-4">
+                                      <button class="btn btn-danger btn-md mx-auto" data-bs-toggle="modal" data-bs-target="#removeConfirmation"><i class="fa-solid fa-trash-can me-1"></i> Remove Vendor</button>                                 
+                                  </div>
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="removeConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" style="" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you want to remove vendor?</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                          This vendor account will be deleted from the database.
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-around">
+                                          <div class="col-3"></div>
+                                          <form action="{{url('/admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
+                                          @csrf
+                                          <button  class="btn btn-danger col" >Yes</button>
+                                          </form>
+                                          <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                        </div>
+                                      </div>
+                                    </div>
                                 @endif
                 
                                 </div>

@@ -139,28 +139,41 @@
                     @break
             @endswitch
             <!-- Modal -->
+
             <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="" role="document">
-                <form method="POST" action="/order/reject/{{$order->id}}" class="modal-content">
-                    @csrf
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-outline">
-                            <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Out of ingredients, fake payment..." rows="3" style="resize:none;"></textarea>
+
+                <div class="z-3 modal-dialog position-absolute mb-0 start-0 end-0 bottom-0 " style="" role="document">
+                    <div class="modal-content" style="height: 500px">
+                        <div class="container">
+                            <div class="row">
+                                <a class="btn btn-plus rounded-0 btn-danger" data-bs-dismiss="modal">
+                                    <i class="fa-solid fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="modal-header ">
+                            <h5 class="modal-title mx-auto" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
+        
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url('/order/reject/'.$order->id)}}" method="POST">
+                                @csrf
+                                <div class="form-outline mb-4">
+                                  <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Out of ingredients, fake payment..." rows="3" style="resize:none;"></textarea>
+                                  </div>
+                                  <div class="container">
+                                      <div class="buttons row d-flex justify-content-around pt-1 mt-5">
+                                        <button class="btn btn-danger btn-md w-100 col m-2" type="submit">Submit</button>
+                                        <div class="btn btn-secondary col-6 m-2"  data-bs-dismiss="modal">
+                                            Cancel
+                                        </div>
+                                      </div>
+                                  </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-around">  
-                        <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">Cancel</button> 
-                    </div>
-                </form>
-                </div> 
-            </div>
-
+                </div>
+              </div>
             <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
                 <div class="modal-dialog pt-1" role="document">
                     <div class="modal-content">
