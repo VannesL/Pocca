@@ -71,24 +71,34 @@
                         @else    
                             <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
-                                <div class="card-body">
+                                <div class="card-body py-2">
                                     <div class="row">
-                                        <div class="col-9">
-                                            <h5 class="card-title">{{ $item->name }}</h5>
-                                            @if ($type == 'menu_item')
-                                                <p class="card-text">
-                                                    @foreach ($item->menuItems->take(3) as $menuItem)
-                                                        @php
-                                                            $itemName = explode('_', $menuItem->name);
-                                                        @endphp
-                                                        {{ $itemName[1] }},
-                                                    @endforeach
-                                                </p>
-                                            @else
-                                                <p class="card-text">{{ $item->description }}</p>
-                                            @endif
+                                        <div class="col p-0 text-center">
+                                            <img class="card-img" src="{{ asset('storage/profiles/' . $item->image) }}" alt="no image" style="height: 100px; width:100px; object-fit:cover;">
                                         </div>
-                                        <div class="col-3 align-self-center">
+                                        <div class="col-6 px-2">
+                                            <h6 class="card-title">{{ $item->store_name }}</h6>                  
+                                            <div class="container px-0 card-text" style="font-size: 0.875em;">
+                                                <div style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $item->description }}</div>
+                                                <div class="d-flex mt-2 text-start justify-content-between">
+                                                    <div class="">
+                                                        @if ($item->avg_rating)
+                                                            {{ $item->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        @if ($item->priceRange)
+                                                            {{ $item->priceRange->value }}
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 align-self-center text-center p-0">
                                             <form
                                                 action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
                                                 method="post" class="form-loading">
@@ -103,6 +113,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if ($type == 'menu_item')
+                                    <ol class="list-group list-group-flush">
+                                        @foreach ($item->menuItems->take(3) as $menu)
+                                            @php
+                                                $menuName = explode('_', $menu->name);
+                                            @endphp
+                                            <li class="list-group-item d-flex justify-content-between mb-1">
+                                                <div class="col fw-semibold">
+                                                    {{ $menuName[1] }}
+                                                </div>
+                                                <div class="col text-center fw-medium">
+                                                    <small class="fw-normal">Rp. </small>{{ $menu->price }}
+                                                </div>
+                                            </li> 
+                                        @endforeach
+                                    </ol>
+                                @endif
                             </div>
                             </a>
                         @endif
@@ -114,24 +141,34 @@
                         @else
                             <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                                 <div class="card mb-2">
-                                    <div class="card-body">
+                                    <div class="card-body py-2">
                                         <div class="row">
-                                            <div class="col-9">
-                                                <h5 class="card-title">{{ $item->name }}</h5>
-                                                @if ($type == 'menu_item')
-                                                    <p class="card-text">
-                                                        @foreach ($item->menuItems->take(3) as $menuItem)
-                                                            @php
-                                                                $itemName = explode('_', $menuItem->name);
-                                                            @endphp
-                                                            {{ $itemName[1] }},
-                                                        @endforeach
-                                                    </p>
-                                                @else
-                                                    <p class="card-text">{{ $item->description }}</p>
-                                                @endif
+                                            <div class="col p-0 text-center">
+                                                <img class="card-img" src="{{ asset('storage/profiles/' . $item->image) }}" alt="no image" style="height: 100px; width:100px; object-fit:cover;">
                                             </div>
-                                            <div class="col-3 align-self-center">
+                                            <div class="col-6 px-2">
+                                                <h6 class="card-title">{{ $item->store_name }}</h6>                  
+                                                <div class="container px-0 card-text " style="font-size: 0.875em;">
+                                                    <div style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $item->description }}</div>
+                                                    <div class="d-flex mt-2 text-start justify-content-between">
+                                                        <div class="">
+                                                            @if ($item->avg_rating)
+                                                                {{ $item->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </div>
+                                                        <div class="">
+                                                            @if ($item->priceRange)
+                                                                {{ $item->priceRange->value }}
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 align-self-center text-center p-0">
                                                 <form
                                                     action="{{ url('home/' . $canteen->id . '/update-favorite-vendor/' . $item->id) }}"
                                                     method="post" class="form-loading">
@@ -146,6 +183,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($type == 'menu_item')
+                                        <ol class="list-group list-group-flush">
+                                            @foreach ($item->menuItems->take(3) as $menu)
+                                                @php
+                                                    $menuName = explode('_', $menu->name);
+                                                @endphp
+                                                <li class="list-group-item d-flex justify-content-between mb-1">
+                                                    <div class="col fw-semibold">
+                                                        {{ $menuName[1] }}
+                                                    </div>
+                                                    <div class="col text-center fw-medium">
+                                                        <small class="fw-normal">Rp. </small>{{ $menu->price }}
+                                                    </div>
+                                                </li> 
+                                            @endforeach
+                                        </ol>
+                                    @endif
                                 </div>
                             </a>
                         @endif

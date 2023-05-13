@@ -190,25 +190,23 @@ class VendorController extends Controller
     {
         $userid = auth()->guard('vendor')->user()->id;
         $rating = 0;
-        $rate = Review::where('vendor_id', $userid)
-            ->select(DB::raw('AVG(rating) as rating'))
-            ->get();
-        if (!$rate->isEmpty()) {
-            $rating = round($rate[0]->rating, 1);
+        $rate = auth()->guard('vendor')->user()->avg_rating;
+        if ($rate) {
+            $rating = round($rate, 1);
         }
 
         $selectedDate = Carbon::today(); // initially todays date
 
         $curr_revOrd = DB::table('orders') // query get total revenue and order in current month
             ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
-            ->where('vendor_id',$userid)
+            ->where('vendor_id', $userid)
             ->whereMonth('date', '=', $selectedDate->month)
             ->whereYear('date', '=', $selectedDate->year)
             ->get();
 
         $past_revOrd = DB::table('orders') // query get total revenue and order last month
             ->select(DB::raw('SUM(total) AS revenue'), DB::raw('COUNT(id) AS total_order'))
-            ->where('vendor_id',$userid)
+            ->where('vendor_id', $userid)
             ->whereMonth('date', '=', $selectedDate->month - 1)
             ->whereYear('date', '=', $selectedDate->year)
             ->get();
@@ -256,11 +254,9 @@ class VendorController extends Controller
     {
         $userid = auth()->guard('vendor')->user()->id;
         $avgRating = 0;
-        $avgRate = Review::where('vendor_id', $userid)
-            ->select(DB::raw('AVG(rating) as rating'))
-            ->get();
-        if (!$avgRate->isEmpty()) {
-            $avgRating = round($avgRate[0]->rating, 1);
+        $rate = auth()->guard('vendor')->user()->avg_rating;
+        if ($rate) {
+            $avgRating = round($rate, 1);
         }
 
         $countPerRate = Review::where('vendor_id', $userid)

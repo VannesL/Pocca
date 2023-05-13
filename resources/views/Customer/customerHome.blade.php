@@ -28,16 +28,8 @@
                 </form>
                 <hr>
                 @foreach ($items as $item)
-                    @php
-                        $url = '/home/' . $item->id;
-                        $favoriteUrl = 'home/update-favorite-canteen/' . $item->id;
-                        if ($type == 'vendor') {
-                            $url = '/home/' . $item->canteen_id . '/' . $item->id;
-                            $favoriteUrl = '/home/' . $item->canteen_id . '/update-favorite-vendor/' . $item->id;
-                        }
-                    @endphp
                     @if ($item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url($url) }}" class="text-decoration-none">
+                        <a href="{{ url('/home/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
@@ -46,7 +38,7 @@
                                             <p class="card-text">{{ $item->address }}</p>
                                         </div>
                                         <div class="col-3 align-self-center">
-                                            <form action="{{ url($favoriteUrl) }}"
+                                            <form action="{{ url('home/update-favorite-canteen/' . $item->id) }}"
                                                 method="post" class="form-loading">
                                                 @csrf
                                                 @method('put')
@@ -59,43 +51,98 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if ($type == 'vendor')
+                                    <ol class="list-group list-group-flush">
+                                        @foreach ($item->vendors->take(3) as $vendor)
+                                            <li class="list-group-item">
+                                                <div class="row d-flex flex-row justify-content-between mb-1">
+                                                    <div class="col-5 fw-semibold">
+                                                        {{ $vendor->store_name }}
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        @if ($vendor->priceRange)
+                                                            {{ $vendor->priceRange->value }}
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-3 text-center">
+                                                        @if ($vendor->avg_rating )
+                                                            {{ $vendor->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="text-truncate" style="font-size: 0.875em; max-width:100%">
+                                                    {{ $vendor->description }}
+                                                </div>
+                                            </li> 
+                                        @endforeach
+                                    </ol>
+                                @endif
                             </div>
                         </a>
                     @endif
                 @endforeach
                 @foreach ($items as $item)
-                    @php
-                        $url = '/home/' . $item->id;
-                        $favoriteUrl = 'home/update-favorite-canteen/' . $item->id;
-                        if ($type == 'vendor') {
-                            $url = '/home/' . $item->canteen_id . '/' . $item->id;
-                            $favoriteUrl = '/home/' . $item->canteen_id . '/update-favorite-vendor/' . $item->id;
-                        }
-                    @endphp
                     @if (!$item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url($url) }}" class="text-decoration-none">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <h5 class="card-title">{{ $item->name }}</h5>
-                                            <p class="card-text">{{ $item->address }}</p>
-                                        </div>
-                                        <div class="col-3 align-self-center">
-                                            <form action="{{ url($favoriteUrl) }}" method="post" class="form-loading">
-                                                @csrf
-                                                @method('put')
-                                                <input type="hidden" name="search" value="{{ $search }}">
-                                                <input type="hidden" name="favorite" value="1">
-                                                <button type="submit" class="btn btn-block shadow-none"><i
-                                                        class="fa fa-heart-o fa-2xl"></i>
-                                                </button>
-                                            </form>
+                        @if ($type == 'vendor' && $item->vendors->isEmpty())
+                        @else
+                            <a href="{{ url('/home/' . $item->id) }}" class="text-decoration-none">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <h5 class="card-title">{{ $item->name }}</h5>
+                                                <p class="card-text">{{ $item->address }}</p>
+                                            </div>
+                                            <div class="col-3 align-self-center">
+                                                <form action="{{ url('home/update-favorite-canteen/' . $item->id) }}" method="post" class="form-loading">
+                                                    @csrf
+                                                    @method('put')
+                                                    <input type="hidden" name="search" value="{{ $search }}">
+                                                    <input type="hidden" name="favorite" value="1">
+                                                    <button type="submit" class="btn btn-block shadow-none"><i
+                                                            class="fa fa-heart-o fa-2xl"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
+                                    @if ($type == 'vendor')
+                                        <ol class="list-group list-group-flush">
+                                            @foreach ($item->vendors->take(3) as $vendor)
+                                                <li class="list-group-item">
+                                                    <div class="row d-flex flex-row justify-content-between mb-1">
+                                                        <div class="col-5 fw-semibold">
+                                                            {{ $vendor->store_name }}
+                                                        </div>
+                                                        <div class="col-4 text-center">
+                                                            @if ($vendor->priceRange)
+                                                                {{ $vendor->priceRange->value }}
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-3 text-center">
+                                                            @if ($vendor->avg_rating )
+                                                                {{ $vendor->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-truncate" style="font-size: 0.875em; max-width:100%">
+                                                        {{ $vendor->description }}
+                                                    </div>
+                                                </li> 
+                                            @endforeach
+                                        </ol>
+                                    @endif
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @endif
                     @endif
                 @endforeach
             </div>

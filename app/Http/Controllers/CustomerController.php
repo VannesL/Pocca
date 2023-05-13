@@ -58,15 +58,16 @@ class CustomerController extends Controller
     {
         $userId = auth()->guard('customer')->user()->id;
 
-        $items = Canteen::with('favoritedCustomers')->where('name', 'LIKE', '%' . $request->search . '%')->whereNotNull('approved_by')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
-        if ($request->search) {
-            if ($request->type == 'vendor') {
-                $items = Vendor::with('favoritedCustomers')->orderByDesc('favorites')
-                    ->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->whereNotNull('approved_by')
-                    ->orderByDesc('favorites') //->whereNotIn($favorites->id);
-                    ->get();
-            }
+        $items = Canteen::with('favoritedCustomers')->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+        if ($request->search && $request->type == 'vendor') {
+            $items = Canteen::with([
+                'favoritedCustomers',
+                'vendors' => function ($q) use ($request) {
+                    $q->where('store_name', 'LIKE', '%' . $request->search . '%');
+                }
+            ])
+                ->whereHas('vendors')
+                ->orderByDesc('favorites')->get();
         }
 
         $customer = auth()->guard('customer')->user();
@@ -95,20 +96,17 @@ class CustomerController extends Controller
     {
 
         $userId = auth()->guard('customer')->user()->id;
-        $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->whereNotNull('approved_by')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
-        if ($request->search) {
-            if ($request->type == 'menu_item') {
-                $items = Vendor::with([
-                    'favoritedCustomers',
-                    'menuItems' => function ($q) use ($request) {
-                        $q->where('name', 'LIKE', '%' . $request->search . '%');
-                    }
-                    ])
-                    ->where('canteen_id', $canteen->id)
-                    ->whereNotNull('approved_by')
-                    ->whereHas('menuItems')
-                    ->orderByDesc('favorites')->get();
+        $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+        if ($request->search && $request->type == 'menu_item') {
+            $items = Vendor::with([
+                'favoritedCustomers',
+                'menuItems' => function ($q) use ($request) {
+                    $q->where('name', 'LIKE', '%' . $request->search . '%');
                 }
+            ])
+                ->where('canteen_id', $canteen->id)
+                ->whereHas('menuItems')
+                ->orderByDesc('favorites')->get();
         }
 
         $customer = auth()->guard('customer')->user();
@@ -142,12 +140,6 @@ class CustomerController extends Controller
         $cartItems = collect();
         if ($cart) {
             $cartItems = CartItem::where('cart_id', $cart->id)->get();
-        }
-        $rating = Review::where('vendor_id', $vendor->id)
-            ->select(DB::raw('AVG(rating) as rating'))
-            ->get();
-        if (!$rating->isEmpty()) {
-            $rating = round($rating[0]->rating, 1);
         }
         //add favorite
 
@@ -212,7 +204,6 @@ class CustomerController extends Controller
             'search' => $request->search,
             'vendor' => $vendor,
             'cartItems' => $cartItems,
-            'rating' => $rating,
         ];
 
         return view('Customer/customerMenu', $data);
