@@ -27,7 +27,7 @@
     <div class="container position-relative">
         {{-- Vendor Header Design --}}
         <div class="container mb-4 text-light rounded"
-            style="background-image: url({{ asset('storage/profiles/' . $vendor->image) }}); background-size: cover;">
+            style="background-image: url({{ asset('storage/profiles/' . $vendor->image) }}); background-size: cover;  background-position: center">
             <div class="row rounded p-3" style="background-color: rgba(0, 0, 0, 0.603); backdrop-filter: blur(1px);">
                 <div class="col-9">
                     <div class="row">
