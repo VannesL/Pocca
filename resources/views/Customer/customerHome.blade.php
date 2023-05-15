@@ -54,7 +54,7 @@
                                 @if ($type == 'vendor')
                                     <ol class="list-group list-group-flush">
                                         @foreach ($item->vendors->take(3) as $vendor)
-                                            <li class="list-group-item">
+                                            <li class="list-group-item bg-light">
                                                 <div class="row d-flex flex-row justify-content-between mb-1">
                                                     <div class="col-5 fw-semibold">
                                                         {{ $vendor->store_name }}
@@ -113,7 +113,7 @@
                                     @if ($type == 'vendor')
                                         <ol class="list-group list-group-flush">
                                             @foreach ($item->vendors->take(3) as $vendor)
-                                                <li class="list-group-item">
+                                                <li class="list-group-item bg-light">
                                                     <div class="row d-flex flex-row justify-content-between mb-1">
                                                         <div class="col-5 fw-semibold">
                                                             {{ $vendor->store_name }}

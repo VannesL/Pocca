@@ -61,7 +61,7 @@
                         </select>
                         <input name="search" type="text" value="{{ $search }}" class="form-control"placeholder="Search" id="search">
                         <button type="submit" class="btn btn-primary btn-block btn_submit ms-0 input-group-text"><i class="fa fa-search"></i></button>
-                    </div>
+                    </div>       
                 </form>
                 <hr>
                 @foreach ($items as $item)
@@ -119,7 +119,7 @@
                                             @php
                                                 $menuName = explode('_', $menu->name);
                                             @endphp
-                                            <li class="list-group-item d-flex justify-content-between mb-1">
+                                            <li class="list-group-item d-flex justify-content-between bg-light">
                                                 <div class="col fw-semibold">
                                                     {{ $menuName[1] }}
                                                 </div>
@@ -189,7 +189,7 @@
                                                 @php
                                                     $menuName = explode('_', $menu->name);
                                                 @endphp
-                                                <li class="list-group-item d-flex justify-content-between mb-1">
+                                                <li class="list-group-item d-flex justify-content-between bg-light">
                                                     <div class="col fw-semibold">
                                                         {{ $menuName[1] }}
                                                     </div>
