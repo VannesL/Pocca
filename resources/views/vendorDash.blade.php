@@ -14,14 +14,14 @@
         
     </div>
 @else
-<div class="container-fluid  px-4">
-    <div class="col">
-        <div class="row"> {{-- page widget--}}
-            <div class="col-md-4  mb-3">
-                <div class="card bg-success text-white">
-                    <div class="card-body p-3">
-                        <h5 class="mb-3" style="font-size: 12px">This Month Revenue</h5>
-                        <h2 class="mb-3 text-break fw-bold" style="font-size: 23px">
+<div class="px-4">
+    <div class="container-fluid">
+        <div class="row mb-5"> {{-- page widget--}}
+            <div class="col-md-4 mb-3">
+                <div class="card bg-success text-center h-100">
+                    <div class="card-body text-light h-100">
+                        <h5 class="mb-3 " style="height:35%;font-size: 15px">This Month Revenue</h5>
+                        <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
                             {{rupiah($revenueOrders[0]->revenue ?? '', true)}}
                         </h2>
                         @if ($revDiff >=0)
@@ -32,29 +32,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-6 mb-3">
+            <div class="col-md-8 mb-3">
+                <div class="row h-100">
+                    <div class="col-6 mb-3  h-100">
+                        <a class="text-white text-decoration-none " href="{{url('/vendor-dash/reviews')}}">
                         <div class="card  bg-warning h-100">
-                            <a class="text-white text-decoration-none" href="{{url('/vendor-dash/reviews')}}">
-                                <div class="card-body text-light p-3">
-                                    <h5 class="mb-3" style="font-size: 15px">Rating</h5>
+                                <div class="card-body text-light p-3 h-100">
+                                    <h5 class="mb-3" style="height:35%;font-size: 15px">Rating</h5>
                                     <div class="mb-3 text-break fw-bold" style="font-size: 18px">
                                         <i class="fa-solid fa-star"></i>
                                         {{$rating}}
                                         <small>/ 5</small>
                                     </div>
-                                    <h6 class="card-text font-weight-light" style="font-size: 12px">See review 
-                                        <i class="fa-solid fa-angle-right" style="color: #ffffff;"></i>
+                                    <h6 class="card-text font-weight-light" style="font-size: 12px">
+                                        See review <i class="fa-solid fa-angle-right" style="color: #ffffff;"></i> 
                                     </h6>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-6 mb-3">
                         <div class="card  bg-info h-100">
-                            <div class="card-body text-light p-3">
-                                <h5 class="mb-3" style="font-size: 15px">This Month Orders</h5>
+                            <div class="card-body text-light p-3  h-100">
+                                <h5 class="mb-3" style="height:35%;font-size: 15px">This Month Orders</h5>
                                 <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
                                     <i class="fa-solid fa-cart-shopping"></i> {{$revenueOrders[0]->total_order}}
                                 </h2>
@@ -70,6 +70,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div class="container-fluid">
         <div class="row px-2"> {{--Sales Report--}}
             <h2 class="text-center mb-3">Sales Report</h2>
             <form action="{{ url('/vendor-dash') }}" method="GET" class="form-loading mb-3" style="padding: 0">
@@ -83,12 +86,12 @@
             </form>
             <table class="table table-striped table-bordered " style="">
                 <thead>
-                  <tr>
+                    <tr>
                     <th class="col-1 text-center"scope="col">#</th>
                     <th class="col-5" scope="col">Menu</th>
                     <th class="col text-center" scope="col">Sold</th>
                     <th class="col-5 text-end"scope="col">Profits (Rp)</th>
-                  </tr>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($report as $menu)
@@ -101,16 +104,16 @@
                             <td class="text-break text-center">{{$menu->sold}}</td>
                             <td class="text-end">{{rupiah($menu->profits ?? '')}}</td>
                         </tr>
-                       
+                        
                     @endforeach
-                  <tr>
+                    <tr>
                     <td  class="text-center fw-bold" colspan="2">Total Profits (Rp)</td>
                     <td class="text-end fw-bold" colspan="2">{{rupiah($totalProfits ?? '')}}</td>
-                  </tr>
+                    </tr>
                 </tbody>
-              </table>
-              
-              
+                </table>
+                
+                
         </div>
     </div>
 </div>
