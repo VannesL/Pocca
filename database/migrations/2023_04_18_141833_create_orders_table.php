@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('date');
             $table->boolean('reviewed');
             $table->string('payment_image');
-            $table->string('rejection_reason');
+            $table->string('rejection_reason')->nullable();
             $table->datetime('finish_time')->nullable();
             $table->timestamps();
         });

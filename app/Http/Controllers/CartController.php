@@ -123,7 +123,7 @@ class CartController extends Controller
         $order->status_id = 1;
         $order->date = Carbon::now();
         $order->type = $request->type;
-        $order->rejection_reason = '';
+        $order->rejection_reason = null;
         $order->payment_image = "";
         $order->save();
 
