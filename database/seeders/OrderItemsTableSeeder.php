@@ -20,7 +20,7 @@ class OrderItemsTableSeeder extends Seeder
             'order_id' => 1,
             'price' => 10000,
             'quantity' => 1,
-            'notes' => '',
+            'notes' => null,
         ]);
 
         OrderItems::create([
@@ -36,7 +36,7 @@ class OrderItemsTableSeeder extends Seeder
             'order_id' => 2,
             'price' => 6000,
             'quantity' => 1,
-            'notes' => '',
+            'notes' => null,
         ]);
 
         OrderItems::create([
@@ -44,7 +44,7 @@ class OrderItemsTableSeeder extends Seeder
             'order_id' => 3,
             'price' => 6000,
             'quantity' => 1,
-            'notes' => '',
+            'notes' => null,
         ]);
 
         OrderItems::create([

@@ -31,7 +31,7 @@
             <div class="row rounded p-3" style="background-color: rgba(0, 0, 0, 0.603); backdrop-filter: blur(1px);">
                 <div class="col-9">
                     <div class="row">
-                        <h4>{{ $vendor->name }}</h4>
+                        <h4>{{ $vendor->store_name }}</h4>
                     </div>
                     <div class="row">
                         <p>{{ $vendor->description }}</p>

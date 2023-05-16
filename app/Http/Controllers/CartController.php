@@ -55,7 +55,7 @@ class CartController extends Controller
         $cartItem->quantity = $request->quantity;
 
         if (is_null($request->notes)) {
-            $cartItem->notes = '';
+            $cartItem->notes = null;
         } else {
             $cartItem->notes = $request->notes;
         }
@@ -131,7 +131,6 @@ class CartController extends Controller
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItems();
             $orderItem->menu_id = $cartItem->menu_id;
-            // $orderItem->save();
             $orderItem->price = $orderItem->menu->price;
             $orderItem->order_id = $order->id;
             $orderItem->quantity = $cartItem->quantity;
