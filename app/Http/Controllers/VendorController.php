@@ -54,7 +54,6 @@ class VendorController extends Controller
             $canteen = new Canteen();
             $canteen->name = $request->canteenName;
             $canteen->address = $request->address;
-            $canteen->approved_by = 1;
             $canteen->favorites = 0;
             $canteen->save();
 
@@ -259,16 +258,10 @@ class VendorController extends Controller
             $avgRating = round($rate, 1);
         }
 
-        $countPerRate = Review::where('vendor_id', $userid)
-            ->select(DB::raw('  Count(rating) as rateCount'), 'rating')
-            ->groupBy('rating')
-            ->get();
-
         $reviews = Review::where('vendor_id', $userid)->get();
 
         $data = [
             'avgRating' => $avgRating,
-            'countPerRate' => $countPerRate,
             'reviews' => $reviews
         ];
         // dd($data);

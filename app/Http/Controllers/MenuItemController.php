@@ -221,6 +221,25 @@ class MenuItemController extends Controller
 
         $item->delete();
 
+        $avgPrice = MenuItem::where('vendor_id', auth()->guard('vendor')->user()->id)
+            ->avg('price');
+
+        $avg = (int)$avgPrice;
+        $priceRanges = PriceRange::get();
+        $vendor = Vendor::where('id', auth()->guard('vendor')->user()->id)->get()->first();
+
+        foreach ($priceRanges as $range) {
+            //Set max value for highest price range
+            if ($range->max == 0) {
+                $range->max = $avg;
+            }
+            if ($avg >= $range->min && $avg <= $range->max) {
+                $vendor->range_id = $range->id;
+                $vendor->save();
+                break;
+            }
+        }
+
         return redirect('/vendor-menu');
     }
 }
