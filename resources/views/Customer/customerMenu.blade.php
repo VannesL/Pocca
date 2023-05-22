@@ -111,6 +111,7 @@
                                         $cartItemId = null;
                                         $notes = null;
                                         $quantity = 0;
+                                        $color = "";
                                         if ($cartItems) {
                                             foreach ($cartItems as $cartItem) {
                                                 if ($item->id == $cartItem->menu_id) {
@@ -119,6 +120,7 @@
                                                     if ($notes !== '') {
                                                         $notes = $cartItem->notes;
                                                     }
+                                                    $color = "primary";
                                                 }
                                             }
                                         }
@@ -153,10 +155,10 @@
                                                 @endif
                                                 <div class="card-body">
                                                     <div class="row h-75">
-                                                        <h6 class="card-title ">{{ $itemName[1] }}</h6>
+                                                        <h6 class="card-title text-{{$color}}">{{ $itemName[1] }}</h6>
                                                     </div>
                                                     <div class="row h-25">
-                                                        <p class="card-text">{{ rupiah($item->price ?? '', true) }}</p>
+                                                        <p class="card-text text-{{$color}}">{{ rupiah($item->price ?? '', true) }}</p>
                                                     </div>
                                                 </div>
                                             </div>
