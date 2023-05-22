@@ -150,7 +150,7 @@ class CustomerController extends Controller
             $categories = MenuItem::where('menu_items.vendor_id', $vendor->id)
                 ->where('menu_items.name', 'LIKE', '%_' . $request->search . '%')
                 ->join('categories', 'categories.id', '=', 'menu_items.category_id')
-                ->select('categories.name AS category_name', 'menu_Items.category_id')
+                ->select('categories.name AS category_name', 'menu_items.category_id')
                 ->distinct()
                 ->get();
 
@@ -167,7 +167,7 @@ class CustomerController extends Controller
 
             $categories = MenuItem::where('menu_items.vendor_id', $vendor->id)
                 ->join('categories', 'categories.id', '=', 'menu_items.category_id')
-                ->select('categories.name AS category_name', 'menu_Items.category_id')
+                ->select('categories.name AS category_name', 'menu_items.category_id')
                 ->distinct()
                 ->get();
             foreach ($categories as $category) {

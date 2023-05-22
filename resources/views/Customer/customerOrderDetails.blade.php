@@ -130,10 +130,10 @@
                     @endif
                     @break
                 @case(3)
-                    <button href="/order/update-status/{{$order->id}}" class="btn btn-outline-dark fw-bold w-50 mx-auto" disabled>I got my order!</button>
+                    <button href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-outline-dark fw-bold w-50 mx-auto" disabled>I got my order!</button>
                     @break
                 @case(4)
-                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto" >I got my order!</a>
+                    <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-success fw-bold w-50 mx-auto" >I got my order!</a>
                     @break
                 @case(5)
                     @if ($order->reviewed == false)

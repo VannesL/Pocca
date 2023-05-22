@@ -117,14 +117,14 @@
                 @case(1)
                     <div class="d-flex justify-content-around fw-bold w-100 mx-auto mt-2">
                         <a class="btn btn-danger w-50 me-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
-                        <a href="/order/update-status/{{$order->id}}" class="btn btn-primary w-50 ms-1">Approve</a>
+                        <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-primary w-50 ms-1">Approve</a>
                     </div>
                     @break
                 @case(2)
                     @if ($order->payment_image != '')
                         <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
                             <a class="btn btn-danger w-50 me-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
-                        <a href="/order/update-status/{{$order->id}}" class="btn btn-primary w-50 ms-2">Approve</a>
+                        <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-primary w-50 ms-2">Approve</a>
                         </div> 
                     @else
                     <div class="fw-bold text-center">Waiting for customer payment...</div>
@@ -132,7 +132,7 @@
 
                     @break
                 @case(3)
-                    <a href="/order/update-status/{{$order->id}}" class="btn btn-success fw-bold w-50 mx-auto">Finish Cooking</a>
+                    <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-success fw-bold w-50 mx-auto">Finish Cooking</a>
                     @break
                 @case(4)
                     <div class="fw-bold text-center">Waiting for customer pickup...</div>

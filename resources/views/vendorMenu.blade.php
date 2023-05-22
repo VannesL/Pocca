@@ -109,7 +109,7 @@
                         
                         <div class="col-6 p-1">           
                             
-                            <a href="/vendor-menu/edit/{{$item->id}}" class="border-dark me-3 mt-2 text-decoration-none text-dark">
+                            <a href="{{ url('/vendor-menu/edit/'.$item->id) }}" class="border-dark me-3 mt-2 text-decoration-none text-dark">
                             <div class="card border-white text-center h-100" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
                                     @if ($item->recommended)
                                         <span class="z-3 d-flex position-absolute translate-middle badge rounded-pill bg-warning text-center align-items-center" style="width:32px; height:32px; left:98%; top:5%;vertical-align: middle">
