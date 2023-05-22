@@ -69,7 +69,7 @@
                         @if ($type == 'menu_item' && $item->menuItems->count()<1)
                             
                         @else    
-                            <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
+                            <a href="{{ url('home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body py-2">
                                     <div class="row">
@@ -139,7 +139,7 @@
                     @if (!$item->favoritedCustomers->contains('id', $userId))
                         @if ($type == 'menu_item' && $item->menuItems->count()<1)
                         @else
-                            <a href="{{ url('/home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
+                            <a href="{{ url('home/' . $item->canteen_id . '/' . $item->id) }}" class="text-decoration-none">
                                 <div class="card mb-2">
                                     <div class="card-body py-2">
                                         <div class="row">

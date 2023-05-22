@@ -246,20 +246,21 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="row">
-                                                                                @if ($quantity > 0)
-                                                                                    <div class="d-flex justify-content-around">
-                                                                                        <a href="{{ url('/remove-item/' . $cartItemId) }}"
-                                                                                            class="btn btn-danger w-50 me-1">Remove
-                                                                                            Item</a>
-                                                                                        <button
-                                                                                            class="btn btn-primary w-50 ms-1"
-                                                                                            type="submit">Update Item</button>
-                                                                                    </div>
-                                                                                @else
-                                                                                    <button class="btn btn-primary w-100"
-                                                                                        type="submit">Add Item</button>
-                                                                                @endif
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            @if ($quantity > 0)
+                                                                                <div class="d-flex justify-content-around">
+                                                                                    <a href="{{ url('remove-item/' . $cartItemId) }}"
+                                                                                        class="btn btn-danger w-50 me-1">Remove
+                                                                                        Item</a>
+                                                                                    <button
+                                                                                        class="btn btn-primary w-50 ms-1"
+                                                                                        type="submit">Update Item</button>
+                                                                                </div>
+                                                                            @else
+                                                                                <button class="btn btn-primary w-100"
+                                                                                    type="submit">Add Item</button>
+                                                                            @endif
 
                                                                             </div>
                                                                         </form>

@@ -109,7 +109,7 @@
                                                 <div class="row">
                                                     @if ($cartItem)
                                                         <div class="d-flex justify-content-around">
-                                                            <a href="{{ url('/remove-item/'.$cartItem->id) }}" class="btn btn-danger w-50 me-1">Remove Item</a>
+                                                            <a href="{{ url('remove-item/'.$cartItem->id) }}" class="btn btn-danger w-50 me-1">Remove Item</a>
                                                             <button class="btn btn-primary w-50 ms-1" type="submit">Update Item</button>
                                                         </div>
                                                     @else
@@ -125,7 +125,7 @@
                     @endforeach
                         <tr>
                             <td colspan="4" class="text-center">
-                                <a class="text-decoration-none fw-medium btn btn-outline-dark mt-2 w-100" href="{{ url('/vendor/'.$cart->vendor->id) }}">
+                                <a class="text-decoration-none fw-medium btn btn-outline-dark mt-2 w-100" href="{{ url('vendor/'.$cart->vendor->id) }}">
                                     Add More <i class="fa-solid fa-plus"></i>
                                 </a>
                             </td>

@@ -29,7 +29,7 @@
                 <hr>
                 @foreach ($items as $item)
                     @if ($item->favoritedCustomers->contains('id', $userId))
-                        <a href="{{ url('/home/' . $item->id) }}" class="text-decoration-none">
+                        <a href="{{ url('home/' . $item->id) }}" class="text-decoration-none">
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <div class="row">
@@ -89,7 +89,7 @@
                     @if (!$item->favoritedCustomers->contains('id', $userId))
                         @if ($type == 'vendor' && $item->vendors->isEmpty())
                         @else
-                            <a href="{{ url('/home/' . $item->id) }}" class="text-decoration-none">
+                            <a href="{{ url('home/' . $item->id) }}" class="text-decoration-none">
                                 <div class="card mb-2">
                                     <div class="card-body">
                                         <div class="row">

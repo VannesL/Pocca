@@ -13,7 +13,7 @@
             <div class="col text-center overflow-scroll"> Status</div>
           </div>
           @foreach ($vendors as $vendor)
-          <a class=" text-decoration-none" href="{{ url('/admin-vendorDetails/'.$vendor->id) }}">
+          <a class=" text-decoration-none" href="{{ url('admin-vendorDetails/'.$vendor->id) }}">
               <div class="row flex-nowarp {{($vendor->approved_by || $vendor->upcoming_deletion_date) ? : 'bg-warning text-dark'}}" >
                   <div class="col border-start border-bottom overflow-scroll">{{$vendor->canteen->name}}</div>
                   <div class="col border-bottom border-end border-start overflow-scroll">{{$vendor->store_name}}</div>
