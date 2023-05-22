@@ -125,7 +125,7 @@
                     @endforeach
                         <tr>
                             <td colspan="4" class="text-center">
-                                <a class="text-decoration-none fw-medium btn btn-outline-dark mt-2 w-100" href="{{ url('vendor/'.$cart->vendor->id) }}">
+                                <a class="text-decoration-none fw-medium btn btn-outline-dark mt-2 w-100" href="{{ url('home/'.$cart->vendor->canteen->id.'/'.$cart->vendor->id ) }}">
                                     Add More <i class="fa-solid fa-plus"></i>
                                 </a>
                             </td>

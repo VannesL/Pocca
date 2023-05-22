@@ -156,10 +156,10 @@
             <div class="modal fade bg-transparent" id="imgPreview" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered bg-transparent" style="" role="document">
                     <div class="modal-body bg-transparent">
-                        @if ($order->status_id != 2) 
-                            <img src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100 h-100" alt="image error" style="object-fit:contain;">
-                        @else
+                        @if ($order->status_id == 2 && $order->payment_image == '')
                             <img src="{{ asset('storage/qris/'.$order->vendor->qris) }}" class="img-thumbnail border-0 mb-4 w-100 h-100" alt="image error" style="object-fit:contain;">
+                        @else 
+                            <img src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100 h-100" alt="image error" style="object-fit:contain;">
                         @endif
                        
                     </div>
