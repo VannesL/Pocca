@@ -20,7 +20,7 @@
         <div class="card" style="border-radius: 1rem;">
           <div class="row g-0">
               <div class="card-body p-4 p-lg-5 text-black">
-                <form method="POST" action="/vendor-menu/edit/{{$item->id}}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('/vendor-menu/edit/'.$item->id) }}" enctype="multipart/form-data">
                   @csrf
 
                   <div class="form-outline mb-4">
@@ -142,7 +142,7 @@
                       </div>
                       <div class="modal-footer d-flex justify-content-around">
                         <div class="col-3"></div>
-                        <form method="POST" action="/vendor-menu/delete/{{$item->id}}">
+                        <form method="POST" action="{{ url('/vendor-menu/delete/'.$item->id) }}">
                           @csrf
                           <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
                               Yes

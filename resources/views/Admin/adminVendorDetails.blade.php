@@ -114,7 +114,7 @@
                                       </div>
                                     </div>
                                     <div class="col d-flex">
-                                      <form action="{{url('/admin-acceptVendor/'.$vendor->id)}}" method="POST" class="ms-0">
+                                      <form action="{{url('admin-acceptVendor/'.$vendor->id)}}" method="POST" class="ms-0">
                                         @csrf
                                         <button class="btn btn-primary btn-md" type="submit">Accept</button>
                                       </form>
@@ -136,7 +136,7 @@
                             
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{url('/admin-rejectVendor/'.$vendor->id)}}" method="POST">
+                                                <form action="{{url('admin-rejectVendor/'.$vendor->id)}}" method="POST">
                                                     @csrf
                                                     <div class="form-outline mb-4">
                                                       <textarea name="rejection_reason" id="rejection_reason"  class="form-control form-control-md" rows="3" placeholder="Please Input the rejection reason to help vendor fix their details!" required></textarea>
@@ -170,7 +170,7 @@
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
                                           <div class="col-3"></div>
-                                          <form action="{{url('/admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
+                                          <form action="{{url('admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
                                           @csrf
                                           <button  class="btn btn-danger col" >Yes</button>
                                           </form>

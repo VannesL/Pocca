@@ -77,7 +77,7 @@
                 @endif
             </div>
         </div>
-        <form action="{{ url('/home/'. $vendor->canteen->id.'/'.$vendor->id) }}" method="get" class="form-loading mb-3">
+        <form action="{{ url('home/'. $vendor->canteen->id.'/'.$vendor->id) }}" method="get" class="form-loading mb-3">
             @csrf
             <div class="input-group @error('search') has-error @enderror">
                 <input name="search" type="text" value="{{ $search }}" class="form-control"
@@ -208,7 +208,7 @@
                                                                     <div
                                                                         class="row px-3 d-flex align-items-center flex-column">
                                                                         <form
-                                                                            action="{{ url('/vendor/' . $vendor->id . '/addToCart/' . $item->id) }}"
+                                                                            action="{{ url('vendor/' . $vendor->id . '/addToCart/' . $item->id) }}"
                                                                             method="post" class="form-loading mb-3">
                                                                             @csrf
                                                                             <div class="mb-3">

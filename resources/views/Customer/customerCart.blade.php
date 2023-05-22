@@ -80,7 +80,7 @@
                                             <p>{{$cartItem->menu->description}}</p>
                                         </div>
                                         <div class="row px-3 d-flex align-items-center flex-column">
-                                            <form action="{{ url('/update-cart/'.$cartItem->id) }}" method="post" class="form-loading mb-3">
+                                            <form action="{{ url('update-cart/'.$cartItem->id) }}" method="post" class="form-loading mb-3">
                                                 @csrf
                                                 <div class="mb-3">
                                                     <label for="notes" class="form-label fw-medium" >Notes</label>

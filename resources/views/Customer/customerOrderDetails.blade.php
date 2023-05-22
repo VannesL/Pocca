@@ -168,7 +168,7 @@
 
             <div class="modal fade bg-transparent" id="reviewForm" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered bg-transparent" style="" role="document">
-                    <form method="POST" action="/review/{{$order->id}}" class="modal-content" enctype="multipart/form-data">
+                    <form method="POST" action="{{ url('review/'.$order->id) }}" class="modal-content" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="reviewTitle">Write a Review!</h5>

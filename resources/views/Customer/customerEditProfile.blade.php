@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="modal-footer d-flex justify-content-around">
                                   <div class="col-3"></div>
-                                  <form action="/deleteProfile" method="post">
+                                  <form action="{{ url('/deleteProfile') }}" method="post">
                                   @csrf
                                   <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Yes</button>
                                   </form>
