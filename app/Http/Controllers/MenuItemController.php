@@ -40,7 +40,7 @@ class MenuItemController extends Controller
             'search' => $request->search
         ];
 
-        return view('vendorMenu', $data);
+        return view('Vendor/vendorMenu', $data);
     }
 
     public function addMenuForm(Request $request)

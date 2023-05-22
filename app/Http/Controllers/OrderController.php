@@ -26,7 +26,7 @@ class OrderController extends Controller
             'statuses' => $statuses,
         ];
 
-        return view('vendorOrder', $data);
+        return view('Vendor/vendorOrder', $data);
     }
 
     public function refreshOrderPage(Request $request)
@@ -61,7 +61,7 @@ class OrderController extends Controller
             'orders' => $orders,
         ];
 
-        return view('vendorOrderHistory', $data);
+        return view('Vendor/vendorOrderHistory', $data);
     }
 
     public function orderDetails(Request $request)
@@ -86,7 +86,7 @@ class OrderController extends Controller
             return view('Customer/customerOrderDetails', $data);
         } else {
             // dd($order->status_id);
-            return view('vendorOrderDetails', $data);
+            return view('Vendor/vendorOrderDetails', $data);
         }
     }
 

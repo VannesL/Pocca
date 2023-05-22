@@ -16,29 +16,29 @@
 @else
 <div class="px-4">
     <div class="container-fluid">
-        <div class="row mb-5"> {{-- page widget--}}
-            <div class="col-md-4 mb-3">
-                <div class="card bg-success text-center h-100">
+        <div class="row mb-1"> {{-- page widget--}}
+            <div class="col-md-4 mb-1 p-1">
+                <div class="card bg-success h-100">
                     <div class="card-body text-light h-100">
-                        <h5 class="mb-3 " style="height:35%;font-size: 15px">This Month Revenue</h5>
-                        <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
+                        <h5 class="" style="height:35%;font-size: 15px">This Month Revenue</h5>
+                        <div class="mb-3 text-break fw-bold" style="font-size: 18px">
                             {{rupiah($revenueOrders[0]->revenue ?? '', true)}}
-                        </h2>
+                        </div>
                         @if ($revDiff >=0)
-                        <h6 class="card-text font-weight-light" style="font-size: 12px" > Increase by {{ $revDiff }}%</h6>
+                        <h6 class="card-text font-weight-light mb-3" style="font-size: 12px" > Increase by {{ $revDiff }}%</h6>
                         @else
-                        <h6 class="card-text font-weight-light" style="font-size: 12px">Decrease by {{ $revDiff }}%</h6>
+                        <h6 class="card-text font-weight-light mb-3" style="font-size: 12px">Decrease by {{ $revDiff }}%</h6>
                         @endif
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 mb-3">
+            <div class="col-md-8 mb-1 p-1">
                 <div class="row h-100">
-                    <div class="col-6 mb-3  h-100">
+                    <div class="col-6 mb-3 pe-1 h-100">
                         <a class="text-white text-decoration-none " href="{{url('/vendor-dash/reviews')}}">
                         <div class="card  bg-warning h-100">
                                 <div class="card-body text-light p-3 h-100">
-                                    <h5 class="mb-3" style="height:35%;font-size: 15px">Rating</h5>
+                                    <h5 class="" style="height:35%;font-size: 15px">Rating</h5>
                                     <div class="mb-3 text-break fw-bold" style="font-size: 18px">
                                         <i class="fa-solid fa-star"></i>
                                         {{$rating}}
@@ -51,13 +51,13 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-6 mb-3 ps-1">
                         <div class="card  bg-info h-100">
                             <div class="card-body text-light p-3  h-100">
-                                <h5 class="mb-3" style="height:35%;font-size: 15px">This Month Orders</h5>
-                                <h2 class="mb-3 text-break fw-bold" style="font-size: 18px">
+                                <h5 class="" style="height:35%;font-size: 15px">This Month Orders</h5>
+                                <div class="mb-3 text-break fw-bold" style="font-size: 18px">
                                     <i class="fa-solid fa-cart-shopping"></i> {{$revenueOrders[0]->total_order}}
-                                </h2>
+                                </div>
                                 @if ($ordDiff >=0)
                                 <h6 class="card-text font-weight-light " style="font-size: 12px"> Increase by {{ $ordDiff }}% </h6>
                                 @else
