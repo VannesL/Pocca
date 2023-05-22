@@ -15,7 +15,7 @@
     @endphp
     @if ($cartTotal > 0)
         <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
-            <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
+            <a href="{{ url('customer-cart') }}" class="btn rounded btn-primary p-3">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{ $cartTotal }}
                     <span class="visually-hidden">number of items</span>
@@ -246,21 +246,20 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            @if ($quantity > 0)
-                                                                                <div class="d-flex justify-content-around">
-                                                                                    <a href="{{ url('remove-item/' . $cartItemId) }}"
-                                                                                        class="btn btn-danger w-50 me-1">Remove
-                                                                                        Item</a>
-                                                                                    <button
-                                                                                        class="btn btn-primary w-50 ms-1"
-                                                                                        type="submit">Update Item</button>
-                                                                                </div>
-                                                                            @else
-                                                                                <button class="btn btn-primary w-100"
-                                                                                    type="submit">Add Item</button>
-                                                                            @endif
+                                                                            <div class="row">
+                                                                                @if ($quantity > 0)
+                                                                                    <div class="d-flex justify-content-around">
+                                                                                        <a href="{{ url('remove-item/' . $cartItemId) }}"
+                                                                                            class="btn btn-danger w-50 me-1">Remove
+                                                                                            Item</a>
+                                                                                        <button
+                                                                                            class="btn btn-primary w-50 ms-1"
+                                                                                            type="submit">Update Item</button>
+                                                                                    </div>
+                                                                                @else
+                                                                                    <button class="btn btn-primary w-100"
+                                                                                        type="submit">Add Item</button>
+                                                                                @endif
 
                                                                             </div>
                                                                         </form>

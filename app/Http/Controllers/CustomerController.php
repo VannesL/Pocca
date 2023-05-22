@@ -246,7 +246,7 @@ class CustomerController extends Controller
 
     public function getCustomerEditProfile()
     {
-        return view('customerEditProfile');
+        return view('Customer/customerEditProfile');
     }
 
     public function updateProfile(Request $request)

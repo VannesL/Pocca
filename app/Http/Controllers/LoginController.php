@@ -57,7 +57,7 @@ class LoginController extends Controller
     //Admin Login
     public function getAdminLogin()
     {
-        return view('adminLogin');
+        return view('Admin/adminLogin');
     }
     public function authenticateAdmin(Request $request)
     {

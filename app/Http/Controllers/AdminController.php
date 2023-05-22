@@ -20,7 +20,7 @@ class AdminController extends Controller
                     // ->get();
                     ->paginate(10);
         // dd($vendor);
-        return view('adminDash', ['vendors' => $vendor]); 
+        return view('Admin/adminDash', ['vendors' => $vendor]); 
     }
 
     public function getVendorDetails(Request $request){
