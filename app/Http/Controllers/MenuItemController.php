@@ -55,7 +55,7 @@ class MenuItemController extends Controller
             'categories' => $categories,
         ];
 
-        return view('addMenuForm', $data);
+        return view('Vendor/addMenuForm', $data);
     }
 
     public function addMenu(Request $request)
