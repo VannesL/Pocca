@@ -30,7 +30,7 @@ class AdminController extends Controller
 
         $approved_by = Admin::where('id',$vendor->approved_by)
                         ->first();
-        return view('adminVendorDetails',['vendor' => $vendor, 'approved_by' =>$approved_by]);
+        return view('Admin/adminVendorDetails',['vendor' => $vendor, 'approved_by' =>$approved_by]);
     }
 
     public function rejectVendor(Request $request){
