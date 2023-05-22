@@ -116,7 +116,7 @@ class VendorController extends Controller
             'canteenName'   =>  $canteen->name
         );
 
-        return view('vendorEditProfile', $dataArray);
+        return view('Vendor/vendorEditProfile', $dataArray);
     }
 
     public function updateVendorProfile(Request $request)
@@ -246,7 +246,7 @@ class VendorController extends Controller
             'rating' => $rating
         ];
 
-        return view('vendorDash', $data);
+        return view('Vendor/vendorDash', $data);
     }
 
     public function getReviews()
@@ -265,6 +265,6 @@ class VendorController extends Controller
             'reviews' => $reviews
         ];
         // dd($data);
-        return view('vendorReview', $data);
+        return view('Vendor/vendorReview', $data);
     }
 }

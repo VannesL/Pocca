@@ -46,7 +46,7 @@ class LoginController extends Controller
         if (auth()->guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             $request->session()->regenerate();
 
-            return redirect('/home');
+            return redirect('/vendor-dash');
         }
 
         return back()->withErrors([
