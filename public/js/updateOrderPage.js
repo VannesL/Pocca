@@ -4,16 +4,10 @@ $(document).ready(function () {
 
 function updateOrders() {
     setInterval(function() {
-        for (let i=0; i<totalOrders; i++) {
-            if (guard == "vendor") {
-                var url = "/order/vendor/" + orderArr[i] + "/" + updateArr[i] + "/" + totalOrders;
-            } else {
-                var url = "/order/customer/" + orderArr[i] + "/" + updateArr[i];
-            }
-            
+        for (let i=0; i<totalOrders; i++) {          
             $.ajax({
                 type: "GET",
-                url: url,
+                url: "/order/" + guard + "/" + orderArr[i] + "/" + updateArr[i] + "/" + totalOrders,
                 
                 success: function(response) {  
                     if (response) {

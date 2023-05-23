@@ -31,16 +31,24 @@ class OrderController extends Controller
 
     public function refreshOrderPage(Request $request)
     {
-        $orders = Order::where([
-            ['vendor_id', auth()->guard('vendor')->user()->id],
-            ['status_id', '<', 5],
-        ])->get();
+        if (auth()->guard('vendor')->check()) {
+            $orders = Order::where([
+                ['vendor_id', auth()->guard('vendor')->user()->id],
+                ['status_id', '<', 5],
+            ])->get();
+        } else {
+            $orders = Order::where([
+                ['customer_id', auth()->guard('customer')->user()->id],
+                ['status_id', '<', 5],
+            ])->get();
+        }
 
-        if ($orders->count() > $request->count) {
+
+        if ($orders->count() <> $request->count) {
             return true;
         }
 
-        $order = $orders->find($request->orderId);
+        $order = Order::where("id", $request->orderId)->first();
         $newUpdate = Carbon::parse($order->updated_at)->format('Y-m-d-H-i-s');
 
         if ($newUpdate > $request->datetime) {

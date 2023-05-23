@@ -63,8 +63,8 @@ Route::group(['middleware' => ['web', 'redirect.guard:customer']], function () {
 
     //Order
     Route::get('/order/customer', [OrderController::class, 'customerOrder']);
-    Route::get('/order/customer/{orderid}/{update}', [OrderController::class, 'refreshOrderDetails']);
     Route::get('/order/customer/history', [OrderController::class, 'customerOrderHistory']);
+    Route::get('/order/customer/{orderId}/{datetime}/{count}', [OrderController::class, 'refreshOrderPage']);
     Route::post('/order/customer/payment/{orderid}', [OrderController::class, 'orderPayment']);
 
     //Review

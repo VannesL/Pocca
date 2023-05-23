@@ -8,7 +8,7 @@ function updateOrderDetails() {
             type: "GET",
             url: "/order/refresh/" + orderid + "/" + update,
             
-            success: function(response) {  
+            success: function(response) { 
                 if (response) {
                     if (!($('#infoModal').is(':visible'))) {
                         document.location.reload();
