@@ -140,7 +140,7 @@ class MenuItemController extends Controller
             'item' => $item,
         ];
 
-        return view('editMenuForm', $data);
+        return view('Vendor/editMenuForm', $data);
     }
 
     public function editMenu(Request $request)
