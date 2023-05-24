@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('cook_time');
             $table->boolean('recommended');
             $table->string('image');
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
     }
