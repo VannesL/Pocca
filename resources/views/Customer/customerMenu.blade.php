@@ -39,12 +39,18 @@
                     <div class="row fs-6">
                         <div class="col-5 fw-bold">
                             <i class="fa-solid fa-star me-1"></i>
-                            {{ $vendor->avg_rating }}
-                            <small class="fw-light">/ 5</small>
+                            @if ($vendor->avg_rating)
+                                {{ $vendor->avg_rating }}
+                                <small class="fw-light">/ 5</small>
+                            @else
+                                N/A
+                            @endif
                         </div>
                         <div class="col-7 fw-bold">
                             @if ($vendor->priceRange)
                                 <small class="fw-light">Rp.</small> {{ $vendor->priceRange->value }}
+                            @else
+                                N/A
                             @endif
                         </div>
                     </div>

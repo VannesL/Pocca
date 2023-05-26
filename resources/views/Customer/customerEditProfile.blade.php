@@ -134,11 +134,12 @@
                             </div>
   
                             <div class="d-flex justify-content-center pt-1 mt-3">
-                              <div class="buttons row d-flex justify-content-around pt-1 mt-4">
-                                <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                                    <i class="fa-solid fa-trash-can"></i>
+                              <div class="buttons d-flex justify-content-around pt-1 mt-4">
+                                <div class="btn btn-danger m-2 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                  <i class="fa-solid fa-trash-can me-2"></i>
+                                  <span class="">Delete </span>
                                 </div>
-                                <button class="btn btn-primary btn-md w-100 col m-2" name="submitBtn" type="submit">Update</button>
+                                <button class="btn btn-primary btn-md w-100 m-2" name="submitBtn" type="submit">Update Details</button>
                               </div>
                             </div>
 

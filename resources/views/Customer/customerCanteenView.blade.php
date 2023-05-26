@@ -150,15 +150,15 @@
                                                 <h6 class="card-title">{{ $item->store_name }}</h6>                  
                                                 <div class="container px-0 card-text " style="font-size: 0.875em;">
                                                     <div style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $item->description }}</div>
-                                                    <div class="d-flex mt-2 text-start justify-content-between">
-                                                        <div class="">
+                                                    <div class="d-flex mt-2 text-start justify-contendt-between w-75">
+                                                        <div class="col">
                                                             @if ($item->avg_rating)
                                                                 {{ $item->avg_rating }} <i class="fa-solid fa-star me-1"></i>
                                                             @else
                                                                 N/A
                                                             @endif
                                                         </div>
-                                                        <div class="">
+                                                        <div class="col">
                                                             @if ($item->priceRange)
                                                                 {{ $item->priceRange->value }}
                                                             @else

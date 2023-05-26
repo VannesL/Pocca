@@ -173,7 +173,7 @@
                               @enderror
                             </div>
 
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-2">
                               <label for="profile" class="h4 fw-bold">Profile Image</label>
                               <input class="form-control form-control-sm input-img" id="profile" name="profile" type="file">
                               
@@ -185,7 +185,7 @@
                               <img id="preview-profile"  src="{{ asset('storage/profiles/'.auth()->guard('vendor')->user()->image) }}"alt="" class="img-thumbnail border-0 my-4 w-100" alt="No image Included" style="max-height:300px; object-fit:contain;">
                             </div>
 
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-2">
                               <label for="qris" class="h4 fw-bold">QRIS</label>
                               
                               <input class="form-control form-control-sm input-img" id="qris" name="qris" type="file">
@@ -198,12 +198,13 @@
                               <img id="preview-qris"  src="{{ asset('storage/qris/'.auth()->guard('vendor')->user()->qris) }}"alt="" class="img-thumbnail border-0 my-4 w-100" style=" max-height:300px;object-fit:contain;">
                             </div>
 
-                            <div class="d-flex justify-content-center pt-1 mt-3">
-                              <div class="buttons row d-flex justify-content-around pt-1 mt-4">
-                                <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                                    <i class="fa-solid fa-trash-can"></i>
+                            <div class="d-flex justify-content-center ">
+                              <div class="buttons d-flex justify-content-around pt-1">
+                                <div class="btn btn-danger m-2 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                  <i class="fa-solid fa-trash-can me-2"></i>
+                                  <span class="">Delete </span>
                                 </div>
-                                <button class="btn btn-primary btn-md w-100 col m-2" name="submitBtn" type="submit">Update</button>
+                                <button class="btn btn-primary btn-md w-100 m-2" name="submitBtn" type="submit">Update Details</button>
                               </div>
             
                             </div>
