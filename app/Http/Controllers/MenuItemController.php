@@ -26,7 +26,7 @@ class MenuItemController extends Controller
 
         foreach ($categories as $category) {
             $item = MenuItem::where('vendor_id', $user->id)
-                ->where([['category_id', $category->id], ['deleted', false]])
+                ->where([['category_id', $category->id], ['deleted_at', null]])
                 ->when($search, function ($query, $search) {
                     return $query->where('name', 'LIKE', '%' . $search . '%');
                 })
