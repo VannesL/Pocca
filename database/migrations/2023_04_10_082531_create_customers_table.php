@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('dob');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
