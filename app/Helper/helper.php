@@ -12,3 +12,10 @@ if (!function_exists('rupiah')) {
         return number_format((float)$number, 0, ',', '.');
     }
 }
+
+if (!function_exists('rating')) {
+    function rating(float $rate): float
+    {
+        return round($rate, 1);
+    }
+}

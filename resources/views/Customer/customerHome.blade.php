@@ -68,7 +68,7 @@
                                                     </div>
                                                     <div class="col-3 text-center">
                                                         @if ($vendor->avg_rating )
-                                                            {{ $vendor->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                            {{ rating($vendor->avg_rating) }} <i class="fa-solid fa-star me-1"></i>
                                                         @else
                                                             N/A
                                                         @endif
@@ -127,7 +127,7 @@
                                                         </div>
                                                         <div class="col-3 text-center">
                                                             @if ($vendor->avg_rating )
-                                                                {{ $vendor->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                                {{ rating($vendor->avg_rating) }} <i class="fa-solid fa-star me-1"></i>
                                                             @else
                                                                 N/A
                                                             @endif

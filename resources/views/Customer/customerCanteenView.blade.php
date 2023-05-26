@@ -83,7 +83,7 @@
                                                 <div class="d-flex mt-2 text-start justify-content-between">
                                                     <div class="">
                                                         @if ($item->avg_rating)
-                                                            {{ $item->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                            {{ rating($item->avg_rating) }} <i class="fa-solid fa-star me-1"></i>
                                                         @else
                                                             N/A
                                                         @endif
@@ -153,7 +153,7 @@
                                                     <div class="d-flex mt-2 text-start justify-contendt-between w-75">
                                                         <div class="col">
                                                             @if ($item->avg_rating)
-                                                                {{ $item->avg_rating }} <i class="fa-solid fa-star me-1"></i>
+                                                               {{ rating($item->avg_rating) }} <i class="fa-solid fa-star me-1"></i>
                                                             @else
                                                                 N/A
                                                             @endif

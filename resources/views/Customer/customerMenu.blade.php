@@ -40,7 +40,7 @@
                         <div class="col-5 fw-bold">
                             <i class="fa-solid fa-star me-1"></i>
                             @if ($vendor->avg_rating)
-                                {{ $vendor->avg_rating }}
+                                {{ rating($vendor->avg_rating) }}
                                 <small class="fw-light">/ 5</small>
                             @else
                                 N/A
