@@ -220,8 +220,8 @@ class MenuItemController extends Controller
             Storage::delete('public/menus' . $item->image);
         }
         $item->name = $item->name . '_deleted@' . md5(Carbon::now());
-        $item->deleted = true;
         $item->save();
+        $item->delete();
 
         $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
             ->avg('price');

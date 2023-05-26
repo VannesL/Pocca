@@ -11,6 +11,7 @@ class Admin extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
 
     protected $guarded = ['id', 'email', 'password', 'name', 'phone_number'];
 

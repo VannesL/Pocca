@@ -12,6 +12,7 @@ class Vendor extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
 
     protected $guarded = ['id'];
     protected $fillable = ['email', 'password', 'name', 'store_name', 'canteen_id', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image', 'rejection_reason', 'upcoming_deletion_date'];
