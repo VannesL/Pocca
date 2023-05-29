@@ -101,7 +101,7 @@ class CustomerController extends Controller
             $items = Vendor::with([
                 'favoritedCustomers',
                 'menuItems' => function ($q) use ($request) {
-                    $q->where([['name', 'LIKE', '%' . $request->search . '%'], ['deleted', false]]);
+                    $q->where(['name', 'LIKE', '%' . $request->search . '%']);
                 }
             ])
                 ->where('canteen_id', $canteen->id)
@@ -148,7 +148,7 @@ class CustomerController extends Controller
 
         if ($request->search) {
             $categories = MenuItem::where('menu_items.vendor_id', $vendor->id)
-                ->where([['menu_items.name', 'LIKE', '%_' . $request->search . '%'], ['deleted', false]])
+                ->where(['menu_items.name', 'LIKE', '%_' . $request->search . '%'])
                 ->join('categories', 'categories.id', '=', 'menu_items.category_id')
                 ->select('categories.name AS category_name', 'menu_items.category_id')
                 ->distinct()
@@ -156,7 +156,7 @@ class CustomerController extends Controller
 
             foreach ($categories as $category) {
                 $item = MenuItem::where('menu_items.vendor_id', $vendor->id)
-                    ->where([['menu_items.name', 'LIKE', '%' . $request->search . '%'], ['deleted', false]])
+                    ->where(['menu_items.name', 'LIKE', '%' . $request->search . '%'])
                     ->where('category_id', $category->category_id)
                     ->where('availability', true)   // the app will only show available menu if they search
                     ->get();
@@ -165,13 +165,13 @@ class CustomerController extends Controller
             }
         } else {
 
-            $categories = MenuItem::where([['menu_items.vendor_id', $vendor->id], ['deleted', false]])
+            $categories = MenuItem::where('menu_items.vendor_id', $vendor->id)
                 ->join('categories', 'categories.id', '=', 'menu_items.category_id')
                 ->select('categories.name AS category_name', 'menu_items.category_id')
                 ->distinct()
                 ->get();
             foreach ($categories as $category) {
-                $item = MenuItem::where([['vendor_id', $vendor->id], ['deleted', false]])  // does not filter the availibility because we will show all menu including not available one.
+                $item = MenuItem::where('vendor_id', $vendor->id)  // does not filter the availibility because we will show all menu including not available one.
                     ->where('category_id', $category->category_id)
                     ->get()
                     ->sortByDesc('availability');
@@ -179,7 +179,7 @@ class CustomerController extends Controller
                 $menuByCat[$cat] = $item;
             }
             // get all recommended menu from the vendor
-            $recommended = MenuItem::where([['vendor_id', $vendor->id], ['deleted', false]])
+            $recommended = MenuItem::where('vendor_id', $vendor->id)
                 ->where('recommended', true)
                 ->where('availability', true)
                 ->get();
