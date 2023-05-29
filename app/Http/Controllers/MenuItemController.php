@@ -223,7 +223,7 @@ class MenuItemController extends Controller
         $item->deleted = true;
         $item->save();
 
-        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
+        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted_at', false]])
             ->avg('price');
 
         $avg = (int)$avgPrice;

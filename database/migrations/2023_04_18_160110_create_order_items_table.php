@@ -14,12 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('order_items', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('menu_id')->constrained('menu_items')->cascadeOnDelete();
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->integer('quantity');
             $table->integer('price');
             $table->string('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
