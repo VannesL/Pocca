@@ -24,7 +24,8 @@ class MenuItem extends Model
 
             foreach ($deletedItems as $deletedItem) {
                 if(!is_null($deletedItem->order)){
-                    $deletedItem->forceDelete();
+                    $deletedItem->order->status_id = 6;
+                    $deletedItem->order->save();
                 }
             }
         });
