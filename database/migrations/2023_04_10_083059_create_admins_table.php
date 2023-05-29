@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
