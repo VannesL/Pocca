@@ -95,14 +95,14 @@
             </div>
         </div>
 
-        <div class=" container d-flex my-3 h-100 flex-column">
+        <div class=" container d-flex mt-3 mb-5 h-100 flex-column">
             @if ($order->payment_image != '')
                 <img id = "paymentImg" src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 250px; object-fit:contain;" data-bs-toggle="modal" data-bs-target="#imgPreview">
             @endif
 
             @switch($order->status->id)
                 @case(1)
-                    <div class="fw-bold text-center mt-3">Waiting for vendor confirmation...</div>
+                    <div class="fw-bold text-center">Waiting for vendor confirmation...</div>
                     @break
                 @case(2)
                     @if ($order->payment_image == '')
@@ -123,17 +123,17 @@
     
                             <img id="preview-image" src="{{ asset('storage/payments/no-image.jpg') }}" alt="" class="img-thumbnail border-0 mb-4 w-100" style="height: 300px; object-fit:contain;">
                             
-                            <button class="btn btn-primary w-100 col m-2 fw-bold" type="submit">Submit Payment</button>   
+                            <button class="btn btn-primary fw-bold mx-auto w-75 fixed-bottom" type="submit" style="bottom:60px;">Submit Payment</button>   
                         </form>  
                     @else
-                        <div id="payed" class="fw-bold text-center mt-3">Waiting for vendor verification...</div>
+                        <div id="payed" class="fw-bold text-center">Waiting for vendor verification...</div>
                     @endif
                     @break
                 @case(3)
                     <button href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-outline-dark fw-bold w-50 mx-auto" disabled>I got my order!</button>
                     @break
                 @case(4)
-                    <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-success fw-bold w-50 mx-auto" >I got my order!</a>
+                    <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-success fw-bold w-50 mx-auto fixed-bottom" style="bottom:60px;">I got my order!</a>
                     @break
                 @case(5)
                     @if ($order->reviewed == false)

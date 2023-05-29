@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-<div class="container py-3 h-100"> 
+<div class="container h-100"> 
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
         <div class="d-flex justify-content-center mb-3 pb-1">

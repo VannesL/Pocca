@@ -2,7 +2,7 @@
 
 @section('content')    
     <div class="container">
-        <h3>Order History</h3>
+        <h3 class="mb-3">Order History</h3>
         <div class="row">
             @if (!$orders->isEmpty())
                 @foreach ($orders as $order)

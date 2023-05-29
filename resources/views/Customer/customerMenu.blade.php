@@ -14,17 +14,17 @@
         }
     @endphp
     @if ($cartTotal > 0)
-        <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
-            <a href="{{ url('customer-cart') }}" class="btn rounded btn-primary p-3">
+        <div class="addBtn text-center position-fixed z-3" style="bottom:60px; right:20px;">
+            <a href="{{ url('customer-cart') }}" class="btn rounded btn-primary d-flex align-items-center justify-content-center" style="width: 4rem; height:4rem">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{ $cartTotal }}
                     <span class="visually-hidden">number of items</span>
                 </span>
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-solid fa-cart-shopping fa-xl"></i>
             </a>
         </div>
     @endif
-    <div class="container position-relative">
+    <div class="container position-relative mb-5">
         {{-- Vendor Header Design --}}
         <div class="container mb-4 text-light rounded"
             style="background-image: url({{ asset('storage/profiles/' . $vendor->image) }}); background-size: cover;  background-position: center">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="row fs-6">
                         <div class="col-5 fw-bold">
-                            <i class="fa-solid fa-star me-1"></i>
+                            <i class="fa-solid fa-star me-1" style="color:#ffea00"></i>
                             @if ($vendor->avg_rating)
                                 {{ rating($vendor->avg_rating) }}
                                 <small class="fw-light">/ 5</small>
@@ -64,7 +64,7 @@
                             @method('put')
                             <input type="hidden" name="search" value="{{ $search }}">
                             <input type="hidden" name="favorite" value="0">
-                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl" style="color: white"></i>
+                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart fa-2xl" style="color: #f03333;"></i>
                             </button>
                         </form>
                     </div>
@@ -76,7 +76,7 @@
                             @method('put')
                             <input type="hidden" name="search" value="{{ $search }}">
                             <input type="hidden" name="favorite" value="1">
-                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart-o fa-2xl" style="color: white"></i>
+                            <button type="submit" class="btn btn-block shadow-none"><i class="fa fa-heart-o fa-2xl" style="color: #f03333;"></i>
                             </button>
                         </form>
                     </div>

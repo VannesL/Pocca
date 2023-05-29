@@ -3,13 +3,13 @@
 @section('content')
     <div class="container mt-1">
         @if ($cartTotal > 0)
-            <div class="addBtn text-center position-fixed z-3" style="bottom:20px; right:20px;">
-                <a href="{{ url('/customer-cart') }}" class="btn rounded btn-primary p-3">
+            <div class="addBtn text-center position-fixed z-3" style="bottom:60px; right:20px;">
+                <a href="{{ url('customer-cart') }}" class="btn rounded btn-primary d-flex align-items-center justify-content-center" style="width: 4rem; height:4rem">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{ $cartTotal }}
                         <span class="visually-hidden">number of items</span>
                     </span>
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
                 </a>
             </div>
         @endif
@@ -17,25 +17,25 @@
             <div class="col-lg-12">
                 <div class="card border-0">
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-9 ps-4">
                             <h5 class="card-title">{{ $canteen->name }}</h5>
                             <p class="card-text">{{ $canteen->address }}</p>
                         </div>
                         @if ($canteen->favoritedCustomers->contains('id', $userId))
-                            <div class="col-3 align-self-center">
+                            <div class="col-3 align-self-center text-end pe-4">
                                 <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}" method="post"
                                     class="form-loading">
                                     @csrf
                                     @method('put')
                                     <input type="hidden" name="search" value="{{ $search }}">
                                     <input type="hidden" name="favorite" value="0">
-                                    <button type="submit" class="btn btn-block shadow-none"><i
-                                            class="fa fa-heart fa-2xl"></i>
+                                    <button type="submit" class="btn btn-block shadow-none">
+                                        <i class="fa fa-heart fa-2xl" style="color: #f03333;"></i>
                                     </button>
                                 </form>
                             </div>
                         @else
-                            <div class="col-3 align-self-center">
+                            <div class="col-3 align-self-center text-end pe-4">
                                 <form action="{{ url('home/update-favorite-canteen', $canteen->id) }}" method="post"
                                     class="form-loading">
                                     @csrf
@@ -43,7 +43,7 @@
                                     <input type="hidden" name="search" value="{{ $search }}">
                                     <input type="hidden" name="favorite" value="1">
                                     <button type="submit" class="btn btn-block shadow-none"><i
-                                            class="fa fa-heart-o fa-2xl"></i>
+                                            class="fa fa-heart-o fa-2xl" style="color: #f03333;"></i>
                                     </button>
                                 </form>
                             </div>
@@ -80,17 +80,17 @@
                                             <h6 class="card-title">{{ $item->store_name }}</h6>                  
                                             <div class="container px-0 card-text" style="font-size: 0.875em;">
                                                 <div style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $item->description }}</div>
-                                                <div class="d-flex mt-2 text-start justify-content-between">
-                                                    <div class="">
+                                                <div class="d-flex mt-2 text-start justify-contendt-between w-75">
+                                                    <div class="col-6">
                                                         @if ($item->avg_rating)
-                                                            {{ rating($item->avg_rating) }} <i class="fa-solid fa-star me-1"></i>
+                                                           {{ rating($item->avg_rating) }} <i class="fa-solid fa-star me-1" style="color:#ffea00"></i>
                                                         @else
                                                             N/A
                                                         @endif
                                                     </div>
-                                                    <div class="">
+                                                    <div class="col-6 text-nowrap">
                                                         @if ($item->priceRange)
-                                                            {{ $item->priceRange->value }}
+                                                            <small>Rp. </small>{{ $item->priceRange->value }}
                                                         @else
                                                             N/A
                                                         @endif
@@ -106,8 +106,8 @@
                                                 @method('put')
                                                 <input type="hidden" name="search" value="{{ $search }}">
                                                 <input type="hidden" name="favorite" value="0">
-                                                <button type="submit" class="btn btn-block shadow-none"><i
-                                                        class="fa fa-heart fa-2xl"></i>
+                                                <button type="submit" class="btn btn-block shadow-none">
+                                                    <i class="fa fa-heart fa-2xl" style="color: #f03333;"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -150,17 +150,17 @@
                                                 <h6 class="card-title">{{ $item->store_name }}</h6>                  
                                                 <div class="container px-0 card-text " style="font-size: 0.875em;">
                                                     <div style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $item->description }}</div>
-                                                    <div class="d-flex mt-2 text-start justify-contendt-between w-75">
-                                                        <div class="col">
+                                                    <div class="d-flex mt-2 text-start justify-contendt-between" style="width:75%">
+                                                        <div class="col-6">
                                                             @if ($item->avg_rating)
-                                                               {{ rating($item->avg_rating) }} <i class="fa-solid fa-star me-1"></i>
+                                                               {{ rating($item->avg_rating) }} <i class="fa-solid fa-star me-1" style="color:#ffea00"></i>
                                                             @else
                                                                 N/A
                                                             @endif
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col-6 text-nowrap">
                                                             @if ($item->priceRange)
-                                                                {{ $item->priceRange->value }}
+                                                                <small>Rp. </small>{{ $item->priceRange->value }}
                                                             @else
                                                                 N/A
                                                             @endif
@@ -177,7 +177,7 @@
                                                     <input type="hidden" name="search" value="{{ $search }}">
                                                     <input type="hidden" name="favorite" value="1">
                                                     <button type="submit" class="btn btn-block shadow-none"><i
-                                                            class="fa fa-heart-o fa-2xl"></i>
+                                                            class="fa fa-heart-o fa-2xl" style="color: #f03333;"></i>
                                                     </button>
                                                 </form>
                                             </div>

@@ -142,8 +142,10 @@
             
         </div>
 
-        <div class="text-center position-fixed z-3 dropup" style="bottom:20px; right:20px;">
-            <button class="btn rounded btn-primary p-3 rotate" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false"><i class="fa-solid fa-plus fa-2x rotate" id=""></i></button>
+        <div class="text-center position-fixed z-3 dropup" style="bottom:60px; right:20px;">
+            <button class="btn rounded btn-primary rotate" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false" style="width: 4rem; height:4rem">
+                <i class="fa-solid fa-plus fa-2x rotate" id=""></i>
+            </button>
             <ul class="dropdown-menu text-center mb-2 p-3" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
                 <li><a href="{{ url('/vendor-menu/add') }}" class="text-decoration-none text-dark fw-medium">
                     Add Menu

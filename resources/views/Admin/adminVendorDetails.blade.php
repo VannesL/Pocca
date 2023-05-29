@@ -163,16 +163,15 @@
                                     <div class="modal-dialog" style="" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you want to remove vendor?</h5>
+                                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure want to remove vendor?</h5>
                                         </div>
                                         <div class="modal-body">
                                           This vendor account will be deleted from the database.
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                          <div class="col-3"></div>
                                           <form action="{{url('admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
                                           @csrf
-                                          <button  class="btn btn-danger col" >Yes</button>
+                                          <button  class="btn btn-danger col-6" >Yes</button>
                                           </form>
                                           <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
                                         </div>

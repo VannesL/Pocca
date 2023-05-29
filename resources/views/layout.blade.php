@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <div class="container py-3">
+        <div class="container py-3 bg-light border-bottom">
             <div class="row flex-nowrap align-items-center">
                 <div class="col-4">
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutConfirmation">
@@ -37,7 +37,13 @@
                 </div>
             </div>
         </div>
-        <div class="w-100" >
+        
+        <div class="mt-3 mb-5" style="overflow-x: hidden">
+            @yield('content')
+        </div>
+        @stack('custom-js')
+
+        <div class="w-100 fixed-bottom">
             <nav class="nav navbar-light bg-light d-flex justify-content-evenly border-top border-bottom">
                 @if (auth()->guard('customer')->check())
                     <a class="nav-link text-dark {{ request()->is('home') || request()->is('home/*') || request()->is('vendor/*') || request()->is('customer-cart') ? 'fw-bolder ' : '' }}" href="{{ url('/home') }}">Home<span class="sr-only"></a>
@@ -53,28 +59,20 @@
                     <a class="nav-link text-dark {{ request()->is('order/vendor/history') ||  (Route::currentRouteNamed('order-details') && $order->status_id>=5) ? 'fw-bolder ' : '' }}" href="{{ url('/order/vendor/history') }}">History</a>
                     <div class="vr"></div>
                     <a class="nav-link text-dark {{ request()->is('vendor-menu')|| request()->is('vendor-menu/add') || request()->is('vendor-menu/edit/*')  ? 'fw-bolder ' : '' }}" href="{{ url('/vendor-menu') }}">Menu</a>
-                @endif
-                
+                @endif 
             </nav>
         </div>
-
-        <div class="mt-3" style="overflow-x: hidden">
-            @yield('content')
-        </div>
-        @stack('custom-js')
         <!-- Modal -->
         <div class="modal fade" id="logoutConfirmation" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" style="" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you want to logout?</h5>
+                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure you want to logout?</h5>
                 </div>
                 {{-- <div class="modal-body">
                   This account will be deleted from the database.
                 </div> --}}
-                <div class="modal-footer d-flex justify-content-around">
-                  <div class="col-3"></div>
-                 
+                <div class="modal-footer d-flex justify-content-around">    
                   <a href="{{ url('/logout') }}" class="btn btn-danger col" >Yes</a>
                   <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
                 </div>

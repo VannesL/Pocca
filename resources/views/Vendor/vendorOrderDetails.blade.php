@@ -100,7 +100,7 @@
             </div>
         </div>
 
-        <div class=" container d-flex my-3 h-100 flex-column">
+        <div class="container d-flex mt-3 mb-5 h-100 flex-column">
             @if ($order->payment_image != '')
                 <img id = "paymentImg" src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100" alt="image error" style="height: 250px; object-fit:contain;" data-bs-toggle="modal" data-bs-target="#imgPreview">
                 <!-- Modal -->
@@ -115,16 +115,16 @@
 
             @switch($order->status->id)
                 @case(1)
-                    <div class="d-flex justify-content-around fw-bold w-100 mx-auto mt-2">
+                    <div class="d-flex justify-content-around fw-bold w-100 mx-auto mt-2 fixed-bottom px-3" style="bottom:60px;">
                         <a class="btn btn-danger w-50 me-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
                         <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-primary w-50 ms-1">Approve</a>
                     </div>
                     @break
                 @case(2)
                     @if ($order->payment_image != '')
-                        <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
+                        <div class="d-flex justify-content-around fw-bold w-75 mx-auto fixed-bottom" style="bottom:60px;">
                             <a class="btn btn-danger w-50 me-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
-                        <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-primary w-50 ms-2">Approve</a>
+                            <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-primary w-50 ms-2">Approve</a>
                         </div> 
                     @else
                     <div class="fw-bold text-center">Waiting for customer payment...</div>
@@ -132,7 +132,7 @@
 
                     @break
                 @case(3)
-                    <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-success fw-bold w-50 mx-auto">Finish Cooking</a>
+                    <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-success fw-bold w-50 mx-auto fixed-bottom" style="bottom:60px;">Finish Cooking</a>
                     @break
                 @case(4)
                     <div class="fw-bold text-center">Waiting for customer pickup...</div>
@@ -160,15 +160,15 @@
                                 @csrf
                                 <div class="form-outline mb-4">
                                   <textarea id="reason" type="textbox" class="form-control form-control-md" name="reason" placeholder="ex. Out of ingredients, fake payment..." rows="3" style="resize:none;"></textarea>
-                                  </div>
-                                  <div class="container">
-                                      <div class="buttons row d-flex justify-content-around pt-1 mt-5">
+                                </div>
+                                <div class="container">
+                                    <div class="buttons row d-flex justify-content-around pt-1">
                                         <button class="btn btn-danger btn-md w-100 col m-2" type="submit">Submit</button>
                                         <div class="btn btn-secondary col-6 m-2"  data-bs-dismiss="modal">
                                             Cancel
                                         </div>
-                                      </div>
-                                  </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

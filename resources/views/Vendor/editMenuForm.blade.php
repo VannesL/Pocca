@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-<div class="container py-3 h-100"> 
+<div class="container h-100"> 
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
         <div class="d-flex justify-content-center mb-3 pb-1">
@@ -122,9 +122,9 @@
                     <input id="recommended" type="checkbox" class="form-check-input switch-input form-control-md" name="recommended" value="1" {{ ($item->recommended ? 'checked' : '') }}/>
                   </div>
 
-                  <div class="buttons row d-flex justify-content-around pt-1 mt-4">
-                    <div class="btn btn-danger col-3 m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                        <i class="fa-solid fa-trash-can"></i>
+                  <div class="buttons row d-flex justify-content-around pt-1 mt-3">
+                    <div class="btn btn-danger col m-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                        <i class="fa-solid fa-trash-can me-2"></i><span>Delete</span>
                     </div>
                     <button class="btn btn-primary btn-md w-100 col m-2" type="submit">Update</button>
                   </div>
@@ -140,15 +140,16 @@
                       <div class="modal-body">
                         This menu item will be deleted from the database.
                       </div>
-                      <div class="modal-footer d-flex justify-content-around">
-                        <div class="col-3"></div>
-                        <form method="POST" action="{{ url('/vendor-menu/delete/'.$item->id) }}">
-                          @csrf
-                          <button type ="submit" class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                              Yes
-                          </button>
-                        </form>
-                        <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                      <div class="modal-footer ">
+                        <div class="container row d-flex justify-content-around">
+                          <form method="POST" action="{{ url('/vendor-menu/delete/'.$item->id) }}" class="bg-danger rounded col-5 me-1 text-center">
+                            @csrf
+                            <button type ="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                Yes
+                            </button>
+                          </form>
+                          <button type="button" class="btn btn-secondary col-5" data-bs-dismiss="modal">No</button> 
+                        </div>
                       </div>
                     </div>
                   </div>

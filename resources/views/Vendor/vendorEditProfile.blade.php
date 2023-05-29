@@ -22,7 +22,7 @@
                   </div>
                 @endif
 
-                <div class="card border-rounded border-light shadow-lg my-4">
+                <div class="card border-rounded my-4" style="border-radius: 1rem;">
                     <div class="row g-0">
                      
                       
@@ -221,12 +221,11 @@
                                   This menu item will be deleted from the database.
                                 </div>
                                 <div class="modal-footer d-flex justify-content-around">
-                                  <div class="col-3"></div>
                                   <form action="/vendor-deleteProfile" method="post">
                                   @csrf
                                   <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Yes</button>
                                   </form>
-                                  <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
+                                  <button type="button" class="btn btn-secondary col me-1" data-bs-dismiss="modal">No</button> 
                                 </div>
                               </div>
                             </div>

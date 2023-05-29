@@ -21,7 +21,7 @@
                   </div>
                 @endif
 
-                <div class="card border-rounded border-light shadow-lg my-4">
+                <div class="card border-rounded my-4" style="border-radius: 1rem;">
                     <div class="row g-0">
                      
                       
