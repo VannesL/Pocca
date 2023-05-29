@@ -101,7 +101,7 @@ class MenuItemController extends Controller
         $menuItem->save();
 
         //Set price range
-        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
+        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id]])
             ->avg('price');
 
         $avg = (int)$avgPrice;
@@ -190,7 +190,7 @@ class MenuItemController extends Controller
         $item->save();
 
         //Set price range
-        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
+        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id]])
             ->avg('price');
 
         $avg = (int)$avgPrice;
