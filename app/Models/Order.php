@@ -19,7 +19,7 @@ class Order extends Model
 
     public function vendor()
     {
-        return $this->belongsTo(Vendor::class)->withTrashed();
+        return $this->belongsTo(Vendor::class);
     }
 
     public function status()
@@ -29,6 +29,6 @@ class Order extends Model
 
     public function orderItems()
     {
-        return $this->hasMany(OrderItems::class)->withTrashed();
+        return $this->hasMany(OrderItems::class);
     }
 }
