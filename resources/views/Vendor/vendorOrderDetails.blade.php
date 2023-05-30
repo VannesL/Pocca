@@ -53,7 +53,7 @@
             <div class="d-flex align-items-center">
                 <div id="orderStatus" class="text-bg-{{$color}} text-center fs-3 fw-bold px-2">
                     {{ $order->status->name }}
-                </div> 
+                </div>
                 <a class="text-decoration-none text-reset ms-2" data-bs-toggle="modal" data-bs-target="#infoModal"><i class="fa-solid fa-circle-info fa-lg"></i></a>
             </div>
             <div>
@@ -61,10 +61,10 @@
                     <div class="mt-2">Eat-In</div>
                 @else
                     <div class="mt-2">Takeout</div>
-                @endif   
+                @endif
             </div>
         </div>
-            
+
 
         <div class="container p-2 border border-dark bg-light">
             <div class="header d-flex justify-content-between px-2 pt-2">
@@ -89,7 +89,7 @@
                             <td class="col-md-1"></td>
                             <td class="col-md-9 fst-italic pt-0">{{ $orderItem->notes }}</td>
                         </tr>
-                    @endif              
+                    @endif
                 @endforeach
                 </tbody>
             </table>
@@ -109,7 +109,7 @@
                         <div class="modal-body bg-transparent">
                             <img id = "paymentImg" src="{{ asset('storage/payments/'.$order->payment_image) }}" class="img-thumbnail border-0 mb-4 w-100 h-100" alt="image error" style="object-fit:contain;">
                         </div>
-                    </div> 
+                    </div>
                 </div>
             @endif
 
@@ -125,7 +125,7 @@
                         <div class="d-flex justify-content-around fw-bold w-75 mx-auto">
                             <a class="btn btn-danger w-50 me-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Reject</a>
                         <a href="{{ url('/order/update-status/'.$order->id) }}" class="btn btn-primary w-50 ms-2">Approve</a>
-                        </div> 
+                        </div>
                     @else
                     <div class="fw-bold text-center">Waiting for customer payment...</div>
                     @endif
@@ -137,6 +137,26 @@
                 @case(4)
                     <div class="fw-bold text-center">Waiting for customer pickup...</div>
                     @break
+                    @case(6)
+                    <form>
+                        <fieldset disabled>
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label fw-bold">Rejected for:</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ $order->rejection_reason }}">
+                            </div>
+                        </fieldset>
+                    </form>
+                @break
+                @case(6)
+                    <form>
+                        <fieldset disabled>
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label fw-bold">Rejected for:</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ $order->rejection_reason }}">
+                            </div>
+                        </fieldset>
+                    </form>
+                @break
             @endswitch
             <!-- Modal -->
 
@@ -153,7 +173,7 @@
                         </div>
                         <div class="modal-header ">
                             <h5 class="modal-title mx-auto" id="deleteConfirmationLabel">Please enter rejection reason:</h5>
-        
+
                         </div>
                         <div class="modal-body">
                             <form action="{{url('/order/reject/'.$order->id)}}" method="POST">
@@ -212,7 +232,7 @@
                                 <div class="mb-2">
                                     <div id="orderStatus" class="text-bg-{{$color}} text-center fs-4 fw-bold px-2 py-1">
                                         {{ $status->name }}
-                                    </div> 
+                                    </div>
                                     <h6 class="px-2 mt-2 mb-4">{{ $status->description }}</h6>
                                 </div>
                             @endforeach
