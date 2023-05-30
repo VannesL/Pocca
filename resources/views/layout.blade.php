@@ -20,9 +20,9 @@
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
-                <div class="d-flex align-items-center justify-content-center text-center">
+                <a href="{{ url('/home') }}" class="d-flex align-items-center justify-content-center text-center text-decoration-none text-reset">
                     <h2 class="logo mb-0">POCCA</h2>
-                </div>
+                </a>
                 <div class="text-center d-flex justify-content-end">
                     @if (auth()->guard('customer')->check() || (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))
                         <div class="btn btn-outline-dark rounded-circle">

@@ -104,10 +104,16 @@
                     <div class="row mb-4 px-2">
                     @foreach ($cat as $item)
                         @php
-                            $itemName = explode('_',$item->name)
+                            $itemName = explode('_',$item->name);
+
+                            if($item->image == '') {
+                                $image = "default.jpg";
+                            } else {
+                                $image = $item->image;
+                            }
                         @endphp
                         
-                        <div class="col-6 p-1">           
+                        <div class="col-6 p-1" style="height:230px">           
                             
                             <a href="{{ url('/vendor-menu/edit/'.$item->id) }}" class="border-dark me-3 mt-2 text-decoration-none text-dark">
                             <div class="card border-white text-center h-100" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
@@ -116,17 +122,14 @@
                                             <i class="fa-solid fa-thumbs-up fa-xl my-auto" style="color: #ffffff;"></i>
                                         </span>
                                     @endif
-                                    @if ($item->image != '')
-                                        <img src="{{ asset('storage/menus/'.$item->image) }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:cover;">
-                                    @else
-                                        <img src="{{ asset('storage/menus/default.jpg') }}" class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 120px; object-fit:cover;">
-                                    @endif
-                                    
-                                    <div class="card-body h-50">
-                                        <h6 class="card-title h-50">{{$itemName[1]}}</h6>
-                                        <div class="h-50 mb-3">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                        </div>  
+                                    <img src="{{ asset('storage/menus/'.$image) }}" class="card-img-top img-thumbnail p-0 border-0 @if (!$item->availability) opacity-50 @endif" alt="image error" style="height: 140px; object-fit:cover; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                    <div class="card-body p-2">
+                                        <div class="h-50">
+                                            <h6 class="card-title mb-0" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{$itemName[1]}}</h6>
+                                        </div>
+                                        <div class="h-50 pt-2">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </div> 
                                     </div>
                                 </div>
                             </a>
@@ -143,8 +146,8 @@
         </div>
 
         <div class="text-center position-fixed z-3 dropup" style="bottom:60px; right:20px;">
-            <button class="btn rounded btn-primary rotate" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false" style="width: 4rem; height:4rem">
-                <i class="fa-solid fa-plus fa-2x rotate" id=""></i>
+            <button class="btn rounded-circle btn-primary rotate" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false" style="width: 56px; height: 56px;">
+                <i class="fa-solid fa-plus rotate fa-lg" id=""></i>
             </button>
             <ul class="dropdown-menu text-center mb-2 p-3" style="box-shadow: 0px 2px 10px 2px #8b9ce936;">
                 <li><a href="{{ url('/vendor-menu/add') }}" class="text-decoration-none text-dark fw-medium">

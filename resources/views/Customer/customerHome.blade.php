@@ -4,12 +4,11 @@
     <div class="container mt-1">
         @if ($cartTotal > 0)    
             <div class="addBtn text-center position-fixed z-3" style="bottom:60px; right:20px;">
-                <a href="{{ url('customer-cart') }}" class="btn rounded btn-primary d-flex align-items-center justify-content-center" style="width: 4rem; height:4rem">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <a href="{{ url('customer-cart') }}" class="btn rounded-circle btn-primary d-flex align-items-center justify-content-center " style="width: 56px; height: 56px;">
+                    <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger" style="top: 20%">
                         {{ $cartTotal }}
-                        <span class="visually-hidden">number of items</span>
                     </span>
-                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                    <i class="fa-solid fa-cart-shopping fa"></i>
                 </a>
             </div>
         @endif
