@@ -94,10 +94,30 @@
                             class="fa fa-search"></i></button>
             </div>
         </form>
+        {{-- <div class="row">
+            <a href="#accordionDrink">Drink</a>
+        </div> --}}
+        <div class="container pb-2">
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-secondary dropdown-toggle  btn rounded-pill" data-bs-toggle="dropdown" aria-expanded="false" >
+                  Categories
+                </button>
+
+                <ul class="dropdown-menu" style="height: auto; max-height: 200px; overflow-x: hidden;">
+                    @if (!$categories->isEmpty())
+                        @foreach ($categories as $item)
+                            <li class="text-center"><a class=" text-decoration-none text-black" href="#accordion{{$categories[$loop->index]->category_name}}">{{$categories[$loop->index]->category_name}}</a></li>
+                        @endforeach
+                    @endif
+                  
+                </ul>
+              </div>
+        </div>
+          
         <div class="row px-3">
         @if (!$categories->isEmpty())
             @foreach ($menuByCat as $cat)
-                <div class="accordion accordion-flush mb-4" id="accordion{{ $loop->index }}">
+                <div class="accordion accordion-flush mb-4" id="accordion{{ $categories[$loop->index]->category_name }}">
                     <div class="accordion-item ">
                         <h2 class="accordion-header">
                             <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
