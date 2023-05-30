@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-header ">
-                                        <h5 class="modal-title mx-auto" id="addToCartLabel">Are you sure you want to delete {{$curr_cat->name}}?</h5>
+                                        <h5 class="modal-title mx-auto" id="addToCartLabel">Do you want to delete {{$curr_cat->name}}?</h5>
 
                                     </div>
                                     <div class="modal-body">

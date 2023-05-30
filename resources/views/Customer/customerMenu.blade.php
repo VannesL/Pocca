@@ -130,13 +130,19 @@
                                                 }
                                             }
                                         }
+
+                                        if($item->image == '') {
+                                            $image = "default.jpg";
+                                        } else {
+                                            $image = $item->image;
+                                        }
                                     @endphp
                                     @if ($loop->index % 2 == 0 || $loop->first)
                                     <div class="col-md-4">
                                         <div class="row h-100">
                                     @endif
 
-                                        <div class="col-6 p-1">
+                                        <div class="col-6 p-1" style="height:230px">
                                             @if ($item->availability)
                                                 <a class="text-decoration-none" data-bs-toggle="modal"
                                                     data-bs-target="#{{ $item->id }}addToCart" href="">
@@ -150,21 +156,15 @@
                                                         <i class="fa-solid fa-thumbs-up fa-lg" style="color: #ffffff;"></i>
                                                     </span>
                                                 @endif
-                                                @if ($item->image != '')
-                                                    <img src="{{ asset('storage/menus/' . $item->image) }}"
-                                                        class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif"
-                                                        alt="image error" style="height: 120px; object-fit:cover;">
-                                                @else
-                                                    <img src="{{ asset('storage/menus/default.jpg') }}"
-                                                        class="card-img-top img-thumbnail p-2 border-0 @if (!$item->availability) opacity-50 @endif"
-                                                        alt="image error" style="height: 120px; object-fit:cover;">
-                                                @endif
-                                                <div class="card-body">
-                                                    <div class="row h-75">
-                                                        <h6 class="card-title text-{{$color}}">{{ $itemName[1] }}</h6>
+                                                <img src="{{ asset('storage/menus/' . $image) }}"
+                                                    class="card-img-top img-thumbnail border-0 @if (!$item->availability) opacity-50 @endif p-0"
+                                                    alt="image error" style="height: 140px; object-fit:cover; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                                                <div class="card-body p-2">
+                                                    <div class="h-50">
+                                                        <h6 class="card-title text-{{$color}} mb-0" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ $itemName[1] }}</h6>
                                                     </div>
-                                                    <div class="row h-25">
-                                                        <p class="card-text text-{{$color}}">{{ rupiah($item->price ?? '', true) }}</p>
+                                                    <div class="h-50">
+                                                        <p class="card-text text-{{$color}} pt-2">{{ rupiah($item->price ?? '', true) }}</p>
                                                     </div>
                                                 </div>
                                             </div>

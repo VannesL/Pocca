@@ -13,17 +13,17 @@
     </head>
 
     <body>
-        <div class="container py-3 bg-light border-bottom">
-            <div class="row flex-nowrap align-items-center">
-                <div class="col-4">
+        <div class="py-3 bg-light border-bottom text-center">
+            <div class="container d-flex flex-nowrap align-items-center justify-content-between">
+                <div>
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutConfirmation">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
-                <div class="col-4 d-flex align-items-center justify-content-center text-center">
+                <div class="d-flex align-items-center justify-content-center text-center">
                     <h2 class="logo mb-0">POCCA</h2>
                 </div>
-                <div class="col-4 text-center d-flex justify-content-end">
+                <div class="text-center d-flex justify-content-end">
                     @if (auth()->guard('customer')->check() || (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))
                         <div class="btn btn-outline-dark rounded-circle">
                             @if (auth()->guard('customer')->check())
@@ -67,7 +67,7 @@
             <div class="modal-dialog" style="" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure you want to logout?</h5>
+                  <h5 class="modal-title" id="deleteConfirmationLabel">Do you want to logout?</h5>
                 </div>
                 {{-- <div class="modal-body">
                   This account will be deleted from the database.

@@ -43,8 +43,8 @@ class VendorController extends Controller
             'storeName'         => ['required', 'string', 'min:8'],
             'address'           => ['required', 'string', 'min: 8'],
             'desc'              => ['required', 'string', 'min: 8'],
-            'profile'           => ['mimes:jpg,bmp,png'],
-            'qris'              => ['required', 'mimes:jpg,bmp,png'],
+            'profile'           => ['required', 'image'],
+            'qris'              => ['required', 'image'],
         ])->sometimes('canteenName', 'required|string|min:8|unique:canteens,name', function ($request) {
             return $request->selectCanteen == -1;
         })->validate();
@@ -62,10 +62,7 @@ class VendorController extends Controller
         }
 
         // profile img check, img ext, and name
-        $profile_ext = '';
-        if ($request->profile) {
-            $profile_ext = $request->file('profile')->extension();
-        }
+        $profile_ext = $request->file('profile')->extension();
         // encrypt image name based on email, cuz email unique so image will not overwrited if same name
         $imgName = md5($request->email);
         $qris_ext = $request->file('qris')->extension();
@@ -134,8 +131,8 @@ class VendorController extends Controller
             'store_name'         => ['string', 'min:8'],
             'address'           => ['string', 'min: 8'],
             'description'       => ['string', 'min: 8'],
-            'profile'             => ['mimes:jpg,bmp,png'],
-            'qris'              => ['mimes:jpg,bmp,png'],
+            'profile'             => ['image'],
+            'qris'              => ['image'],
         ])->validate();
 
 

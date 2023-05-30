@@ -163,7 +163,7 @@
                                     <div class="modal-dialog" style="" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure want to remove vendor?</h5>
+                                          <h5 class="modal-title" id="deleteConfirmationLabel">Do you want to remove vendor?</h5>
                                         </div>
                                         <div class="modal-body">
                                           This vendor account will be deleted from the database.
