@@ -13,21 +13,28 @@ class MenuItem extends Model
     protected $guarded = ['id'];
     protected $fillable = ['vendor_id', 'category_id', 'name', 'description', 'availability', 'price', 'cook_time', 'recommended', 'image', 'deleted'];
 
-    protected static function booted(){
-
-        static::deleting(function($model){
+    protected static function booted()
+    {
+        static::deleting(function ($model) {
             $deletedItems = OrderItems::where('menu_id', $model->id)
-                            ->with('order', function($q){
-                                $q->whereNot('status_id', 5);
-                            })
-                            ->get();
+                ->with('order', function ($q) {
+                    $q->whereNot('status_id', 5);
+                })
+                ->get();
 
             foreach ($deletedItems as $deletedItem) {
-                if(!is_null($deletedItem->order)){
+                if (!is_null($deletedItem->order)) {
                     $deletedItem->order->status_id = 6;
                     $deletedItem->order->rejection_reason = 'Menu deleted from database';
                     $deletedItem->order->save();
                 }
+            }
+
+            $deletedItems = CartItem::where('menu_id', $model->id)->get();
+
+            foreach ($deletedItems as $deletedItem) {
+                if (count($deletedItem->cart->cartItems) == 1) $deletedItem->cart->delete();
+                else $deletedItem->delete();
             }
         });
     }
