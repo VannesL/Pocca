@@ -25,6 +25,8 @@ class Customer extends Authenticatable
                 $deletedItem->rejection_reason = 'Customer deleted from database';
                 $deletedItem->save();
             }
+
+            Cart::where('customer_id', $model->id)->delete();
         });
     }
 

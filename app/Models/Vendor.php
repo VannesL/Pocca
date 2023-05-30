@@ -28,6 +28,8 @@ class Vendor extends Authenticatable
                 $deletedItem->rejection_reason = 'Vendor deleted from database';
                 $deletedItem->save();
             }
+
+            Cart::where('vendor_id', $model->id)->delete();
         });
     }
 
