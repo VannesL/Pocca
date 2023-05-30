@@ -16,6 +16,20 @@ class Vendor extends Authenticatable
     protected $guarded = ['id'];
     protected $fillable = ['email', 'password', 'name', 'store_name', 'canteen_id', 'phone_number', 'address', 'description', 'favorites', 'qris', 'image', 'rejection_reason', 'upcoming_deletion_date'];
 
+    protected static function booted()
+    {
+        static::deleting(function ($model) {
+            $deletedItems = Order::where('vendor_id', $model->id)
+                ->whereNotIn('status_id', [5,6])
+                ->get();
+
+            foreach ($deletedItems as $deletedItem) {
+                $deletedItem->status_id = 6;
+                $deletedItem->save();
+            }
+        });
+    }
+
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'approved_by', 'id');
