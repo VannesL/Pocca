@@ -22,6 +22,7 @@ class Customer extends Authenticatable
 
             foreach ($deletedItems as $deletedItem) {
                 $deletedItem->status_id = 6;
+                $deletedItem->rejection_reason = 'Customer deleted from database';
                 $deletedItem->save();
             }
         });

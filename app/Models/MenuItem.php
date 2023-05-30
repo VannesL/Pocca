@@ -25,6 +25,7 @@ class MenuItem extends Model
             foreach ($deletedItems as $deletedItem) {
                 if(!is_null($deletedItem->order)){
                     $deletedItem->order->status_id = 6;
+                    $deletedItem->order->rejection_reason = 'Menu deleted from database';
                     $deletedItem->order->save();
                 }
             }

@@ -25,6 +25,7 @@ class Vendor extends Authenticatable
 
             foreach ($deletedItems as $deletedItem) {
                 $deletedItem->status_id = 6;
+                $deletedItem->rejection_reason = 'Vendor deleted from database';
                 $deletedItem->save();
             }
         });
