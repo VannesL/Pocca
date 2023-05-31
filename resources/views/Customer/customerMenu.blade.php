@@ -120,7 +120,7 @@
         <div class="row px-3">
         @if (!$categories->isEmpty())
             @foreach ($menuByCat as $cat)
-                <div class="accordion accordion-flush mb-4" id="accordion{{ $categories[$loop->index]->category_name }}">
+                <div class="accordion accordion-flush mb-4 pt-2" id="accordion{{ $categories[$loop->index]->category_name }}">
                     <div class="accordion-item ">
                         <h2 class="accordion-header">
                             <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
