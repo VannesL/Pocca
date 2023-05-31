@@ -119,11 +119,11 @@
         {{-- Version 2 --}}
         <div class="row px-3 pb-3" style="">
             <div class="btn-group dropdown">
-                <button type="button" class="btn dropdown-toggle btn-primary  btn rounded-pill" data-bs-toggle="dropdown" aria-expanded="false" >
+                <button type="button" class="btn dropdown-toggle btn-light border btn rounded fw-medium" data-bs-toggle="dropdown" aria-expanded="false" >
                   Categories    
                 </button>
 
-                <ul class="dropdown-menu ms-3 mt-3" style="height: auto; width:85%; max-height: 400px; overflow-x: hidden; ">
+                <ul class="dropdown-menu ms-3 mt-1" style="height: auto; width:85%; max-height: 400px; overflow-x: hidden; ">
                     @if (!$categories->isEmpty())
                         @foreach ($categories as $item)
                             <li class="text-center p-2 "><a class="text-break text-decoration-none text-black fs-6 text" href="#accordion{{$categories[$loop->index]->category_name}}">{{$categories[$loop->index]->category_name}}</a></li>
