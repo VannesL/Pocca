@@ -33,6 +33,7 @@ return new class extends Migration
             $table->float('avg_rating')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

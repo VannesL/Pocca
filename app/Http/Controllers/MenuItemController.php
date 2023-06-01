@@ -26,7 +26,7 @@ class MenuItemController extends Controller
 
         foreach ($categories as $category) {
             $item = MenuItem::where('vendor_id', $user->id)
-                ->where([['category_id', $category->id], ['deleted', false]])
+                ->where([['category_id', $category->id], ['deleted_at', null]])
                 ->when($search, function ($query, $search) {
                     return $query->where('name', 'LIKE', '%' . $search . '%');
                 })
@@ -101,7 +101,7 @@ class MenuItemController extends Controller
         $menuItem->save();
 
         //Set price range
-        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
+        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id]])
             ->avg('price');
 
         $avg = (int)$avgPrice;
@@ -190,7 +190,7 @@ class MenuItemController extends Controller
         $item->save();
 
         //Set price range
-        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
+        $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id]])
             ->avg('price');
 
         $avg = (int)$avgPrice;
@@ -220,8 +220,8 @@ class MenuItemController extends Controller
             Storage::delete('public/menus' . $item->image);
         }
         $item->name = $item->name . '_deleted@' . md5(Carbon::now());
-        $item->deleted = true;
         $item->save();
+        $item->delete();
 
         $avgPrice = MenuItem::where([['vendor_id', auth()->guard('vendor')->user()->id], ['deleted', false]])
             ->avg('price');

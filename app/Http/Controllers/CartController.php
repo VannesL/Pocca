@@ -116,31 +116,33 @@ class CartController extends Controller
         $user = auth()->guard('customer')->user();
         // dd($request->type);
         $cart = Cart::where('customer_id', $user->id)->first();
-        $order = new Order();
-        $order->customer_id = $cart->customer_id;
-        $order->vendor_id = $cart->vendor_id;
-        $order->total = $cart->total;
-        $order->status_id = 1;
-        $order->date = Carbon::now();
-        $order->type = $request->type;
-        $order->rejection_reason = null;
-        $order->payment_image = "";
-        $order->save();
+        if ($cart) {
+            $order = new Order();
+            $order->customer_id = $cart->customer_id;
+            $order->vendor_id = $cart->vendor_id;
+            $order->total = $cart->total;
+            $order->status_id = 1;
+            $order->date = Carbon::now();
+            $order->type = $request->type;
+            $order->rejection_reason = null;
+            $order->payment_image = "";
+            $order->save();
 
-        $cartItems = CartItem::where('cart_id', $cart->id)->get();
-        foreach ($cartItems as $cartItem) {
-            $orderItem = new OrderItems();
-            $orderItem->menu_id = $cartItem->menu_id;
-            $orderItem->price = $orderItem->menu->price;
-            $orderItem->order_id = $order->id;
-            $orderItem->quantity = $cartItem->quantity;
-            $orderItem->notes = $cartItem->notes;
-            $orderItem->save();
+            $cartItems = CartItem::where('cart_id', $cart->id)->get();
+            foreach ($cartItems as $cartItem) {
+                $orderItem = new OrderItems();
+                $orderItem->menu_id = $cartItem->menu_id;
+                $orderItem->price = $orderItem->menu->price;
+                $orderItem->order_id = $order->id;
+                $orderItem->quantity = $cartItem->quantity;
+                $orderItem->notes = $cartItem->notes;
+                $orderItem->save();
+            }
+
+            $cartItem = CartItem::where('cart_id', $cart->id)->delete();
+            $cart->delete();
+            return redirect('/order/' . $order->id);
         }
-
-        $cartItem = CartItem::where('cart_id', $cart->id)->delete();
-        $cart->delete();
-
-        return redirect('/order/' . $order->id);
+        return redirect()->back();
     }
 }
