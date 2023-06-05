@@ -94,17 +94,18 @@ class CustomerController extends Controller
 
     public function canteen(Request $request, Canteen $canteen)
     {
-
         $userId = auth()->guard('customer')->user()->id;
-        $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+        $items = Vendor::with('favoritedCustomers')->where('canteen_id', $canteen->id)->where('store_name', 'LIKE', '%' . $request->search . '%')->whereNotNull('approved_by')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+
         if ($request->search && $request->type == 'menu_item') {
             $items = Vendor::with([
                 'favoritedCustomers',
                 'menuItems' => function ($q) use ($request) {
-                    $q->where([['name', 'LIKE', '%' . $request->search . '%']]);
+                    $q->where([['store_name', 'LIKE', '%' . $request->search . '%']]);
                 }
             ])
                 ->where('canteen_id', $canteen->id)
+                ->whereNotNull('approved_by')
                 ->whereHas('menuItems')
                 ->orderByDesc('favorites')->get();
         }
