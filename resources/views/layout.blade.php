@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Pocca</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -21,7 +22,7 @@
                     </button>
                 </div>
                 <a href="{{ url('/home') }}" class="d-flex align-items-center justify-content-center text-center text-decoration-none text-reset">
-                    <h2 class="logo mb-0">POCCA</h2>
+                    <img src="{{ asset('storage/logo/Pocca_Text.png') }} " alt="logo error" style="height: 50px; object-fit:cover;">
                 </a>
                 <div class="text-center d-flex justify-content-end">
                     @if (auth()->guard('customer')->check() || (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))

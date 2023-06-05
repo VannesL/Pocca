@@ -33,7 +33,7 @@ class CustomerController extends Controller
             'email'             => ['required', 'email' => 'email:rfc,dns', 'unique:customers'],
             'password'          => ['required', 'min:8'],
             'passwordConfirm'   => ['required', 'same:password'],
-            'phoneno'           => ['required', 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,12'],
+            'phoneno'           => ['required', 'numeric', 'regex:/(08)[0-9]{8,}$/', 'digits_between:10,14'],
             'dob'               => ['required', 'date', 'before:tomorrow']
         ])->validate();
 

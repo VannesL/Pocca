@@ -5,21 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>POCCA</title>
-
+        <link rel="icon" href="storage/logo/Pocca_Logo.png" sizes="32x32">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     </head>
     <body style="background: linear-gradient(257deg, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%); background-repeat: no-repeat; background-attachment: fixed">
         <section class="vh-100" style="background: transparent">
-            <div class="d-flex justify-content-start mx-2 mt-2">
+            {{-- <div class="d-flex justify-content-start mx-2 mt-2">
               <span class="h5 text-white fw-bold">POCCA</span>
-            </div>
+            </div> --}}
             <div class="container py-5 h-100"> 
               <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-10">
                   <div class="d-flex justify-content-center mb-3 pb-1">
-                    <span class="h1 text-white fw-bold">Register</span>
+                    <img src="{{ asset('storage/logo/Pocca_Text_White.png') }} " alt="logo error" style="height: 50px; object-fit:cover;">
                   </div>
                   <div class="card mb-5" style="border-radius: 1rem;">
                     <div class="row g-0">
@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                              <label for="password" class="h4 fw-bold">Password</label>
+                              <label for="password" class="h4 fw-bold">Password <small class="fw-light" style="font-size: 70%">(min. 8 characters)</small></label>
                               <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password"/>
 
                               @error('password')
@@ -96,8 +96,8 @@
                               @enderror
                             </div>
   
-                            <div class="d-flex justify-content-center pt-1 my-4">
-                              <button class="btn btn-dark btn-sm" type="submit">Register</button>
+                            <div class="d-flex justify-content-center pt-1 my-2">
+                              <button class="btn btn-dark btn w-50" type="submit">Register</button>
                             </div>
 
                           </form>

@@ -93,15 +93,24 @@
                                                     <div class="col-6">
                                                         <div class="input-group inline-group">
                                                             <div class="input-group-prepend">
-                                                            <a class="btn btn-minus rounded-0 btn-secondary">
-                                                                <i class="fa fa-minus"></i>
-                                                            </a>
+                                                                <a
+                                                                    class="btn btn-minus rounded-circle btn-outline-dark">
+                                                                    <i
+                                                                        class="fa fa-minus fa-sm"></i>
+                                                                </a>
                                                             </div>
-                                                            <input class="form-control quantity" min="1" name="quantity" value="{{$cartItem->quantity}}" type="number">
+                                                            <input
+                                                                class="form-control quantity text-center border-0"
+                                                                min="1" max="99"
+                                                                name="quantity"
+                                                                value={{ $cartItem->quantity }}
+                                                                type="number">
                                                             <div class="input-group-append">
-                                                            <a class="btn btn-plus rounded-0 btn-secondary">
-                                                                <i class="fa fa-plus"></i>
-                                                            </a>
+                                                                <a
+                                                                    class="btn btn-plus rounded-circle btn-outline-dark">
+                                                                    <i
+                                                                        class="fa fa-plus fa-sm"></i>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>

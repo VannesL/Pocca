@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>POCCA</title>
-
+        <link rel="icon" href="storage/logo/Pocca_Logo.png" sizes="32x32">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -24,7 +24,7 @@
                             @csrf
 
                             <div class="d-flex justify-content-center mb-3 pb-1">
-                              <span class="h1 fw-bold">POCCA</span>
+                              <img src="{{ asset('storage/logo/Pocca_Text.png') }} " alt="logo error" style="height: 50px; object-fit:cover;">
                             </div>
           
                             <div class="form-outline mb-4">
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center pt-1 mb-4">
-                              <button class="btn btn-dark btn-sm" type="submit">Login</button>
+                              <button class="btn btn-dark btn-md w-50" type="submit">Login</button>
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="{{ url('/admin-login') }}" class="mx-auto small text-muted" style="color: #393f81;">Are you an admin?</a>
