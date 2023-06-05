@@ -58,7 +58,7 @@ class CustomerController extends Controller
     {
         $userId = auth()->guard('customer')->user()->id;
 
-        $items = Canteen::with('favoritedCustomers')->where('name', 'LIKE', '%' . $request->search . '%')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
+        $items = Canteen::with('favoritedCustomers')->where('name', 'LIKE', '%' . $request->search . '%')->whereNotNull('approved_by')->orderByDesc('favorites')->get(); //->whereNotIn($favorites->id);
         if ($request->search && $request->type == 'vendor') {
             $items = Canteen::with([
                 'favoritedCustomers',
@@ -66,6 +66,7 @@ class CustomerController extends Controller
                     $q->where('store_name', 'LIKE', '%' . $request->search . '%');
                 }
             ])
+                ->whereNotNull('approved_by')
                 ->whereHas('vendors')
                 ->orderByDesc('favorites')->get();
         }
