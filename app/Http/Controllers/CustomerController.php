@@ -102,7 +102,7 @@ class CustomerController extends Controller
             $items = Vendor::with([
                 'favoritedCustomers',
                 'menuItems' => function ($q) use ($request) {
-                    $q->where([['store_name', 'LIKE', '%' . $request->search . '%']]);
+                    $q->where([['name', 'LIKE', '%' . $request->search . '%']]);
                 }
             ])
                 ->where('canteen_id', $canteen->id)

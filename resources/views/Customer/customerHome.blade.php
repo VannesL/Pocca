@@ -17,7 +17,7 @@
                 <form action="{{ url('/home') }}" method="get" class="form-loading">
                     @csrf
                     <div class="input-group mb-3">
-                        <select name="type" id="" class="input-group-text px-1 text-center">
+                        <select name="type" id="" class="input-group-text px-1 text-center align-middle">
                             <option value="canteen" {{ $type == 'canteen' ? 'selected' : '' }}>Canteen</option>
                             <option value="vendor" {{ $type == 'vendor' ? 'selected' : '' }}>Vendor</option>
                         </select>

@@ -80,13 +80,16 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $url = '/';
+        $guard = 'customer';
         if (auth()->guard('vendor')->check()) {
             $url = '/vendor-login';
+            $guard = 'vendor';
         } elseif (auth()->guard('admin')->check()) {
             $url = '/admin-login';
+            $guard = 'admin';
         }
 
-        auth()->logout();
+        auth()->guard($guard)->logout();
 
         $request->session()->invalidate();
 

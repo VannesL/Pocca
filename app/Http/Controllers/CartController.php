@@ -62,7 +62,7 @@ class CartController extends Controller
         $cartItem->save();
 
 
-        return redirect('/home/'.$vendor->canteen->id.'/'. $vendor->id);
+        return redirect('/home/' . $vendor->canteen->id . '/' . $vendor->id);
     }
 
     public function updateCart(Request $request)

@@ -16,25 +16,38 @@
     <body>
         <div class="py-3 bg-light border-bottom text-center">
             <div class="container d-flex flex-nowrap align-items-center justify-content-between">
-                <div>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutConfirmation">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </button>
+                <div class="justify-content-center col-2">
+                    @if (!request()->is('home', 'order/customer', 'order/customer/history', 'vendor-dash', 'order/vendor', 'order/vendor/history', 'vendor-menu', 'admin-dash'))
+                        <a href="javascript:history.back()">
+                            <button class="btn">
+                                <i class="fa-solid fa-angle-left fa-xl "></i>
+                            </button>
+                        </a>
+                    @endif
                 </div>
-                <a href="{{ url('/home') }}" class="d-flex align-items-center justify-content-center text-center text-decoration-none text-reset">
+                <a class="justify-content-center col-8" href="{{ url('/home') }}" class="d-flex align-items-center justify-content-center text-center text-decoration-none text-reset">
                     <img src="{{ asset('storage/logo/Pocca_Text.png') }} " alt="logo error" style="height: 50px; object-fit:cover;">
                 </a>
-                <div class="text-center d-flex justify-content-end">
-                    @if (auth()->guard('customer')->check() || (auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null))
-                        <div class="btn btn-outline-dark rounded-circle">
-                            @if (auth()->guard('customer')->check())
-                                <a href="{{ url('/editProfile') }}"><i class="fa-solid fa-user text-dark"></i></a>
-                            @else
-                                <a href="{{ url('/vendor-editProfile') }}"><i class="fa-solid fa-user text-dark"></i></a>
+                <div class="text-center d-flex justify-content-center col-2">
+                    <div class="dropdown">
+                        <button class="btn rounded-circle border-dark d-flex justify-content-center align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 43px; width:43px">
+                            <i class="fa-solid fa-user text-dark"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @php
+                                $editUrl = '';
+                                if (auth()->guard('customer')->check()) {
+                                    $editUrl = '/editProfile';
+                                } else if ((auth()->guard('vendor')->check() && auth()->guard('vendor')->user()->approved_by != null)) {
+                                    $editUrl = '/vendor-editProfile';
+                                }
+                            @endphp
+                            @if ($editUrl != '')
+                                <li><a class="dropdown-item fw-medium" href="{{ url($editUrl) }}">Edit Profile</a></li>
                             @endif
-                            
-                        </div>
-                    @endif
+                            <li><a class="dropdown-item text-danger fw-medium" href="" data-bs-toggle="modal" data-bs-target="#logoutConfirmation"><i class="fa-solid fa-right-from-bracket me-1"></i> Logout </a></li>                        
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,9 +83,6 @@
                 <div class="modal-header">
                   <h5 class="modal-title" id="deleteConfirmationLabel">Do you want to logout?</h5>
                 </div>
-                {{-- <div class="modal-body">
-                  This account will be deleted from the database.
-                </div> --}}
                 <div class="modal-footer d-flex justify-content-around">    
                   <a href="{{ url('/logout') }}" class="btn btn-danger col" >Yes</a>
                   <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
