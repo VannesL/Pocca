@@ -269,9 +269,10 @@ class CustomerController extends Controller
 
 
         //Hash password before inserting to DB
-        $request['password'] = Hash::make($request->password);
+        if ($request->password) {
+            $request['password'] = Hash::make($request->password);
+        }
 
-        //
         $data = request()->collect()->filter(function ($value) {
             return null !== $value;
         })->toArray();

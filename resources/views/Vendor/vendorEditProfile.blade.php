@@ -218,14 +218,14 @@
                                   <h5 class="modal-title" id="deleteConfirmationLabel">Are you sure?</h5>
                                 </div>
                                 <div class="modal-body">
-                                  This menu item will be deleted from the database.
+                                  This account will be deleted from the database.
                                 </div>
                                 <div class="modal-footer d-flex justify-content-around">
-                                  <form action="/vendor-deleteProfile" method="post">
-                                  @csrf
-                                  <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Yes</button>
+                                  <form class="col" action="{{ url('/vendor-deleteProfile') }}" method="post">
+                                    @csrf
+                                      <button class="btn btn-danger w-100">Yes</button>
                                   </form>
-                                  <button type="button" class="btn btn-secondary col me-1" data-bs-dismiss="modal">No</button> 
+                                  <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
                                 </div>
                               </div>
                             </div>

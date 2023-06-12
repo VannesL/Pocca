@@ -52,7 +52,7 @@
             </div>
         </div>
         
-        <div class="mt-3 mb-5" style="overflow-x: hidden">
+        <div class="mt-3 @if (!auth()->guard('admin')->check()) mb-5 @endif" style="overflow-x: hidden">
             @yield('content')
         </div>
         @stack('custom-js')

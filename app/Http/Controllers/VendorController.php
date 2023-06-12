@@ -137,7 +137,9 @@ class VendorController extends Controller
 
 
 
-        $request['password'] = Hash::make($request->password);
+        if ($request->password) {
+            $request['password'] = Hash::make($request->password);
+        }
         if ($request->qris && Storage::exists("public/qris/$user->qris")) {
             Storage::delete("public/qris/$user->qris");
         }

@@ -155,10 +155,9 @@
                                   This account will be deleted from the database.
                                 </div>
                                 <div class="modal-footer d-flex justify-content-around">
-                                  <div class="col-3"></div>
-                                  <form action="{{ url('/deleteProfile') }}" method="post">
+                                  <form class="col" action="{{ url('/deleteProfile') }}" method="post">
                                   @csrf
-                                  <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Yes</button>
+                                    <button class="btn btn-danger w-100">Yes</button>
                                   </form>
                                   <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
                                 </div>

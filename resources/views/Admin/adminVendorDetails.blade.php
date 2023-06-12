@@ -169,9 +169,9 @@
                                           This vendor account will be deleted from the database.
                                         </div>
                                         <div class="modal-footer d-flex justify-content-around">
-                                          <form action="{{url('admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
+                                          <form class="col" action="{{url('admin-removeVendor/'.$vendor->id)}}" method="POST" class="ms-0">
                                           @csrf
-                                          <button  class="btn btn-danger col-6" >Yes</button>
+                                          <button  class="btn btn-danger w-100" >Yes</button>
                                           </form>
                                           <button type="button" class="btn btn-secondary col-6 me-1" data-bs-dismiss="modal">No</button> 
                                         </div>
