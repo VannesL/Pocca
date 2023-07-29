@@ -28,7 +28,7 @@ class VendorTableSeeder extends Seeder
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
             'qris' => 'qris_pocca.jpg',
-            'image' => 'Image',
+            'image' => 'profile39284aad0608b86513eebcf0496e659f.jpg',
             'avg_rating' => 4.0,
         ]);
 
@@ -44,7 +44,7 @@ class VendorTableSeeder extends Seeder
             'address' => 'Jalan Sana Sini Block 123',
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
-            'qris' => 'qris34394d3c8639448fe8d600da0caffe13.jpg',
+            'qris' => 'qris31ab37e822f2da59cb08667bf42b0784.jpg',
             'image' => 'default.jpg',
         ]);
         Vendor::create([
@@ -59,8 +59,8 @@ class VendorTableSeeder extends Seeder
             'address' => 'Jalan Sana Sini Block 123',
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
-            'qris' => 'QRIS',
-            'image' => 'default.jpg',
+            'qris' => 'qris39284aad0608b86513eebcf0496e659f.jpg',
+            'image' => 'profile4ff0f8e8ad3ec8a1b4ee3eda33b46510.webp',
         ]);
 
         Vendor::create([
@@ -75,8 +75,8 @@ class VendorTableSeeder extends Seeder
             'address' => 'Jalan Sana Sini Block 123',
             'description' => 'This is Canteen Pocca\'s first store',
             'favorites' => 0,
-            'qris' => 'qris34394d3c8639448fe8d600da0caffe13.jpg',
-            'image' => 'default.jpg',
+            'qris' => 'qris3abe90023534b46079b0de1a698a27d4.jpg',
+            'image' => 'profile3abe90023534b46079b0de1a698a27d4.jpg',
         ]);
     }
 }
