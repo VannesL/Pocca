@@ -216,6 +216,7 @@ class VendorController extends Controller
             $revDiff = ($curr_revOrd[0]->revenue - $past_revOrd[0]->revenue) * 100 / $past_revOrd[0]->revenue;
             $revDiff = round($revDiff, 2);
             $ordDiff = ($curr_revOrd[0]->total_order - $past_revOrd[0]->total_order) * 100 / $past_revOrd[0]->total_order;
+            $ordDiff = round($ordDiff,2 );
         }
 
 
